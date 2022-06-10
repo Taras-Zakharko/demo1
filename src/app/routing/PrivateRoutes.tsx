@@ -23,18 +23,18 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
+        <Route path='auth/*' element={<Navigate to='/candidates' />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        {/* <Route path='dashboard' element={<DashboardWrapper />} /> */}
         <Route path='candidates' element={<CandidatesWrapper />} />
         <Route path='candidates/user/*' element={<CandidateProfileWraper/>}/>
         <Route path='candidates/user/edit' element={<EditCandidate/>}/>
         <Route path='candidates/user/create' element={<CreateCandidatePage/>}/>
-        
+{/*         
         <Route path='builder' element={<BuilderPageWrapper />} />
-        <Route path='menu-test' element={<MenuTestPage />} />
+        <Route path='menu-test' element={<MenuTestPage />} /> */}
         {/* Lazy Modules */}
-        <Route
+        {/* <Route
           path='crafted/pages/profile/*'
           element={
             <SuspensedView>
@@ -81,7 +81,7 @@ const PrivateRoutes = () => {
               <UsersPage />
             </SuspensedView>
           }
-        />
+        /> */}
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

@@ -11,6 +11,79 @@ const Search: FC = () => {
   const suggestionsElement = useRef<HTMLDivElement | null>(null)
   const emptyElement = useRef<HTMLDivElement | null>(null)
 
+  const [countries, setCountries] = useState<any[]>([])
+  const [myCountry, setMyCountry] = useState<any[]>([])
+  const [myTowns, setMyTowns] = useState<string[]>([])
+
+  const countriesSelect = useRef<HTMLSelectElement>(null)
+  const citiesSelect = useRef<HTMLSelectElement>(null)
+  const positionSelect = useRef<HTMLInputElement>(null)
+  const companySelect = useRef<HTMLInputElement>(null)
+  const skilsSelect = useRef<HTMLInputElement>(null)
+  const experienceStartSelect = useRef<HTMLInputElement>(null)
+  const experienceEndSelect = useRef<HTMLInputElement>(null)
+  const inputSearch = useRef<HTMLInputElement>(null)
+
+  function createFilterList() {
+    let inputValueRes = '';
+    let locationValue = ``;
+    let posinionValue = ``;
+    let companyValue = ``;
+    let skilsValue = ``;
+    let experienceValue = ``;
+
+    if( inputSearch.current !== null){
+      if(countriesSelect.current?.value !== '' && citiesSelect.current?.value !== ''){
+        locationValue = `[локація: ${countriesSelect.current?.value}, ${citiesSelect.current?.value}]`
+      } else if(countriesSelect.current?.value !== '' && citiesSelect.current?.value === ''){
+        locationValue = `[локація: ${countriesSelect.current?.value}]`
+      } 
+
+      if(positionSelect.current?.value !== ''){
+        posinionValue = `[посада: ${positionSelect.current?.value} ]`
+      }
+
+      if(companySelect.current?.value !== ''){
+        companyValue = `[місце роботи: ${companySelect.current?.value} ]`
+      }
+
+      if(skilsSelect.current?.value !== ''){
+        skilsValue = `[навички: ${skilsSelect.current?.value} ]`
+      }
+
+      if(experienceStartSelect.current?.value !== '' &&  experienceEndSelect.current?.value !== ''){
+        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} до ${experienceEndSelect.current?.value} років]`
+      } else if(experienceStartSelect.current?.value !== '' &&  experienceEndSelect.current?.value === ''){
+        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} років]`
+      } else {
+        experienceValue = `[досвід: до ${experienceStartSelect.current?.value} років]`
+      }
+
+
+      
+        inputValueRes = `${locationValue} ${posinionValue} ${companyValue} ${skilsValue} ${experienceValue}`
+      
+console.log(inputValueRes);
+
+      inputSearch.current.value = `${inputValueRes}`
+    }
+    
+  }
+
+  useEffect(() => {
+    if (myCountry.length) {
+      setMyTowns((towns) => (towns = myCountry[0].cities))
+    }
+  }, [myCountry])
+
+  useEffect(() => {
+    const apiUrl = 'https://countriesnow.space/api/v0.1/countries'
+    axios.get(apiUrl).then((resp) => {
+      const allCountries = resp.data
+      setCountries(allCountries.data)
+    })
+  }, [setCountries])
+
   const processs = (search: SearchComponent) => {
     setTimeout(function () {
       const number = Math.floor(Math.random() * 6) + 1
@@ -76,10 +149,11 @@ const Search: FC = () => {
           id='kt_header_search_toggle'
         >
           <input
+          ref={inputSearch}
             type='text'
             className='form-control form-control-solid w-325px w-md-800px h-30px justify-content-end'
             placeholder='Пошук'
-          ></input>
+          />
         </div>
 
         <div
@@ -99,30 +173,51 @@ const Search: FC = () => {
                 <div className='row'>
                   <div className='col-lg-6'>
                     <select
+                      ref={countriesSelect}
                       name='country'
                       id='country'
                       className='form-select form-select-solid'
                       aria-label='Select example'
+                      onChange={(e) => {
+                        if (countriesSelect.current !== null) {
+                          setMyCountry((country) => {
+                            country = countries.filter((country) => country.country === e.target.value)
+
+                            return country
+                          })
+                          countriesSelect.current.value = e.target.value
+                        }
+                      }}
                     >
-                      <option>Країна</option>
-                      <option value='Україна'>Україна</option>
-                      <option value='Польща'>Польща</option>
-                      <option value='Португалія'>Португалія</option>
-                      <option value='Італія'>Італія</option>
+                      <option value=''>Країна</option>
+                      {countries.map((country, i) => {
+                        return (
+                          <option key={i} value={country.country}>
+                            {country.country}
+                          </option>
+                        )
+                      })}
                     </select>
                   </div>
                   <div className='col-lg-6'>
                     <select
+                      ref={citiesSelect}
                       name='town'
                       id='town'
                       className='form-select form-select-solid'
                       aria-label='Select example'
+                      onChange={(e) => {
+                        if (citiesSelect.current !== null) {
+                          citiesSelect.current.value = e.target.value
+                        }
+                      }}
                     >
-                      <option>Місто</option>
-                      <option value='Львів'>Львів</option>
-                      <option value='Київ'>Київ</option>
-                      <option value='Дніпро'>Дніпро</option>
-                      <option value='Тернопіль'>Тернопіль</option>
+                      <option value=''>Місто</option>
+                      {myTowns.map((town, i) => (
+                        <option key={i} value={town}>
+                          {town}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -135,7 +230,11 @@ const Search: FC = () => {
               <div className='col-lg-9'>
                 <div className='row'>
                   <div className='col-lg-12'>
-                    <input type="text" className='form-control form-control-solid'/>
+                    <input
+                      ref={positionSelect}
+                      type='text'
+                      className='form-control form-control-solid'
+                    />
                   </div>
                 </div>
               </div>
@@ -147,7 +246,11 @@ const Search: FC = () => {
               <div className='col-lg-9'>
                 <div className='row'>
                   <div className='col-lg-12'>
-                    <input type="text" className='form-control form-control-solid'/>
+                    <input
+                      ref={companySelect}
+                      type='text'
+                      className='form-control form-control-solid'
+                    />
                   </div>
                 </div>
               </div>
@@ -159,12 +262,16 @@ const Search: FC = () => {
               <div className='col-lg-9'>
                 <div className='row'>
                   <div className='col-lg-12'>
-                    <input type="text" className='form-control form-control-solid'/>
+                    <input
+                      ref={skilsSelect}
+                      type='text'
+                      className='form-control form-control-solid'
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className='row align-items-center mb-4'>
               <div className='col-lg-3 fs-4'>
                 <label htmlFor=''>Років досвіду</label>
@@ -172,17 +279,31 @@ const Search: FC = () => {
               <div className='col-lg-9'>
                 <div className='row'>
                   <div className='col-lg-4'>
-                    <input type="number" placeholder='Від' className='form-control form-control-solid' />
+                    <input
+                      ref={experienceStartSelect}
+                      type='number'
+                      placeholder='Від'
+                      className='form-control form-control-solid'
+                      min={0}
+                      max={100}
+                    />
                   </div>
                   <div className='col-lg-4'>
-                  <input type="number" placeholder='До' className='form-control form-control-solid' />
+                    <input
+                      ref={experienceEndSelect}
+                      type='number'
+                      placeholder='До'
+                      className='form-control form-control-solid'
+                      min={1}
+                      max={100}
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="row align-items-center mb-4 justify-content-end">
-              <div className="col-lg-3 d-flex justify-content-end">
-                <button className='btn btn-dark w-75 fs-5 ls-2 ps-8 pe-8'>Знайти</button>
+            <div className='row align-items-center mb-4 justify-content-end'>
+              <div className='col-lg-3 d-flex justify-content-end'>
+                <button className='btn btn-dark w-75 fs-5 ls-2 ps-8 pe-8' onClick={()=>createFilterList()}>Знайти</button>
               </div>
             </div>
             {/* <form
