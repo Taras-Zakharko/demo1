@@ -1,7 +1,8 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {SearchComponent} from '../../../assets/ts/components'
-import {KTSVG, toAbsoluteUrl} from '../../../helpers'
+import { KTSVG } from '../../../helpers'
+
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -16,63 +17,103 @@ const Search: FC = () => {
   const [myTowns, setMyTowns] = useState<string[]>([])
 
   const countriesSelect = useRef<HTMLSelectElement>(null)
-  const citiesSelect = useRef<HTMLSelectElement>(null)
-  const positionSelect = useRef<HTMLInputElement>(null)
-  const companySelect = useRef<HTMLInputElement>(null)
-  const skilsSelect = useRef<HTMLInputElement>(null)
-  const experienceStartSelect = useRef<HTMLInputElement>(null)
-  const experienceEndSelect = useRef<HTMLInputElement>(null)
-  const inputSearch = useRef<HTMLInputElement>(null)
+  const citiesSelect = useRef<HTMLSelectElement | null>(null)
+  const positionSelect = useRef<HTMLInputElement | null>(null)
+  const companySelect = useRef<HTMLInputElement | null>(null)
+  const skilsSelect = useRef<HTMLInputElement | null>(null)
+  const experienceStartSelect = useRef<HTMLInputElement | null>(null)
+  const experienceEndSelect = useRef<HTMLInputElement | null>(null)
+  const inputSearch = useRef<HTMLInputElement | null>(null)
+  const searchToogleContent = useRef<HTMLDivElement | null>(null)
+  const clearFilter = useRef<HTMLButtonElement | null>(null)
 
   function createFilterList() {
-    let inputValueRes = '';
-    let locationValue = ``;
-    let posinionValue = ``;
-    let companyValue = ``;
-    let skilsValue = ``;
-    let experienceValue = ``;
-
-    if( inputSearch.current !== null){
-      if(countriesSelect.current?.value !== '' && citiesSelect.current?.value !== ''){
-        locationValue = `[локація: ${countriesSelect.current?.value}, ${citiesSelect.current?.value}]`
-      } else if(countriesSelect.current?.value !== '' && citiesSelect.current?.value === ''){
-        locationValue = `[локація: ${countriesSelect.current?.value}]`
-      } 
-
-      if(positionSelect.current?.value !== ''){
-        posinionValue = `[посада: ${positionSelect.current?.value} ]`
-      }
-
-      if(companySelect.current?.value !== ''){
-        companyValue = `[місце роботи: ${companySelect.current?.value} ]`
-      }
-
-      if(skilsSelect.current?.value !== ''){
-        skilsValue = `[навички: ${skilsSelect.current?.value} ]`
-      }
-
-      if(experienceStartSelect.current?.value !== '' &&  experienceEndSelect.current?.value !== ''){
-        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} до ${experienceEndSelect.current?.value} років]`
-      } else if(experienceStartSelect.current?.value !== '' &&  experienceEndSelect.current?.value === ''){
-        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} років]`
-      } else {
-        experienceValue = `[досвід: до ${experienceStartSelect.current?.value} років]`
-      }
-
-
-      
-        inputValueRes = `${locationValue} ${posinionValue} ${companyValue} ${skilsValue} ${experienceValue}`
-      
-console.log(inputValueRes);
-
-      inputSearch.current.value = `${inputValueRes}`
-    }
+    let inputValueRes = ''
+    let locationValue = ''
+    let posinionValue = ''
+    let companyValue = ''
+    let skilsValue = ''
+    let experienceValue = ''
     
+    
+
+    if (inputSearch.current !== null) {
+      if (countriesSelect.current?.value !== '' && citiesSelect.current?.value !== '') {
+        locationValue = `[локація: ${countriesSelect.current?.value}, ${citiesSelect.current?.value}]`
+      } else if (countriesSelect.current?.value !== '' && citiesSelect.current?.value === '') {
+        locationValue = `[локація: ${countriesSelect.current?.value}]`
+      }else{
+        locationValue = ''
+      }
+
+      if (positionSelect.current?.value !== '') {
+        posinionValue = `[посада: ${positionSelect.current?.value} ]`
+      }else{
+        posinionValue = ''
+      }
+
+      if (companySelect.current?.value !== '') {
+        companyValue = `[місце роботи: ${companySelect.current?.value} ]`
+      }else{
+        companyValue = ''
+      }
+
+      if (skilsSelect.current?.value !== '') {
+        skilsValue = `[навички: ${skilsSelect.current?.value} ]`
+      }else{
+        skilsValue = ''
+      }
+
+      if (
+        experienceStartSelect.current?.value !== '' &&
+        experienceEndSelect.current?.value !== ''
+      ) {
+        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} до ${experienceEndSelect.current?.value} років]`
+      } else if (
+        experienceStartSelect.current?.value !== '' &&
+        experienceEndSelect.current?.value === ''
+      ) {
+        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} років]`
+      } else if (
+        experienceStartSelect.current?.value === '' &&
+        experienceEndSelect.current?.value !== ''
+      ) {
+        experienceValue = `[досвід: до ${experienceEndSelect.current?.value} років]`
+      } else {
+        experienceValue = ''
+      }
+
+      inputValueRes = `${locationValue}${posinionValue}${companyValue}${skilsValue}${experienceValue}`
+      inputSearch.current.value = `${inputValueRes}`;
+      
+      if(inputSearch.current.value !== ''){
+      clearFilter.current!.classList.remove('d-none')
+    }
+    }
+    document.querySelector('#kt_header_search_toggle')?.classList.remove('active')
+    document.querySelector('#kt_header_search_toggle')?.classList.remove('show')
+    document.querySelector('#kt_header_search')?.classList.remove('show')
+    document.querySelector('#kt_header_search')?.classList.remove('menu-dropdown')
+    searchToogleContent.current!.classList.remove('show')
   }
+
+  function clearSearchForm () {
+    countriesSelect.current!.value = '';
+    citiesSelect.current!.value = '';
+    positionSelect.current!.value = '';
+    companySelect.current!.value = '';
+    skilsSelect.current!.value = '';
+    experienceStartSelect.current!.value = '';
+    experienceEndSelect.current!.value = '';
+    inputSearch.current!.value = '';
+    clearFilter.current!.classList.add('d-none')
+  }
+
+  
 
   useEffect(() => {
     if (myCountry.length) {
-      setMyTowns((towns) => (towns = myCountry[0].cities))
+      setMyTowns(towns => (towns = myCountry[0].cities))
     }
   }, [myCountry])
 
@@ -144,19 +185,27 @@ console.log(inputValueRes);
         ref={element}
       >
         <div
-          className='d-flex align-items-center'
+          className='d-flex align-items-center position-relative'
           data-kt-search-element='toggle'
           id='kt_header_search_toggle'
         >
           <input
-          ref={inputSearch}
+            ref={inputSearch}
             type='text'
-            className='form-control form-control-solid w-325px w-md-800px h-30px justify-content-end'
+            className='form-control form-control-solid pe-10 w-325px w-md-800px h-30px justify-content-end'
             placeholder='Пошук'
           />
+          <button ref={clearFilter} className=' btn p-0 position-absolute cursor-pointer end-0 d-none' onClick={()=> clearSearchForm ()}>
+          <KTSVG
+                  path='/media/icons/duotune/abstract/abs012.svg'
+                  className='svg-icon-2x svg-icon-gray-600 ms-4 '
+                />
+          </button>
+          
         </div>
 
         <div
+        ref={searchToogleContent}
           data-kt-search-element='content'
           className='menu menu-sub menu-sub-dropdown p-7 w-325px w-md-800px'
         >
@@ -181,7 +230,9 @@ console.log(inputValueRes);
                       onChange={(e) => {
                         if (countriesSelect.current !== null) {
                           setMyCountry((country) => {
-                            country = countries.filter((country) => country.country === e.target.value)
+                            country = countries.filter(
+                              (country) => country.country === e.target.value
+                            )
 
                             return country
                           })
@@ -303,7 +354,12 @@ console.log(inputValueRes);
             </div>
             <div className='row align-items-center mb-4 justify-content-end'>
               <div className='col-lg-3 d-flex justify-content-end'>
-                <button className='btn btn-dark w-75 fs-5 ls-2 ps-8 pe-8' onClick={()=>createFilterList()}>Знайти</button>
+                <button
+                  className='btn btn-dark w-75 fs-5 ls-2 ps-8 pe-8 '
+                  onClick={() => createFilterList()}
+                >
+                  Знайти
+                </button>
               </div>
             </div>
             {/* <form
@@ -788,7 +844,7 @@ console.log(inputValueRes);
             </div> */}
           </div>
 
-          <form className={`pt-1 ${menuState === 'advanced' ? '' : 'd-none'}`}>
+          {/* <form className={`pt-1 ${menuState === 'advanced' ? '' : 'd-none'}`}>
             <h3 className='fw-bold text-dark mb-7'>Advanced Search</h3>
 
             <div className='mb-5'>
@@ -940,9 +996,9 @@ console.log(inputValueRes);
                 Search
               </a>
             </div>
-          </form>
+          </form> */}
 
-          <form className={`pt-1 ${menuState === 'preferences' ? '' : 'd-none'}`}>
+          {/* <form className={`pt-1 ${menuState === 'preferences' ? '' : 'd-none'}`}>
             <h3 className='fw-bold text-dark mb-7'>Search Preferences</h3>
 
             <div className='pb-4 border-bottom'>
@@ -1001,7 +1057,7 @@ console.log(inputValueRes);
               </button>
               <button className='btn btn-sm fw-bolder btn-primary'>Save Changes</button>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </>
