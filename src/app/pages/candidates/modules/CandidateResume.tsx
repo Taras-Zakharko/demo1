@@ -41,13 +41,14 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
               ></textarea>
             </div>
             <div className='col-lg-12'>
-              <button className='btn text-dark ps-0'>
-                <KTSVG
+              <label htmlFor="addFileResume" className='btn text-dark ps-0'><KTSVG
                   path='/media/icons/duotune/communication/com008.svg'
                   className='svg-icon-2x svg-icon-dark me-4'
                 />
-                Прикріпити файл
-              </button>
+                Прикріпити файл</label>
+              <input type='file' id='addFileResume' name='addFileResume' className='d-none' accept='.txt, .doc, .docx'>
+                
+              </input>
             </div>
           </div>
           <div className='row'>

@@ -44,12 +44,13 @@ const AddResumeWraper = () => {
           }, 4000);
         }
 
-        stopLoad.current?.addEventListener('click', () => {
+        stopLoad.current?.addEventListener('click', function stopEvent() {
           clearInterval(progresRun);
           firstZipContent.current?.classList.remove('d-none');
           secondZipContent.current?.classList.add('d-none');
           addZipBtn.current!.value = '';
           setProgresValue((value) => (value = 0));
+          stopLoad.current!.removeEventListener('click', stopEvent)
         })
         return rogresValue;
       })
