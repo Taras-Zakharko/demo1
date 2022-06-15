@@ -2,12 +2,14 @@ import {lazy, FC, Suspense} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
+// import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
 import { CandidatesWrapper } from '../pages/candidates/CandidatesWraper'
 import { CandidateProfileWraper } from '../pages/candidates/candidate-profile/CandidateProfileWraper'
 import EditCandidate from '../pages/candidates/edit-candidate/EditCandidatePage'
 import CreateCandidatePage from '../pages/candidates/create-candidate/CreateCandidatePage'
-import {MenuTestPage} from '../pages/MenuTestPage'
+import ImportFromFilePage from '../pages/candidates/add-candidates/import-from-file-page/ImportFromFilePage'
+import AddResumeWraper from '../pages/candidates/add-candidates/AddResumeWraper'
+// import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 
 const PrivateRoutes = () => {
@@ -30,6 +32,8 @@ const PrivateRoutes = () => {
         <Route path='candidates/user/*' element={<CandidateProfileWraper/>}/>
         <Route path='candidates/user/edit' element={<EditCandidate/>}/>
         <Route path='candidates/user/create' element={<CreateCandidatePage/>}/>
+        <Route path='add/check-data' element={<ImportFromFilePage/>}/>
+        <Route path='add' element={<AddResumeWraper/>}/>
 {/*         
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} /> */}

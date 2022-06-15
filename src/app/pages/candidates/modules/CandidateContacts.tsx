@@ -37,7 +37,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
     <div ref={contactsRef} className='accordion-item mb-4'>
       <h2 className='accordion-header' id='kt_accordion_1_header_2'>
         <button
-          className='accordion-button fs-4 fw-bold collapsed'
+          className='accordion-button fs-4 fw-bold'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_2'
@@ -49,7 +49,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
       </h2>
       <div
         id='kt_accordion_1_body_2'
-        className='accordion-collapse collapse'
+        className='accordion-collapse collapse show'
         aria-labelledby='kt_accordion_1_header_2'
         data-bs-parent='#kt_accordion_1'
       >

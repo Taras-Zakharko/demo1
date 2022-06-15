@@ -5,6 +5,7 @@ import CandidateInfoBlock from '../modules/CandidateInfoBlock'
 import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
+import CandidatePhoto from '../modules/CandidatePhoto'
 
 
 function EditCandidate() {
@@ -33,7 +34,11 @@ function EditCandidate() {
               </div>
             </div>
           </div>
-          <CandidateInfoBlock infoRef={infoRef} />
+          <div ref={infoRef} className='card p-10 mt-20 mb-6 flex-row'>
+          <CandidateInfoBlock/>
+          <CandidatePhoto url={'../../media/avatars/300-1.jpg'}/>
+          </div>
+          
           <div className='accordion' id='kt_accordion_1'>
             <CandidateExperience experienceRef={experienceRef} />
             <CandidateContacts contactsRef={contactsRef} />

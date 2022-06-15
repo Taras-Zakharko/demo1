@@ -11,10 +11,10 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
   
 
   return (
-    <div ref={resumeRef} className='accordion-item mb-4'>
+    <div ref={resumeRef} className='accordion-item mb-4 w-100'>
       <h2 className='accordion-header' id='kt_accordion_1_header_3'>
         <button
-          className='accordion-button fs-4 fw-bold collapsed'
+          className='accordion-button fs-4 fw-bold'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_3'
@@ -26,7 +26,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
       </h2>
       <div
         id='kt_accordion_1_body_3'
-        className='accordion-collapse collapse'
+        className='accordion-collapse collapse show'
         aria-labelledby='kt_accordion_1_header_3'
         data-bs-parent='#kt_accordion_1'
       >

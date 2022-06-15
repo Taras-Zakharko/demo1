@@ -29,7 +29,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
     <div ref={experienceRef} className='accordion-item mb-4'>
       <h2 className='accordion-header' id='kt_accordion_1_header_1'>
         <button
-          className='accordion-button fs-4 fw-bold collapsed'
+          className='accordion-button fs-4 fw-bold'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_1'
@@ -41,7 +41,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
       </h2>
       <div
         id='kt_accordion_1_body_1'
-        className='accordion-collapse collapse'
+        className='accordion-collapse collapse p-4 show'
         aria-labelledby='kt_accordion_1_header_1'
         data-bs-parent='#kt_accordion_1'
       >
