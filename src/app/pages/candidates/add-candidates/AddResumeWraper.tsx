@@ -3,50 +3,57 @@ import {Link} from 'react-router-dom'
 import {KTSVG} from '../../../../_metronic/helpers'
 
 const AddResumeWraper = () => {
-  const addFileBtn = useRef<HTMLInputElement | null>(null)
-  const addZipBtn = useRef<HTMLInputElement | null>(null)
-  const addFileContent = useRef<HTMLDivElement | null>(null)
-  const addZipContent = useRef<HTMLDivElement | null>(null)
+  const addFileBtn = useRef<HTMLInputElement | null>(null);
+  const addZipBtn = useRef<HTMLInputElement | null>(null);
+  const addFileContent = useRef<HTMLDivElement | null>(null);
+  const addZipContent = useRef<HTMLDivElement | null>(null);
 
-  const firstZipContent = useRef<HTMLDivElement | null>(null)
-  const secondZipContent = useRef<HTMLDivElement | null>(null)
-  const thirdZipContent = useRef<HTMLDivElement | null>(null)
-  const progresDiv = useRef<HTMLDivElement | null>(null)
+  const firstZipContent = useRef<HTMLDivElement | null>(null);
+  const secondZipContent = useRef<HTMLDivElement | null>(null);
+  const thirdZipContent = useRef<HTMLDivElement | null>(null);
+  const progresDiv = useRef<HTMLDivElement | null>(null);
+  const stopLoad = useRef<HTMLButtonElement | null>(null);
 
-  const [rogresValue, setProgresValue] = useState<number>(0)
+  const [rogresValue, setProgresValue] = useState<number>(0);
 
   const selectFile = () => {
-    addFileContent.current?.setAttribute('data-kt-indicator', 'on')
+    addFileContent.current?.setAttribute('data-kt-indicator', 'on');
     setTimeout(() => {
       addFileContent.current?.removeAttribute('data-kt-indicator');
       document.location.href = '/add/check-data';
-    }, 4000)
+    }, 4000);
   }
 
   const selectZip = () => {
-    
-    firstZipContent.current?.classList.add('d-none')
-    secondZipContent.current?.classList.remove('d-none')
+    firstZipContent.current?.classList.add('d-none');
+    secondZipContent.current?.classList.remove('d-none');
 
     let progresRun = setInterval(() => {
       setProgresValue((rogresValue) => {
-        rogresValue = rogresValue + 1
+        rogresValue = rogresValue + 1;
 
         if (rogresValue === 100) {
           clearInterval(progresRun);
-          secondZipContent.current?.classList.add('d-none')
-          thirdZipContent.current?.classList.remove('d-none')
-          setTimeout(()=>{
-            thirdZipContent.current?.classList.add('d-none')
-            firstZipContent.current?.classList.remove('d-none')
+          secondZipContent.current?.classList.add('d-none');
+          thirdZipContent.current?.classList.remove('d-none');
+          setTimeout(() => {
+            thirdZipContent.current?.classList.add('d-none');
+            firstZipContent.current?.classList.remove('d-none');
             addZipBtn.current!.value = '';
-            setProgresValue(value => value=0)
-          }, 4000)
-
+            setProgresValue((value) => (value = 0));
+          }, 4000);
         }
-        return rogresValue
+
+        stopLoad.current?.addEventListener('click', () => {
+          clearInterval(progresRun);
+          firstZipContent.current?.classList.remove('d-none');
+          secondZipContent.current?.classList.add('d-none');
+          addZipBtn.current!.value = '';
+          setProgresValue((value) => (value = 0));
+        })
+        return rogresValue;
       })
-    }, 100)
+    }, 100);
   }
 
   return (
@@ -143,7 +150,7 @@ const AddResumeWraper = () => {
             <div ref={secondZipContent} className='d-none'>
               <div className='d-flex justify-content-between align-items-center mb-4'>
                 <p className='m-0 p-3'>Завантаження архіву </p>
-                <button className='btn '>
+                <button ref={stopLoad} className='btn'>
                   <KTSVG path='/media/icons/duotune/general/gen034.svg' className='svg-icon-3' />
                   <span className='text-uppercase'>скасувати</span>
                 </button>
