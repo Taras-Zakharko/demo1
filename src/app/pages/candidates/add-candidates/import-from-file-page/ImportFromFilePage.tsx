@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import CandidateContacts from '../../modules/CandidateContacts';
 import CandidateExperience from '../../modules/CandidateExperience';
@@ -7,7 +7,7 @@ import CandidateResume from '../../modules/CandidateResume';
 import PdfWraper from "../../modules/PdfWraper";
 
 const ImportFromFilePage = () => {
-
+  
 
   return (
     <>
@@ -18,7 +18,7 @@ const ImportFromFilePage = () => {
         <div className='col-lg-6'>
           <div className='col-lg-12'>
             <div className='card p-10 mt-4 mb-6 flex-row'>
-              <CandidateInfoBlock />
+              <CandidateInfoBlock id={Date.now()} setEditUser={''} user={{}}/>
             </div>
             <div className='accordion' id='kt_accordion_1'>
               <CandidateExperience />

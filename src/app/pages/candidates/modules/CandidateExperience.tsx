@@ -1,14 +1,21 @@
-import React, {createElement, FC, useLayoutEffect, useRef, useState} from 'react'
+import React, {
+  FC,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {KTSVG} from '../../../../_metronic/helpers'
 
 interface ICandidateExperience {
   experienceRef?: any
+  setEditUser?: any
+  user?: any
 }
 
-const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
+const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user}) => {
   const skilsInputRef = useRef<HTMLInputElement>(null)
 
-  const [skilsArr, setSkilsArr] = useState<string[]>(['Web-design', 'Marketing'])
+  const [skilsArr, setSkilsArr] = useState<string[]>(user.skils)
 
   function addSkilFunk() {
     if (skilsInputRef.current !== null) {
@@ -24,6 +31,17 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
     }
   }
 
+  function removeSkil(index: number) {
+    setSkilsArr((arr) => {
+      arr.splice(index, 1)
+      setEditUser((user: any) => ({...user, skils: [...arr]}))
+      return arr
+    })
+  }
+
+  useEffect(() => {
+    setEditUser((user: any) => ({...user, skils: [...skilsArr]}))
+  }, [skilsArr, setEditUser])
 
   return (
     <div ref={experienceRef} className='accordion-item mb-4'>
@@ -58,6 +76,17 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
                   placeholder='Компанія'
+                  value={user.experience.at(-1).company}
+                  onChange={(e) =>
+                    setEditUser((user: any) => ({
+                      ...user,
+                      experience: [
+                        ...user.experience.map((obj: any, i: number) =>
+                          i === user.experience.length - 1 ? {...obj, company: e.target.value} : obj
+                        ),
+                      ],
+                    }))
+                  }
                 />
               </div>
               <div className='col-lg-3'></div>
@@ -69,7 +98,23 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
                 </label>
               </div>
               <div className='col-lg-6'>
-                <input type='text' className='form-control form-control-solid w-100 h-40px' />
+                <input
+                  type='text'
+                  className='form-control form-control-solid w-100 h-40px'
+                  value={user.experience[0].position}
+                  onChange={(e) =>
+                    setEditUser((user: any) => ({
+                      ...user,
+                      experience: [
+                        ...user.experience.map((obj: any, i: number) =>
+                          i === user.experience.length - 1
+                            ? {...obj, position: e.target.value}
+                            : obj
+                        ),
+                      ],
+                    }))
+                  }
+                />
               </div>
               <div className='col-lg-3'></div>
             </div>
@@ -80,7 +125,24 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
                 </label>
               </div>
               <div className='col-lg-6'>
-                <input type='number' className='form-control form-control-solid w-25 h-40px' />
+                <input
+                  type='number'
+                  className='form-control form-control-solid w-25 h-40px'
+                  min='0'
+                  value={user.experience.at(-1).yearsExperience}
+                  onChange={(e) =>
+                    setEditUser((user: any) => ({
+                      ...user,
+                      experience: [
+                        ...user.experience.map((obj: any, i: number) =>
+                          i === user.experience.length - 1
+                            ? {...obj, yearsExperience: e.target.value}
+                            : obj
+                        ),
+                      ],
+                    }))
+                  }
+                />
               </div>
               <div className='col-lg-3'></div>
             </div>
@@ -122,7 +184,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef}) => {
                     return (
                       <li key={i} id={'skil-' + i} className='d-flex align-items-center py-2'>
                         {skil}{' '}
-                        <button className='btn p-0' onClick={()=> document.querySelector(`#skil-${i}`)?.remove()}>
+                        <button className='btn p-0' onClick={() => removeSkil(i)}>
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
                             className='svg-icon-1tx svg-icon-dark ms-4'

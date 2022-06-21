@@ -1,10 +1,12 @@
 import {FC, useRef, useState} from 'react'
 
 interface ICandidatePhoto {
-  url?: any
+  url?: string,
+  setEditUser?: any
 }
 
-const CandidatePhoto: FC<ICandidatePhoto> = ({url}) => {
+const CandidatePhoto: FC<ICandidatePhoto> = ({url, setEditUser}) => {
+
   const [imgName, setImgName] = useState<string>('')
 
   const img = useRef<HTMLInputElement | null>(null)
@@ -13,23 +15,26 @@ const CandidatePhoto: FC<ICandidatePhoto> = ({url}) => {
 
   function choiceImg(){
     setImgName(name => name = img.current!.files![0]!.name)
+    setEditUser((user:any) => ({...user, photo: `/media/avatars/${img.current!.files![0]!.name}`}))
     imgEmpty.current?.classList.remove('image-input-empty')
   }
 
   function removeImg() {
     imgEmpty.current?.classList.add('image-input-empty');
+    setEditUser((user:any) => ({...user, photo: ``}))
     setImgName('')
   }
+
   return (
     <div 
       ref={imgEmpty}
-      className='col-lg-4 image-input image-input-empty'
+      className='col-lg-4 image-input image-input-empty bgi-position-center'
       data-kt-image-input='true'
-      style={{backgroundImage: (url) ? `url(${url})` : `url(../../media/avatars/blank.png)`}}
+      style={{backgroundImage: (url!=='') ? `url(${url})` : `url(/media/avatars/blank.png)`}}
     >
       <div
-        className='image-input-wrapper w-100 h-100'
-        style={{backgroundImage: (imgName!=='') ? `url(../../media/avatars/${imgName})` : `url(../../media/avatars/blank.png)`}}
+        className='image-input-wrapper w-100 h-100 bgi-position-center'
+        style={{backgroundImage: (imgName!=='') ? `url(/media/avatars/${imgName})` : `url('')`}}
       >
         <label
           className='btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow'

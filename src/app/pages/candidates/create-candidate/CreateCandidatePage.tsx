@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {KTSVG} from '../../../../_metronic/helpers'
 import CandidateInfoBlock from '../modules/CandidateInfoBlock'
@@ -7,11 +7,67 @@ import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 
+import { RootState } from '../../../../app/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { create} from '../../../features/candidate/candidateSlice'
+
+interface IUserObj {
+  id: number
+  photo: string
+  firstName: string
+  lastName: string
+  location: {
+    country: string
+    city: string
+  }
+  specialty: string
+  checked: number
+  experience: [
+    {
+      company: string
+      position: string
+      startWorking: number
+      endWorking: number
+    }
+  ]
+  skils: [string]
+  contacts: {
+    phone: [string]
+    email: [string]
+    messengers: [
+      {
+        name: number
+        link: string
+      }
+    ]
+    socialLinks: [
+      {
+        name: number
+        path: string
+      }
+    ]
+  }
+  aboutMyself: {
+    text: string
+    file: {}
+    GDPR: number
+    source: string
+  }
+}
+
 function CreateCandidatePage() {
   const infoRef = useRef<any>(null)
   const experienceRef = useRef<any>(null)
   const contactsRef = useRef<any>(null)
   const resumeRef = useRef<any>(null)
+
+  const allUsers = useSelector((state: RootState) => state.candidates.users);
+
+  const [editUser, setEditUser] = useState<IUserObj>(allUsers[0])
+
+
+
+  const dispatch = useDispatch()
 
   return (
     <div className='row'>
@@ -35,11 +91,11 @@ function CreateCandidatePage() {
             </div>
           </div>
           <div ref={infoRef} className='card p-10 mt-20 mb-6 flex-row'>
-            <CandidateInfoBlock />
-            <CandidatePhoto url={'/media/avatars/blank.png'}/>
+            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser}/>
+            <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
           </div>
           <div className='accordion' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} />
+            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} />
             <CandidateContacts contactsRef={contactsRef} />
             <CandidateResume resumeRef={resumeRef} />
           </div>
@@ -84,7 +140,7 @@ function CreateCandidatePage() {
         <div className='col-lg-8'>
           <div className='row'>
             <div className='col-lg-12 d-flex flex-center'>
-              <button className='btn btn-dark w-250px h-50px '>Створити кандидата</button>
+              <button className='btn btn-dark w-250px h-50px ' onClick={() => dispatch(create({}))}>Створити кандидата</button>
             </div>
           </div>
         </div>

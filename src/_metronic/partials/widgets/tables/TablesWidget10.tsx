@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import CandidateCard from '../../../../app/pages/candidates/CandidateCard'
 import {KTSVG} from '../../../helpers'
+import { RootState } from '../../../../app/store'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 type Props = {
@@ -11,16 +12,7 @@ type Props = {
 }
 
 const TablesWidget10: React.FC<Props> = ({className}) => {
-  const [appState, setAppState] = useState([]);
-  
-  useEffect(() => {
-    const apiUrl = 'https://preview.keenthemes.com/theme-api/api/users/query';
-    axios.get(apiUrl).then((resp) => {
-      const allPersons = resp.data;
-      setAppState(allPersons.data);
-    });
-  }, [setAppState]);
-  console.log(appState);
+  const allUsers = useSelector((state: RootState) => state.candidates.users)
   
   return (
     <div className={`card ${className}`}>
@@ -28,7 +20,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bolder fs-3 mb-1'>Кандидати</span>
-          <span className='text-muted mt-1 fw-bold fs-7'>123 кандидатів</span>
+          <span className='text-muted mt-1 fw-bold fs-7'>{allUsers.length} кандидатів</span>
         </h3>
         <div
           className='card-toolbar'
@@ -55,7 +47,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {appState.map((arr, i) => <CandidateCard key={i}/>)}
+              {allUsers.map((arr) => <CandidateCard key={arr.id} user={arr}/>)}
               
             </tbody>
             {/* end::Table body */}

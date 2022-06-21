@@ -1,36 +1,69 @@
-import {mapToStyles} from '@popperjs/core/lib/modifiers/computeStyles'
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import {KTSVG} from '../../../../_metronic/helpers'
 
 interface ICandidateContacts {
   contactsRef?: any
+  setEditUser?: any
+  user?: any
 }
 
-const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
-  const [phoneNumber, setPhoneNumber] = useState<string[]>([''])
-  const [email, setEmail] = useState<string[]>([''])
-  const [messenger, setMessenger] = useState<{[key: string]: string | number}[]>([
-    {id: 1, type: 1, value: '380945858432'},
-  ])
-  const [userLinks, setUserLinks] = useState<{[key: string]: string | number}[]>([
-    {
-      id: 1,
-      type: 2,
-      value:
-        'https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/',
-    },
-  ])
+const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, user}) => {
+  const [phoneNumber, setPhoneNumber] = useState<string[]>(user.contacts.phone)
+  const [email, setEmail] = useState<string[]>(user.contacts.email)
+  const [messenger, setMessenger] = useState<{[key: string]: string | number}[]>(
+    user.contacts.messengers
+  )
+  const [userLinks, setUserLinks] = useState<{[key: string]: string | number}[]>(
+    user.contacts.socialLinks
+  )
 
-  function handleChangeSelect(id: number, value: string, key: string, funk: any) {
-    funk((curState: any[]) =>
-      curState.map((obj) => {
-        if (obj.id === id) {
-          return {...obj, [key]: value}
-        } else {
-          return obj
-        }
-      })
-    )
+  useEffect(() => {
+    setPhoneNumber(user.contacts.phone)
+    setEmail(user.contacts.email)
+    setMessenger(user.contacts.messengers)
+    setUserLinks(user.contacts.socialLinks)
+  }, [user])
+  
+
+  function handleChangeSelect(
+    id: number,
+    value: string | number,
+    key: string,
+    funk: any,
+    arrayState: any,
+    wrap: string
+  ) {
+    const arr = arrayState.map((obj: any) => {
+      if (obj.id === id) {
+        return {...obj, [key]: value}
+      } else {
+        return obj
+      }
+    })
+    funk(arr)
+    setEditUser((user: any) => ({...user, contacts: {...user.contacts, [wrap]: [...arr]}}))
+  }
+
+  function removeSelect(funk: any, index: number, key: string) {
+    funk((arr: any) => {
+      arr.splice(index, 1)
+      setEditUser((user: any) => ({...user, contacts: {...user.contacts, [key]: [...arr]}}))
+      return arr
+    })
+  }
+
+  function removeArray(index: number, funk:any, key: string) {
+    funk((arr:any) => {
+      arr.splice(index, 1)
+      setEditUser((user: any) => ({...user, contacts: {...user.contacts, [key]: [...arr]}}))
+      return arr
+    })
+  }
+
+  function cangeArray(e: any, i: number, array:string[], funk:any, key:string) {
+    const arr = array.map((num, ind) => (ind === i ? (num = e.target.value) : num))
+    funk(arr)
+    setEditUser((user: any) => ({...user, contacts: {...user.contacts, [key]: [...arr]}}))
   }
 
   return (
@@ -68,6 +101,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                       key={i}
                       type='text'
                       className='form-control form-control-solid w-100 h-40px mb-4'
+                      value={number}
+                      onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
                     />
                   )
                 } else {
@@ -78,13 +113,12 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           key={i}
                           type='text'
                           className='form-control form-control-solid w-100 h-40px mb-4'
+                          value={number}
+                          onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
                         />
                       </div>
                       <div className='col-lg-2 position-absolute start-100 top-25'>
-                        <button
-                          className='btn p-0 cursor-pointer'
-                          onClick={() => document.querySelector(`#phone-${i}`)?.remove()}
-                        >
+                        <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setPhoneNumber, 'phone')}>
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
                             className='svg-icon-1tx svg-icon-dark ms-4'
@@ -119,6 +153,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                       key={i}
                       type='email'
                       className='form-control form-control-solid w-100 h-40px mb-4'
+                      value={adres}
+                      onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                     />
                   )
                 } else {
@@ -129,13 +165,12 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           key={i}
                           type='email'
                           className='form-control form-control-solid w-100 h-40px mb-4'
+                          value={adres}
+                          onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                         />
                       </div>
                       <div className='col-lg-2 position-absolute start-100 top-25'>
-                        <button
-                          className='btn p-0 cursor-pointer'
-                          onClick={() => document.querySelector(`#email-${i}`)?.remove()}
-                        >
+                        <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setEmail, 'email')}>
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
                             className='svg-icon-1tx svg-icon-dark ms-4'
@@ -172,13 +207,21 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           className='form-select form-select-solid'
                           aria-label='Select example'
                           onChange={(e) =>
-                            handleChangeSelect(+mess.id, e.target.value, 'type', setMessenger)
+                            handleChangeSelect(
+                              +mess.id,
+                              +e.target.value,
+                              'name',
+                              setMessenger,
+                              messenger,
+                              'messengers'
+                            )
                           }
-                          value={mess.type}
+                          value={mess.name}
                         >
                           <option value='0'>Telegram</option>
                           <option value='1'>Viber</option>
                           <option value='2'>Messenger</option>
+                          <option value='3'>Skype</option>
                         </select>
                       </div>
                       <div className='col-lg-6'>
@@ -186,9 +229,16 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
                           onChange={(e) =>
-                            handleChangeSelect(+mess.id, e.target.value, 'value', setMessenger)
+                            handleChangeSelect(
+                              +mess.id,
+                              e.target.value,
+                              'link',
+                              setMessenger,
+                              messenger,
+                              'messengers'
+                            )
                           }
-                          value={mess.value}
+                          value={mess.link}
                         />
                       </div>
                     </div>
@@ -201,13 +251,21 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           className='form-select form-select-solid'
                           aria-label='Select example'
                           onChange={(e) =>
-                            handleChangeSelect(+mess.id, e.target.value, 'type', setMessenger)
+                            handleChangeSelect(
+                              +mess.id,
+                              +e.target.value,
+                              'name',
+                              setMessenger,
+                              messenger,
+                              'messengers'
+                            )
                           }
-                          value={mess.type}
+                          value={mess.name}
                         >
                           <option value='0'>Telegram</option>
                           <option value='1'>Viber</option>
                           <option value='2'>Messenger</option>
+                          <option value='3'>Skype</option>
                         </select>
                       </div>
                       <div className='col-lg-6'>
@@ -215,16 +273,23 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
                           onChange={(e) =>
-                            handleChangeSelect(+mess.id, e.target.value, 'value', setMessenger)
+                            handleChangeSelect(
+                              +mess.id,
+                              e.target.value,
+                              'link',
+                              setMessenger,
+                              messenger,
+                              'messengers'
+                            )
                           }
-                          value={mess.value}
+                          value={mess.link}
                           placeholder='ID'
                         />
                       </div>
                       <div className='col-lg-1'>
                         <button
                           className='btn p-0 cursor-pointer'
-                          onClick={() => document.querySelector(`#messenger-${mess.id}`)?.remove()}
+                          onClick={() => removeSelect(setMessenger, i, 'messengers')}
                         >
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
@@ -239,7 +304,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
               <button
                 className='btn ps-0 text-primary fs-7'
                 onClick={() =>
-                  setMessenger((mess) => mess.concat({id: Date.now(), type: 0, value: ''}))
+                  setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
                 }
               >
                 Додати ще
@@ -262,9 +327,16 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           className='form-select form-select-solid'
                           aria-label='Select example'
                           onChange={(e) =>
-                            handleChangeSelect(+link.id, e.target.value, 'type', setUserLinks)
+                            handleChangeSelect(
+                              +link.id,
+                              +e.target.value,
+                              'name',
+                              setUserLinks,
+                              userLinks,
+                              'socialLinks'
+                            )
                           }
-                          value={link.type}
+                          value={link.name}
                         >
                           <option value='0'>LinkedIn</option>
                           <option value='1'>GitHub</option>
@@ -276,9 +348,16 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
                           onChange={(e) =>
-                            handleChangeSelect(+link.id, e.target.value, 'value', setUserLinks)
+                            handleChangeSelect(
+                              +link.id,
+                              e.target.value,
+                              'path',
+                              setUserLinks,
+                              userLinks,
+                              'socialLinks'
+                            )
                           }
-                          value={link.value}
+                          value={link.path}
                           placeholder='URL'
                         />
                       </div>
@@ -292,9 +371,16 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           className='form-select form-select-solid'
                           aria-label='Select example'
                           onChange={(e) =>
-                            handleChangeSelect(+link.id, e.target.value, 'type', setUserLinks)
+                            handleChangeSelect(
+                              +link.id,
+                              +e.target.value,
+                              'name',
+                              setUserLinks,
+                              userLinks,
+                              'socialLinks'
+                            )
                           }
-                          value={link.type}
+                          value={link.name}
                         >
                           <option value='0'>LinkedIn</option>
                           <option value='1'>GitHub</option>
@@ -306,16 +392,23 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
                           onChange={(e) =>
-                            handleChangeSelect(+link.id, e.target.value, 'value', setUserLinks)
+                            handleChangeSelect(
+                              +link.id,
+                              e.target.value,
+                              'path',
+                              setUserLinks,
+                              userLinks,
+                              'socialLinks'
+                            )
                           }
-                          value={link.value}
+                          value={link.path}
                           placeholder='URL'
                         />
                       </div>
                       <div className='col-lg-1'>
                         <button
                           className='btn p-0 cursor-pointer'
-                          onClick={() => document.querySelector(`#user-link-${link.id}`)?.remove()}
+                          onClick={() => removeSelect(setUserLinks, i, 'socialLinks')}
                         >
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
@@ -331,7 +424,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef}) => {
               <button
                 className='btn ps-0 text-primary fs-7'
                 onClick={() =>
-                  setUserLinks((link) => link.concat({id: Date.now(), type: 0, value: ''}))
+                  setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
                 }
               >
                 Додати ще

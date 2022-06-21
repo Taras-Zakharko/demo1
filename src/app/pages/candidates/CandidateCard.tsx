@@ -1,9 +1,15 @@
-import React, {useRef, useState} from 'react'
+import React, {FC, useRef, useState} from 'react'
 import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {useDispatch }from 'react-redux'
+import {remove} from '../../features/candidate/candidateSlice'
 
-const CandidateCard = () => {
+interface ICandidate {
+  user: any
+}
+
+const CandidateCard: FC<ICandidate> = ({user}) => {
   const cardRef = useRef<HTMLDivElement | null>(null)
   const [openModal, setopenModal] = useState<boolean>(false)
 
@@ -11,70 +17,111 @@ const CandidateCard = () => {
     setopenModal(false)
   })
 
+  const dispatch = useDispatch()
+
   return (
     <>
-      <tr>
+      <tr className='border-0'>
         <td>
           <div className='d-flex align-items-center'>
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('/media/avatars/300-14.jpg')} alt='' />
+              <img src={toAbsoluteUrl(`${user.photo}`)} alt='' />
             </div>
             <div className='d-flex justify-content-start flex-column'>
-              <Link className='text-dark fw-bolder text-hover-primary fs-6' to={`user/id=1`}>
-                Анжеліка Капустянко
+              <Link
+                className='text-dark fw-bolder text-hover-primary fs-6'
+                to={`user/id=${user.id}`}
+              >
+                {user.firstName} {user.lastName}
               </Link>
               <Outlet />
+              <span className='text-muted fw-bold text-muted d-block fs-7'>{user.specialty}</span>
               <span className='text-muted fw-bold text-muted d-block fs-7'>
-                Junior Web designer
+                {user.location.country}, {user.location.city}
               </span>
-              <span className='text-muted fw-bold text-muted d-block fs-7'>Київ, Україна</span>
             </div>
           </div>
         </td>
         <td>
-          <span className='bg-danger bg-opacity-25 text-gray-800 fw-bold ps-1 pe-1 rounded-all-4 d-block'>
-            Потребує перевірки
-          </span>
+          {user.checked === 0 ? (
+            <span className='bg-danger bg-opacity-25 text-gray-800 fw-bold ps-1 pe-1 rounded-all-4 d-block'>
+              Потребує перевірки
+            </span>
+          ) : null}
         </td>
         <td>
           <span className='text-muted fw-bold text-muted d-block fs-7'>
-            Web design, User experience, Analytics
+            {user.skils.map((skil: any, i: number) =>
+              i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
+            )}
           </span>
         </td>
         <td>
-          <div className='d-flex justify-content-end flex-shrink-0'>
-            <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
-              <KTSVG path='/media/icons/duotune/communication/com016.svg' className='svg-icon-3' />
-            </a>
-            <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
-              <KTSVG path='/media/icons/duotune/social/soc011.svg' className='svg-icon-3' />
-            </a>
-
-            <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
-              <KTSVG path='/media/icons/duotune/communication/com015.svg' className='svg-icon-3' />
-            </a>
-            <a href='#' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'>
-              <KTSVG path='/media/icons/duotune/communication/com017.svg' className='svg-icon-3' />
-            </a>
+          <div className='d-flex justify-content-start flex-shrink-0'>
+            {user.contacts.email.length > 0 ? (
+              <a
+                href={'mailto:' + user.contacts.email[0]}
+                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+              >
+                <KTSVG
+                  path='/media/icons/duotune/communication/com016.svg'
+                  className='svg-icon-3'
+                />
+              </a>
+            ) : null}
+            {user.contacts.socialLinks.map((link: {name: number; path: string}) =>
+              link.name === 0 ? (
+                <a
+                  href={link.path}
+                  className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                >
+                  <KTSVG path='/media/icons/duotune/social/soc011.svg' className='svg-icon-3' />
+                </a>
+              ) : null
+            )}
+            {user.contacts.messengers.map((link: {name: number; link: string}) =>
+              link.name === 3 ? (
+                <a
+                  href={'skype:' + link.link}
+                  className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                >
+                  <KTSVG
+                    path='/media/icons/duotune/communication/com015.svg'
+                    className='svg-icon-3'
+                  />
+                </a>
+              ) : null
+            )}
+            {user.contacts.phone.length > 0 ? (
+              <a
+                href={'tel:' + user.contacts.phone[0]}
+                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+              >
+                <KTSVG
+                  path='/media/icons/duotune/communication/com017.svg'
+                  className='svg-icon-3'
+                />
+              </a>
+            ) : null}
           </div>
         </td>
         <td className='text-end'>
           <div ref={cardRef} className='d-flex justify-content-end flex-shrink-0 position-relative'>
             <button
               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-              onClick={() => setopenModal(openModal => !openModal)}
+              onClick={() => setopenModal((openModal) => !openModal)}
               id='open-svg-1'
             >
               <KTSVG path='/media/icons/duotune/general/gen053.svg' className='svg-icon-3' />
             </button>
             {openModal ? (
               <div className='card shadow position-absolute top-100 end-50 w-150px z-index-1 modal__card'>
-                <Link to='user/edit' className='w-100 h-50px btn btn-active-secondary'>
+                <Link to={`edit/user/id=${user.id}`} className='w-100 h-50px btn btn-active-secondary'>
                   Редагувати
                 </Link>
-                <Link to='' className='w-100 h-50px btn btn-active-secondary'>
+                <button className='w-100 h-50px btn btn-active-secondary' onClick={()=>dispatch(remove(user.id))}>
                   Видалити
-                </Link>
+                </button>
                 <Outlet />
               </div>
             ) : null}

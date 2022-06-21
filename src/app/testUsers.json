@@ -1,0 +1,269 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "photo": "/media/avatars/300-4.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Front-End Developer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 4
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": [],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "",
+        "file": {},
+        "GDPR": 0,
+        "source": ""
+      }
+    },
+    {
+      "id": 2,
+      "photo": "/media/avatars/300-2.jpg",
+      "firstName": "Андрій",
+      "lastName": "Шевченко",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "IOS Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 2
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 1,
+            "path": "https://github.com/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "",
+        "file": {},
+        "GDPR": 0,
+        "source": ""
+      }
+    },
+    {
+      "id": 3,
+      "photo": "/media/avatars/300-3.jpg",
+      "firstName": "Інна",
+      "lastName": "Косач",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Android Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 10
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "",
+        "file": {},
+        "GDPR": 0,
+        "source": ""
+      }
+    },
+    {
+      "id": 4,
+      "photo": "/media/avatars/300-5.jpg",
+      "firstName": "Олег",
+      "lastName": "Козак",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "UI/UX Designer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 6
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444445", "380944444446"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "",
+        "file": {},
+        "GDPR": 0,
+        "source": ""
+      }
+    },
+    {
+      "id": 5,
+      "photo": "/media/avatars/300-7.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Back-End Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 8
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "",
+        "file": {},
+        "GDPR": 0,
+        "source": ""
+      }
+    }
+  ]
+}
