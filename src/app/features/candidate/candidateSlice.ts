@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import axios from 'axios'
-import { actions } from 'react-table'
+// import axios from 'axios'
+// import { actions } from 'react-table'
 import data from '../../testUsers.json'
 
 export interface CandidateState {
@@ -16,21 +16,20 @@ export const candidateSlice = createSlice({
   initialState,
   reducers: {
     remove: (state, action: PayloadAction<number>) => {
-      axios
-        .delete('')
-        .then((response) => console.log('Delete successful'))
-      state.users.map((user, i) => (user.id === action.payload ? state.users.splice(i, 1) : null))
+      // axios
+      //   .delete('')
+      //   .then((response) => console.log('Delete successful'))
+      state.users.map((user, i) => (user.id === action.payload) ? state.users.splice(i, 1) : user)
+      state.users = state.users;
     },
     edit: (state, action: PayloadAction<any>) => {
 
-      axios.put('', {data: action.payload})
+      // axios.put('', {data: action.payload})
 
-      
-      state.users.map((user,i) => (user.id === action.payload.id) ? user = action.payload : user)
-
+      state.users = state.users.map((user) => (user.id === action.payload.id) ? user = action.payload : user)
     },
     create: (state, action: PayloadAction<any>)=>{
-      axios.post('', {data: action.payload})
+      // axios.post('', {data: action.payload})
       state.users.push(action.payload)
     },
   },

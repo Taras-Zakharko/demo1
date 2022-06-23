@@ -1,7 +1,7 @@
 {
   "Users": [
     {
-      "id": 1,
+      "id": 52345,
       "photo": "/media/avatars/300-4.jpg",
       "firstName": "Іван",
       "lastName": "Петров",
@@ -43,14 +43,14 @@
         ]
       },
       "aboutMyself": {
-        "text": "",
-        "file": {},
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
         "GDPR": 0,
-        "source": ""
+        "source": "LinkedIn"
       }
     },
     {
-      "id": 2,
+      "id": 343452342,
       "photo": "/media/avatars/300-2.jpg",
       "firstName": "Андрій",
       "lastName": "Шевченко",
@@ -92,14 +92,14 @@
         ]
       },
       "aboutMyself": {
-        "text": "",
-        "file": {},
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
         "GDPR": 0,
-        "source": ""
+        "source": "Work.ua"
       }
     },
     {
-      "id": 3,
+      "id": 2345234,
       "photo": "/media/avatars/300-3.jpg",
       "firstName": "Інна",
       "lastName": "Косач",
@@ -146,14 +146,14 @@
         ]
       },
       "aboutMyself": {
-        "text": "",
-        "file": {},
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
         "GDPR": 0,
-        "source": ""
+        "source": "Завантажено з файлу"
       }
     },
     {
-      "id": 4,
+      "id": 524,
       "photo": "/media/avatars/300-5.jpg",
       "firstName": "Олег",
       "lastName": "Козак",
@@ -205,14 +205,14 @@
         ]
       },
       "aboutMyself": {
-        "text": "",
-        "file": {},
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
         "GDPR": 0,
-        "source": ""
+        "source": "LinkedIn"
       }
     },
     {
-      "id": 5,
+      "id": 3425234,
       "photo": "/media/avatars/300-7.jpg",
       "firstName": "Іван",
       "lastName": "Петров",
@@ -259,10 +259,10 @@
         ]
       },
       "aboutMyself": {
-        "text": "",
-        "file": {},
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
         "GDPR": 0,
-        "source": ""
+        "source": "Завантажено з файлу"
       }
     }
   ]

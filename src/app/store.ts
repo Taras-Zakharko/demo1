@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import candidateReducer from './features/candidate/candidateSlice'
+import searchReducer from './features/search/searchSlice'
 
 export const store = configureStore({
   reducer: {
     candidates: candidateReducer,
+    search: searchReducer
   },
 })
 

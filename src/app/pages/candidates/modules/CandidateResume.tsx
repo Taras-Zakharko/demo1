@@ -1,12 +1,14 @@
-import React, {FC, useState} from 'react'
+import React, {FC} from 'react'
 import {KTSVG} from '../../../../_metronic/helpers'
 
 interface ICandidateContacts {
   resumeRef?: any
+  setEditUser?: any
+  user?: any
 }
 
-const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
-  const [gdpr, setGdpr] = useState<string>('2')
+const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user}) => {
+  
 
   
 
@@ -38,6 +40,8 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
                 id='resume'
                 className='w-100 h-100px p-3'
                 placeholder='Textarea placeholder'
+                onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, text: e.target.value})}))}
+                value={user.aboutMyself.text}
               ></textarea>
             </div>
             <div className='col-lg-12'>
@@ -46,7 +50,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
                   className='svg-icon-2x svg-icon-dark me-4'
                 />
                 Прикріпити файл</label>
-              <input type='file' id='addFileResume' name='addFileResume' className='d-none' accept='.txt, .doc, .docx'>
+              <input type='file' id='addFileResume' name='addFileResume' className='d-none' accept='.txt, .doc, .docx' onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, file: ([...user.aboutMyself.file, e.target.files])})}))}>
                 
               </input>
             </div>
@@ -62,8 +66,8 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
                 <select
                   className='form-select form-select-solid border-0 text-dark'
                   aria-label='Select example'
-                  onChange={(e)=> setGdpr(value => value = e.target.value)}
-                  value={gdpr}
+                  onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, GDPR: e.target.value})}))}
+                  value={user.aboutMyself.GDPR}
                 >
                   <option value='1'>
                     Статус дозволу на використання персональних даних не визначено
@@ -85,7 +89,8 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef}) => {
                 <input
                   type='text'
                   className='form-control form-control-solid w-75 h-40px'
-                  value={'Завантажено з файлу'}
+                  onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, source: e.target.value})}))}
+                  value={user.aboutMyself.source}
                 />
               </div>
             </div>

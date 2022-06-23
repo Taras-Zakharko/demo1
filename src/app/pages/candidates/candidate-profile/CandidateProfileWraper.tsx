@@ -1,37 +1,36 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {KTSVG, toAbsoluteUrl} from '../../../../_metronic/helpers'
-
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
+import {edit} from '../../../features/candidate/candidateSlice'
 
 export function CandidateProfileWraper() {
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
-  const allUsers = useSelector((state: RootState) => state.candidates.users);
-  const [user, setUser] = useState<any>(allUsers[0]);
-const [gdpr, setGdpr] = useState<number>(0);
-const GDPRSelect = useRef<HTMLSelectElement | null>(null)
+  const allUsers = useSelector((state: RootState) => state.candidates.users)
+  const [user, setUser] = useState<any>(allUsers[0])
+  const [gdpr, setGdpr] = useState<number>(0)
+  const GDPRSelect = useRef<HTMLSelectElement | null>(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     for (const user of allUsers) {
       if (user.id === idUser) {
-        setUser(user);
-        setGdpr(user.aboutMyself.GDPR);
+        setUser(user)
+        setGdpr(user.aboutMyself.GDPR)
       }
     }
   }, [setUser, allUsers, idUser])
-  
-  console.log(user);
-  
 
   function allGood() {
-    if (document.querySelector('.all__good-div')) {
-      document.querySelector('.all__good-div')?.classList.add('d-none')
-    }
+    setUser((user: any) => ({...user, checked: 1}))
   }
 
-  return ( 
+  useEffect(() => {
+    dispatch(edit(user))
+  }, [user, dispatch])
+
+  return (
     <>
       {user.checked === 0 ? (
         <div className='notice d-flex justify-content-between align-items-center bg-light-warning rounded border-warning border border-dashed p-3 all__good-div'>
@@ -79,11 +78,7 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
             <div className='card-body ms-12 p-9'>
               <div className='row mb-7 align-items-center'>
                 <label className='col-lg-4 fw-bold text-muted text-end'>
-                  <img
-                    className='symbol w-100'
-                    src={toAbsoluteUrl(`${user.photo}`)}
-                    alt=''
-                  />
+                  <img className='symbol w-100' src={toAbsoluteUrl(`${user.photo}`)} alt='' />
                 </label>
 
                 <div className='col-lg-8'>
@@ -105,7 +100,10 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
                   <label className='col-lg-4 fw-bold text-muted text-end'>Досвід роботи</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>Більше 12 років</span>
+                    <span className='fw-bold fs-6'>
+                      {' '}
+                      {`Більше ${user.experience[0].yearsExperience} років`}{' '}
+                    </span>
                   </div>
                 </div>
                 <div className='row mb-4'>
@@ -127,20 +125,17 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
                   <h2>Резюме і файли </h2>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Резюме і файли </label>
+                  <label className='col-lg-4 fw-bold text-muted text-end'>Резюме </label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>
-                      Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams,
-                      companies, and enterprises to design and launch.
-                    </span>
+                    <span className='fw-bold fs-6'>{user.aboutMyself.text}</span>
                   </div>
                 </div>
                 <div className='row mb-4'>
                   <label className='col-lg-4 fw-bold text-muted text-end'>Джерело</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>LinkedIn</span>
+                    <span className='fw-bold fs-6'>{user.aboutMyself.source}</span>
                   </div>
                 </div>
                 <div className='row mb-4 align-items-center'>
@@ -152,7 +147,7 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
                       className='svg-icon-1tx svg-icon-success'
                     />
                     <select
-                    ref={GDPRSelect}
+                      ref={GDPRSelect}
                       className='form-select border-0 text-success'
                       aria-label='Select example'
                       value={gdpr}
@@ -178,8 +173,13 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
                       path='/media/icons/duotune/files/fil027.svg'
                       className='svg-icon-1tx svg-icon-primary me-2'
                     />
-                    <a className='fw-bold fs-6'>Head of design</a>
-                    {', '} <a className='fw-bold fs-6 ms-1'>MacPaw.pdf</a>
+                    {user.aboutMyself.file.map((file: any, i: number) =>
+                      i !== user.aboutMyself.file.length - 1 ? (
+                        <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
+                      ) : (
+                        <a className='fw-bold fs-6 ms-1'>{file[i].name}</a>
+                      )
+                    )}
                   </div>
                 </div>
                 <div className='row mb-4'>
@@ -196,46 +196,48 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
             <div className='card card-custom shadow p-6'>
               <h2 className='mb-7'>Контакти</h2>
               <div className='row border-bottom'>
-                {
-                  (user.contacts.email.length > 0) ? <div className='row mb-4'>
-                  <label className='col-lg-2 fw-bold text-muted'>
-                    <KTSVG
-                      path='/media/icons/duotune/communication/com016.svg'
-                      className='svg-icon-3'
-                    />
-                  </label>
+                {user.contacts.email.length > 0 ? (
+                  <div className='row mb-4'>
+                    <label className='col-lg-2 fw-bold text-muted'>
+                      <KTSVG
+                        path='/media/icons/duotune/communication/com016.svg'
+                        className='svg-icon-3'
+                      />
+                    </label>
 
-                  <div className='col-lg-10 fv-row'>
-                    {
-                      user.contacts.email.map((email: string, i: number) => <span className='d-block fw-bold fs-6'>
-                      <a href={'tomail:'+email} className='text-dark'>
-                        {email}
-                      </a>
-                    </span>)
-                    }
+                    <div className='col-lg-10 fv-row'>
+                      {user.contacts.email.map((email: string, i: number) => (
+                        <span className='d-block fw-bold fs-6'>
+                          <a href={'tomail:' + email} className='text-dark'>
+                            {email}
+                          </a>
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div> : null
-                }
-                
-                {
-                  (user.contacts.messengers.map((mess: {name: number, link: string}) => (mess.name === 3) ? <div className='row mb-4'>
-                  <label className='col-lg-2 fw-bold text-muted'>
-                    <KTSVG
-                      path='/media/icons/duotune/communication/com015.svg'
-                      className='svg-icon-3'
-                    />
-                  </label>
+                ) : null}
 
-                  <div className='col-lg-10 fv-row'>
-                    <span className='fw-bold fs-6'>
-                      <a href={'skype:'+mess.link} className='text-dark'>
-                        {mess.link}
-                      </a>
-                    </span>
-                  </div>
-                </div> : null))
-                }
-                
+                {user.contacts.messengers.map((mess: {name: number; link: string}) =>
+                  mess.name === 3 ? (
+                    <div className='row mb-4'>
+                      <label className='col-lg-2 fw-bold text-muted'>
+                        <KTSVG
+                          path='/media/icons/duotune/communication/com015.svg'
+                          className='svg-icon-3'
+                        />
+                      </label>
+
+                      <div className='col-lg-10 fv-row'>
+                        <span className='fw-bold fs-6'>
+                          <a href={'skype:' + mess.link} className='text-dark'>
+                            {mess.link}
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  ) : null
+                )}
+
                 <div className='row mb-4'>
                   <label className='col-lg-2 fw-bold text-muted'>
                     <KTSVG
@@ -245,50 +247,59 @@ const GDPRSelect = useRef<HTMLSelectElement | null>(null)
                   </label>
 
                   <div className='col-lg-10 fv-row'>
-                    {
-                      user.contacts.phone.map((number: string) => <span className='d-block fw-bold fs-6'>
-                      <a href={'tel:'+number} className='text-dark'>
-                        {number}
-                      </a>
-                    </span>)
-                    }
-                    
+                    {user.contacts.phone.map((number: string) => (
+                      <span className='d-block fw-bold fs-6'>
+                        <a href={'tel:' + number} className='text-dark'>
+                          {number}
+                        </a>
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
               <div className='row mt-4'>
                 <div className='col-lg-12'>
-                  {
-                    user.contacts.socialLinks.map((link: {name: number, path: string})=> {
-                      if(link.name === 0){
-                        return <a
-                        href={link.path}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
-                      >
-                        <KTSVG path='/media/icons/duotune/social/soc012.svg' className='svg-icon-3' />
-                      </a>
-                      }
-                      if(link.name === 1){
-                        return <a
-                        href={link.path}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
-                      >
-                        <KTSVG path='/media/icons/duotune/social/soc013.svg' className='svg-icon-3' />
-                      </a>
-                      }
-                      if(link.name === 2){
-                        return <a
-                        href={link.path}
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
-                      >
-                        <KTSVG path='/media/icons/duotune/social/soc011.svg' className='svg-icon-3' />
-                      </a>
-                      }
-                    })
-                  }
-                  
-                  
-                  
+                  {user.contacts.socialLinks.map((link: {name: number; path: string}) => {
+                    if (link.name === 0) {
+                      return (
+                        <a
+                          href={link.path}
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/social/soc012.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                      )
+                    }
+                    if (link.name === 1) {
+                      return (
+                        <a
+                          href={link.path}
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/social/soc013.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                      )
+                    }
+                    if (link.name === 2) {
+                      return (
+                        <a
+                          href={link.path}
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/social/soc011.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                      )
+                    }
+                  })}
                 </div>
               </div>
             </div>

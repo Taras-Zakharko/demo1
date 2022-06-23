@@ -17,11 +17,11 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
     setopenModal(false)
   })
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
-      <tr className='border-0'>
+      <tr className='border-0' id={user.id}>
         <td>
           <div className='d-flex align-items-center'>
             <div className='symbol symbol-45px me-5'>
@@ -37,7 +37,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               <Outlet />
               <span className='text-muted fw-bold text-muted d-block fs-7'>{user.specialty}</span>
               <span className='text-muted fw-bold text-muted d-block fs-7'>
-                {user.location.country}, {user.location.city}
+                {user.location?.country}, {user.location?.city}
               </span>
             </div>
           </div>
@@ -51,14 +51,14 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
         </td>
         <td>
           <span className='text-muted fw-bold text-muted d-block fs-7'>
-            {user.skils.map((skil: any, i: number) =>
+            {user.skils?.map((skil: any, i: number) =>
               i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
             )}
           </span>
         </td>
         <td>
           <div className='d-flex justify-content-start flex-shrink-0'>
-            {user.contacts.email.length > 0 ? (
+            {user.contacts?.email.length > 0 ? (
               <a
                 href={'mailto:' + user.contacts.email[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
@@ -69,7 +69,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 />
               </a>
             ) : null}
-            {user.contacts.socialLinks.map((link: {name: number; path: string}) =>
+            {user.contacts?.socialLinks.map((link: {name: number; path: string}) =>
               link.name === 0 ? (
                 <a
                   href={link.path}
@@ -79,7 +79,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </a>
               ) : null
             )}
-            {user.contacts.messengers.map((link: {name: number; link: string}) =>
+            {user.contacts?.messengers.map((link: {name: number; link: string}) =>
               link.name === 3 ? (
                 <a
                   href={'skype:' + link.link}
@@ -92,7 +92,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </a>
               ) : null
             )}
-            {user.contacts.phone.length > 0 ? (
+            {user.contacts?.phone.length > 0 ? (
               <a
                 href={'tel:' + user.contacts.phone[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'

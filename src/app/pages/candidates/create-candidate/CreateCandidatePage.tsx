@@ -7,63 +7,84 @@ import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 
-import { RootState } from '../../../../app/store'
-import { useSelector, useDispatch } from 'react-redux'
+
+import { useDispatch } from 'react-redux'
 import { create} from '../../../features/candidate/candidateSlice'
 
 interface IUserObj {
-  id: number
-  photo: string
-  firstName: string
-  lastName: string
+  id: number,
+  photo: string,
+  firstName: string,
+  lastName: string,
   location: {
-    country: string
+    country: string,
     city: string
-  }
-  specialty: string
-  checked: number
-  experience: [
-    {
-      company: string
-      position: string
-      startWorking: number
-      endWorking: number
-    }
-  ]
-  skils: [string]
+  },
+  specialty: string,
+  checked: number,
+  experience: object[
+    
+  ],
+  skils: string[],
   contacts: {
-    phone: [string]
-    email: [string]
-    messengers: [
-      {
-        name: number
-        link: string
-      }
-    ]
-    socialLinks: [
-      {
-        name: number
-        path: string
-      }
-    ]
-  }
+    phone: string[],
+    email: string[],
+    messengers: object[],
+    socialLinks: object[]
+  },
   aboutMyself: {
-    text: string
-    file: {}
-    GDPR: number
+    text: string,
+    file: object[],
+    GDPR: number,
     source: string
   }
 }
+
+
 
 function CreateCandidatePage() {
   const infoRef = useRef<any>(null)
   const experienceRef = useRef<any>(null)
   const contactsRef = useRef<any>(null)
   const resumeRef = useRef<any>(null)
+  const newUser = {
+    id: Date.now(),
+    photo: "",
+    firstName: "",
+    lastName: "",
+    location: {
+      country: "",
+      city: ""
+    },
+    specialty: "",
+    checked: 1,
+    experience: [
+      {
+        company: '',
+        position: '',
+        yearsExperience: 0
+      }
+    ],
+    skils: [],
+    contacts: {
+      phone: [],
+      email: [],
+      messengers: [
+        
+      ],
+      socialLinks: [
+        
+      ]
+    },
+    aboutMyself: {
+      text: "",
+      file: [],
+      GDPR: 0,
+      source: ""
+    }
+  }
 
-  const allUsers = useSelector((state: RootState) => state.candidates.users);
-
-  const [editUser, setEditUser] = useState<IUserObj>(allUsers[0])
+  const [editUser, setEditUser] = useState<IUserObj>(newUser)
 
 
 
@@ -91,13 +112,13 @@ function CreateCandidatePage() {
             </div>
           </div>
           <div ref={infoRef} className='card p-10 mt-20 mb-6 flex-row'>
-            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser}/>
+            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser}/>
             <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
           </div>
           <div className='accordion' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} />
-            <CandidateContacts contactsRef={contactsRef} />
-            <CandidateResume resumeRef={resumeRef} />
+            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser}/>
+            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser}/>
+            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser}/>
           </div>
         </div>
         <div className='col-lg-2'>
@@ -140,7 +161,7 @@ function CreateCandidatePage() {
         <div className='col-lg-8'>
           <div className='row'>
             <div className='col-lg-12 d-flex flex-center'>
-              <button className='btn btn-dark w-250px h-50px ' onClick={() => dispatch(create({}))}>Створити кандидата</button>
+              <Link to={'/candidates'} className='btn btn-dark w-250px h-50px ' onClick={() => dispatch(create(editUser))}>Створити кандидата</Link>
             </div>
           </div>
         </div>

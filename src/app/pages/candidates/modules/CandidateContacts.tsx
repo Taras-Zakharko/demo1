@@ -53,7 +53,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
   }
 
   function removeArray(index: number, funk:any, key: string) {
-    funk((arr:any) => {
+    funk((arr:string[]) => {
       arr.splice(index, 1)
       setEditUser((user: any) => ({...user, contacts: {...user.contacts, [key]: [...arr]}}))
       return arr

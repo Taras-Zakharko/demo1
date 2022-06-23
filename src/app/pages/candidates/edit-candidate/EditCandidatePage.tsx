@@ -65,14 +65,13 @@ function EditCandidate() {
 
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
   const allUsers = useSelector((state: RootState) => state.candidates.users);
-  
   const [editUser, setEditUser] = useState<IUserObj>(allUsers[0])
 
   useEffect(()=>{
     allUsers.map((user:any) => (user.id === idUser) ? setEditUser(user) : user)
   }, [allUsers, idUser])
 
-  console.log(editUser);
+  
   
 
   return (
@@ -104,7 +103,7 @@ function EditCandidate() {
           <div className='accordion' id='kt_accordion_1'>
             <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser}/>
             <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser}/>
-            <CandidateResume resumeRef={resumeRef} />
+            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser}/>
           </div>
         </div>
         <div className='col-lg-2'>
@@ -147,9 +146,9 @@ function EditCandidate() {
         <div className='col-lg-8'>
           <div className='row'>
             <div className='col-lg-12 d-flex justify-content-between'>
-              <button className='btn btn-dark w-250px h-50px' onClick={() => dispatch(edit({}))}>
+              <Link to={'/candidates'} className='btn btn-dark w-250px h-50px' onClick={() => dispatch(edit(editUser))}>
                 Зберегти зміни
-              </button>
+              </Link>
               <Link
                 to={'/candidates'}
                 className='btn text-danger pe-0'
