@@ -34,21 +34,21 @@ export function CandidateProfileWraper() {
     <>
       {user.checked === 0 ? (
         <div className='notice d-flex justify-content-between align-items-center bg-light-warning rounded border-warning border border-dashed p-3 all__good-div'>
-          <div className='d-flex flex-center fs-6 text-gray-600 '>
+          <div className='d-flex flex-center fs-6 text-gray-800 '>
             <KTSVG
-              path='/media/icons/duotune/general/gen044.svg'
-              className='svg-icon-2tx svg-icon-warning me-4'
+              path='/media/icons/duotune/files/fil028.svg'
+              className='svg-icon-1x svg-icon-warning me-4'
             />
             Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте
             дані кандидата.
           </div>
-          <a className='text-success cursor-pointer fs-6 all__good' onClick={allGood}>
+          <button className='btn btn-light-success cursor-pointer fs-6 all__good' onClick={allGood}>
             <KTSVG
               path='/media/icons/duotune/arrows/arr012.svg'
-              className='svg-icon-2tx svg-icon-success me-4'
+              className='svg-icon-2x svg-icon-success me-4'
             />
             Все ок, зберегти
-          </a>
+          </button>
         </div>
       ) : null}
 
@@ -82,11 +82,11 @@ export function CandidateProfileWraper() {
                 </label>
 
                 <div className='col-lg-8'>
-                  <h2 className='fw-bolder fs-3 text-dark'>
+                  <h2 className='fw-bolder fs-2 text-dark'>
                     {user.firstName} {user.lastName}
                   </h2>
-                  <span className='text-muted text-muted d-block fs-5'>{user.specialty}</span>
-                  <span className='text-muted fw-bold text-muted d-block fs-5'>
+                  <span className='text-muted text-muted d-block fs-4'>{user.specialty}</span>
+                  <span className='text-muted fw-bold text-muted d-block fs-6'>
                     {user.location.city}, {user.location.country}
                   </span>
                 </div>
@@ -94,23 +94,23 @@ export function CandidateProfileWraper() {
               <div className='row pb-4 mb-7 border-bottom'>
                 <div className='col-lg-4'></div>
                 <div className='col-lg-8 mb-4'>
-                  <h2>Досвід</h2>
+                  <h2 className='fs-4 fw-boldest'>Досвід</h2>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Досвід роботи</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Досвід роботи</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>
+                    <span className='fw-bold fs-4'>
                       {' '}
                       {`Більше ${user.experience[0].yearsExperience} років`}{' '}
                     </span>
                   </div>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Навички</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Навички</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>
+                    <span className='fw-bold fs-4'>
                       {user.skils.map((skil: any, i: number) =>
                         i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
                       )}
@@ -122,24 +122,24 @@ export function CandidateProfileWraper() {
               <div className='row pb-4 mb-7'>
                 <div className='col-lg-4'></div>
                 <div className='col-lg-8 mb-4'>
-                  <h2>Резюме і файли </h2>
+                  <h2 className='fs-4 fw-boldest'>Резюме і файли </h2>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Резюме </label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Резюме </label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>{user.aboutMyself.text}</span>
+                    <span className='fw-bold fs-4'>{user.aboutMyself.text}</span>
                   </div>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Джерело</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Джерело</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>{user.aboutMyself.source}</span>
+                    <span className='fw-bold fs-4'>{user.aboutMyself.source}</span>
                   </div>
                 </div>
                 <div className='row mb-4 align-items-center'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>GDPR</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-4'>GDPR</label>
 
                   <div className='col-lg-8 fv-row d-flex align-items-center'>
                     <KTSVG
@@ -148,7 +148,7 @@ export function CandidateProfileWraper() {
                     />
                     <select
                       ref={GDPRSelect}
-                      className='form-select border-0 text-success'
+                      className='form-select border-0 text-success fs-4'
                       aria-label='Select example'
                       value={gdpr}
                       onChange={() => setGdpr(+GDPRSelect!.current!.value)}
@@ -166,9 +166,9 @@ export function CandidateProfileWraper() {
                   </div>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Прикріплені файли</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Файли</label>
 
-                  <div className='col-lg-8 fv-row d-flex align-items-center'>
+                  <div className='col-lg-8 fv-row d-flex align-items-center fs-4'>
                     <KTSVG
                       path='/media/icons/duotune/files/fil027.svg'
                       className='svg-icon-1tx svg-icon-primary me-2'
@@ -183,10 +183,10 @@ export function CandidateProfileWraper() {
                   </div>
                 </div>
                 <div className='row mb-4'>
-                  <label className='col-lg-4 fw-bold text-muted text-end'>Додано</label>
+                  <label className='col-lg-4 fw-bold text-muted text-end fs-6'>Додано</label>
 
                   <div className='col-lg-8 fv-row'>
-                    <span className='fw-bold fs-6'>10.02.2020 (оновлено: 20.20.2021)</span>
+                    <span className='fw-bold fs-4'>10.02.2020 (оновлено: 20.20.2021)</span>
                   </div>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export function CandidateProfileWraper() {
           </div>
           <div className='col-lg-4 d-flex flex-center'>
             <div className='card card-custom shadow p-6'>
-              <h2 className='mb-7'>Контакти</h2>
+              <h2 className='mb-7 fs-4 fw-boldest'>Контакти</h2>
               <div className='row border-bottom'>
                 {user.contacts.email.length > 0 ? (
                   <div className='row mb-4'>
@@ -208,7 +208,7 @@ export function CandidateProfileWraper() {
                     <div className='col-lg-10 fv-row'>
                       {user.contacts.email.map((email: string, i: number) => (
                         <span className='d-block fw-bold fs-6'>
-                          <a href={'tomail:' + email} className='text-dark'>
+                          <a href={'tomail:' + email} className='text-dark text-hover-primary'>
                             {email}
                           </a>
                         </span>
@@ -229,7 +229,7 @@ export function CandidateProfileWraper() {
 
                       <div className='col-lg-10 fv-row'>
                         <span className='fw-bold fs-6'>
-                          <a href={'skype:' + mess.link} className='text-dark'>
+                          <a href={'skype:' + mess.link} className='text-dark text-hover-primary'>
                             {mess.link}
                           </a>
                         </span>
@@ -249,7 +249,7 @@ export function CandidateProfileWraper() {
                   <div className='col-lg-10 fv-row'>
                     {user.contacts.phone.map((number: string) => (
                       <span className='d-block fw-bold fs-6'>
-                        <a href={'tel:' + number} className='text-dark'>
+                        <a href={'tel:' + number} className='text-dark text-hover-primary'>
                           {number}
                         </a>
                       </span>

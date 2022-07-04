@@ -32,16 +32,16 @@
     }
 
     // Aside default enabled, aside fixed & header sticky modes
-    .aside-enabled.aside-fixed.header-fixed & {
-      left: get($aside-config, width);
-      transition: left get($aside-config, transition-speed) ease;
-    }
+    // .aside-enabled.aside-fixed.header-fixed & {
+    //   left: get($aside-config, width);
+    //   transition: left get($aside-config, transition-speed) ease;
+    // }
 
     // Aside default enabled, aside fixed, header sticky & aside minimize modes
-    .aside-enabled.aside-fixed.header-fixed[data-kt-aside-minimize='on'] & {
-      left: get($aside-config, minimized-width);
-      transition: left get($aside-config, transition-speed) ease;
-    }
+    // .aside-enabled.aside-fixed.header-fixed[data-kt-aside-minimize='on'] & {
+    //   left: get($aside-config, minimized-width);
+    //   transition: left get($aside-config, transition-speed) ease;
+    // }
 
     // Header menu
     .header-menu {

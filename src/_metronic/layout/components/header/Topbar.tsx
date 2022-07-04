@@ -13,13 +13,13 @@ const Topbar: FC = () => {
   const {config} = useLayout()
 
   return (
-    <div className='d-flex align-items-stretch flex-shrink-0'>
+    <div className='d-flex align-items-stretch w-100 justify-content-between justify-content-sm-center flex-shrink-0'>
       {/* Search */}
       {/* <div className={clsx('d-flex align-items-stretch', toolbarButtonMarginClass)}>
         <Search />
       </div> */}
       {/* Activities */}
-      <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+      {/* <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}> */}
         {/* begin::Drawer toggle */}
         {/* <div
           className={clsx(
@@ -34,10 +34,10 @@ const Topbar: FC = () => {
           />
         </div> */}
         {/* end::Drawer toggle */}
-      </div>
+      {/* </div> */}
 
       {/* NOTIFICATIONS */}
-      <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+      {/* <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}> */}
         {/* begin::Menu- wrapper */}
         {/* <div
           className={clsx(
@@ -56,12 +56,12 @@ const Topbar: FC = () => {
         </div> */}
         {/* <HeaderNotificationsMenu /> */}
         {/* end::Menu wrapper */}
-      </div>
+      {/* </div> */}
 
       {/* CHAT */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
         {/* begin::Menu wrapper */}
-        {/* <div
+        <a href='mailto:contact@turbohiring.com'
           className={clsx(
             'btn btn-icon btn-active-light-primary btn-custom position-relative',
             toolbarButtonHeightClass
@@ -69,19 +69,19 @@ const Topbar: FC = () => {
           id='kt_drawer_chat_toggle'
         >
           <KTSVG
-            path='/media/icons/duotune/communication/com012.svg'
+            path='/media/icons/duotune/general/gen060.svg'
             className={toolbarButtonIconSizeClass}
           />
 
-          <span className='bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink'></span>
-        </div> */}
+          
+        </a>
         {/* end::Menu wrapper */}
       </div>
 
       {/* Quick links */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
         {/* begin::Menu wrapper */}
-        {/* <div
+        <div
           className={clsx(
             'btn btn-icon btn-active-light-primary btn-custom',
             toolbarButtonHeightClass
@@ -92,11 +92,11 @@ const Topbar: FC = () => {
           data-kt-menu-flip='bottom'
         >
           <KTSVG
-            path='/media/icons/duotune/general/gen025.svg'
+            path='/media/icons/duotune/abstract/abs030.svg'
             className={toolbarButtonIconSizeClass}
           />
         </div>
-        <QuickLinks /> */}
+        <QuickLinks />
         {/* end::Menu wrapper */}
       </div>
 
@@ -115,13 +115,13 @@ const Topbar: FC = () => {
         >
           <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='metronic' />
         </div>
-        <HeaderUserMenu />
+        {/* <HeaderUserMenu /> */}
         {/* end::Toggle */}
       </div>
       {/* end::User */}
 
       {/* begin::Aside Toggler */}
-      {config.header.left === 'menu' && (
+      {/* {config.header.left === 'menu' && (
         <div className='d-flex align-items-center d-lg-none ms-2 me-n3' title='Show header menu'>
           <div
             className='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
@@ -130,7 +130,7 @@ const Topbar: FC = () => {
             <KTSVG path='/media/icons/duotune/text/txt001.svg' className='svg-icon-1' />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

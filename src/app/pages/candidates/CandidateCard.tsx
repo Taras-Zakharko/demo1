@@ -2,7 +2,7 @@ import React, {FC, useRef, useState} from 'react'
 import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {useDispatch }from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {remove} from '../../features/candidate/candidateSlice'
 
 interface ICandidate {
@@ -17,7 +17,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
     setopenModal(false)
   })
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -28,36 +28,38 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               <img src={toAbsoluteUrl(`${user.photo}`)} alt='' />
             </div>
             <div className='d-flex justify-content-start flex-column'>
-              <Link
-                className='text-dark fw-bolder text-hover-primary fs-6'
-                to={`user/id=${user.id}`}
-              >
-                {user.firstName} {user.lastName}
-              </Link>
-              <Outlet />
-              <span className='text-muted fw-bold text-muted d-block fs-7'>{user.specialty}</span>
-              <span className='text-muted fw-bold text-muted d-block fs-7'>
+              <div className='d-flex align-items-center'>
+                <Link
+                  className='text-dark fw-bolder text-hover-primary fs-4'
+                  to={`user/id=${user.id}`}
+                >
+                  {user.firstName} {user.lastName}
+                </Link>
+                <Outlet />
+                {user.checked === 0 ? 
+                  <KTSVG
+                  path='/media/icons/duotune/files/fil028.svg'
+                  className='svg-icon-3 ms-3 text-warning'
+                />
+                 : null}
+              </div>
+
+              <span className='text-muted text-muted text-gray-900 d-block fs-6'>{user.specialty}</span>
+              <span className='text-muted text-muted d-block fs-6'>
                 {user.location?.country}, {user.location?.city}
               </span>
             </div>
           </div>
         </td>
-        <td>
-          {user.checked === 0 ? (
-            <span className='bg-danger bg-opacity-25 text-gray-800 fw-bold ps-1 pe-1 rounded-all-4 d-block'>
-              Потребує перевірки
-            </span>
-          ) : null}
-        </td>
-        <td>
-          <span className='text-muted fw-bold text-muted d-block fs-7'>
+        <td className='d-none d-sm-table-cell'>
+          <span className='text-muted fw-bold text-muted d-block fs-6'>
             {user.skils?.map((skil: any, i: number) =>
               i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
             )}
           </span>
         </td>
-        <td>
-          <div className='d-flex justify-content-start flex-shrink-0'>
+        <td className='d-none d-sm-table-cell'>
+          <div className='d-flex justify-content-end flex-shrink-0'>
             {user.contacts?.email.length > 0 ? (
               <a
                 href={'mailto:' + user.contacts.email[0]}
@@ -69,9 +71,10 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 />
               </a>
             ) : null}
-            {user.contacts?.socialLinks.map((link: {name: number; path: string}) =>
+            {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
               link.name === 0 ? (
                 <a
+                key={i}
                   href={link.path}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >
@@ -79,9 +82,10 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </a>
               ) : null
             )}
-            {user.contacts?.messengers.map((link: {name: number; link: string}) =>
+            {user.contacts?.messengers.map((link: {name: number; link: string}, i: number) =>
               link.name === 3 ? (
                 <a
+                key={i}
                   href={'skype:' + link.link}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >
@@ -105,7 +109,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             ) : null}
           </div>
         </td>
-        <td className='text-end'>
+        <td className='text-end d-none d-sm-table-cell'>
           <div ref={cardRef} className='d-flex justify-content-end flex-shrink-0 position-relative'>
             <button
               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
@@ -116,10 +120,16 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             </button>
             {openModal ? (
               <div className='card shadow position-absolute top-100 end-50 w-150px z-index-1 modal__card'>
-                <Link to={`edit/user/id=${user.id}`} className='w-100 h-50px btn btn-active-secondary'>
+                <Link
+                  to={`edit/user/id=${user.id}`}
+                  className='w-100 h-50px btn btn-active-primary'
+                >
                   Редагувати
                 </Link>
-                <button className='w-100 h-50px btn btn-active-secondary' onClick={()=>dispatch(remove(user.id))}>
+                <button
+                  className='w-100 h-50px btn btn-active-primary'
+                  onClick={() => dispatch(remove(user.id))}
+                >
                   Видалити
                 </button>
                 <Outlet />

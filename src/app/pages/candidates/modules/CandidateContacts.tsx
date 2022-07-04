@@ -67,10 +67,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
   }
 
   return (
-    <div ref={contactsRef} className='accordion-item mb-4'>
+    <div ref={contactsRef} className='accordion-item'>
       <h2 className='accordion-header' id='kt_accordion_1_header_2'>
         <button
-          className='accordion-button fs-4 fw-bold'
+          className='accordion-button fs-4 fw-boldest'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_2'
@@ -89,7 +89,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
         <div className='accordion-body'>
           <div className='row d-flex mb-4'>
             <div className='col-lg-3'>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-bold pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Телефон
               </label>
             </div>
@@ -141,7 +141,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
           </div>
           <div className='row d-flex mb-4'>
             <div className='col-lg-3'>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-bold pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Ел. пошта
               </label>
             </div>
@@ -193,7 +193,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
           </div>
           <div className='row d-flex mb-4'>
             <div className='col-lg-3'>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-bold pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Месенджери
               </label>
             </div>
@@ -313,7 +313,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
           </div>
           <div className='row d-flex mb-4'>
             <div className='col-lg-3'>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-bold pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Посилання
               </label>
             </div>

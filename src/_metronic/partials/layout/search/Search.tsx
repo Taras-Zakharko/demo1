@@ -218,10 +218,14 @@ const Search: FC = () => {
           data-kt-search-element='toggle'
           id='kt_header_search_toggle'
         >
+          <KTSVG
+                  path='/media/icons/duotune/general/gen021.svg'
+                  className='svg-icon-2x svg-icon-gray-600 ms-4 d-sm-none'
+                />
           <input
             ref={inputSearch}
             type='text'
-            className='form-control form-control-solid pe-10 w-325px w-md-800px h-30px justify-content-end'
+            className='form-control form-control-solid pe-10 w-lg-750px w-md-550px w-sm-250px d-none d-sm-block h-30px justify-content-end'
             placeholder='Пошук'
           />
           <button ref={clearFilter} className=' btn p-0 position-absolute cursor-pointer end-0 d-none' onClick={()=> clearSearchForm ()}>
@@ -244,7 +248,7 @@ const Search: FC = () => {
             data-kt-search-element='wrapper'
           >
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-4'>
+              <div className='col-lg-3 fs-6'>
                 <label htmlFor=''>Локація</label>
               </div>
               <div className='col-lg-9'>
@@ -306,7 +310,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-4'>
+              <div className='col-lg-3 fs-6'>
                 <label htmlFor=''>Посада</label>
               </div>
               <div className='col-lg-9'>
@@ -323,7 +327,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-4'>
+              <div className='col-lg-3 fs-6'>
                 <label htmlFor=''>Місце роботи</label>
               </div>
               <div className='col-lg-9'>
@@ -340,7 +344,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-4'>
+              <div className='col-lg-3 fs-6'>
                 <label htmlFor=''>Навички</label>
               </div>
               <div className='col-lg-9'>
@@ -359,7 +363,7 @@ const Search: FC = () => {
             </div>
 
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-4'>
+              <div className='col-lg-3 fs-6'>
                 <label htmlFor=''>Років досвіду</label>
               </div>
               <div className='col-lg-9'>
@@ -392,7 +396,7 @@ const Search: FC = () => {
             <div className='row align-items-center mb-4 justify-content-end'>
               <div className='col-lg-3 d-flex justify-content-end'>
                 <button
-                  className='btn btn-dark w-75 fs-5 ls-2 ps-8 pe-8 '
+                  className='btn btn-primary w-88 fs-5 fs-6 ps-8 pe-8 '
                   onClick={() => createFilterList()}
                 >
                   Знайти

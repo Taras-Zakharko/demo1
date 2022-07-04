@@ -44,10 +44,10 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
   }, [skilsArr, setEditUser])
 
   return (
-    <div ref={experienceRef} className='accordion-item mb-4'>
+    <div ref={experienceRef} className='accordion-item'>
       <h2 className='accordion-header' id='kt_accordion_1_header_1'>
         <button
-          className='accordion-button fs-4 fw-bold'
+          className='accordion-button fs-4 fw-boldest'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_1'
@@ -67,7 +67,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
           <div className='row border-bottom mb-4'>
             <div className='row d-flex align-items-center mb-4'>
               <div className='col-lg-3'>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Поточне місце роботи
                 </label>
               </div>
@@ -93,7 +93,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
             </div>
             <div className='row d-flex align-items-center mb-4'>
               <div className='col-lg-3'>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Поточна посада
                 </label>
               </div>
@@ -120,7 +120,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
             </div>
             <div className='row d-flex align-items-center mb-4'>
               <div className='col-lg-3'>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Років досвіду
                 </label>
               </div>
@@ -150,7 +150,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
           <div className='row'>
             <div className='row d-flex align-items-center mb-4'>
               <div className='col-lg-3'>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Навички
                 </label>
               </div>

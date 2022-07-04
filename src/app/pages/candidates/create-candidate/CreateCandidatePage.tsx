@@ -104,14 +104,18 @@ function CreateCandidatePage() {
                     className='svg-icon-2x svg-icon-dark me-4'
                   />
                 </Link>
-                <h2 className='fs-1'>Новий кандидат</h2>
+                <h2 className='fs-2 fw-boldest'>Новий кандидат</h2>
                 <Link to={'/add'} className='btn btn-sm btn-light-primary fs-5'>
+                <KTSVG
+                    path='/media/icons/duotune/files/fil029.svg'
+                    className='svg-icon-1x svg-icon-dark me-4'
+                  />
                   Імпортувати з файлу
                 </Link>
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-10 mt-20 mb-6 flex-row'>
+          <div ref={infoRef} className='card p-10 mt-20 flex-row'>
             <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser}/>
             <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
           </div>
@@ -122,10 +126,10 @@ function CreateCandidatePage() {
           </div>
         </div>
         <div className='col-lg-2'>
-          <div className='row position-fixed bottom-50'>
+          <div className='row position-fixed top-25'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Персональна інформація
             </button>
@@ -133,7 +137,7 @@ function CreateCandidatePage() {
               onClick={() =>
                 experienceRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Досвід
             </button>
@@ -141,7 +145,7 @@ function CreateCandidatePage() {
               onClick={() =>
                 contactsRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Контакти
             </button>
@@ -149,7 +153,7 @@ function CreateCandidatePage() {
               onClick={() =>
                 resumeRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Додаткова інформація
             </button>
@@ -161,7 +165,7 @@ function CreateCandidatePage() {
         <div className='col-lg-8'>
           <div className='row'>
             <div className='col-lg-12 d-flex flex-center'>
-              <Link to={'/candidates'} className='btn btn-dark w-250px h-50px ' onClick={() => dispatch(create(editUser))}>Створити кандидата</Link>
+              <Link to={'/candidates'} className='btn btn-primary h-50px ' onClick={() => dispatch(create(editUser))}>Зберегти кандидата</Link>
             </div>
           </div>
         </div>

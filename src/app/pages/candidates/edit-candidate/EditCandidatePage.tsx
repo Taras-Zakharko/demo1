@@ -84,14 +84,14 @@ function EditCandidate() {
               <div className='card-title m-0'>
                 <Link
                   to={`/candidates/user/id=${idUser}`}
-                  className='fw-bolder m-0 position-fixed end-75'
+                  className='fw-bolder m-0 position-fixed start-15'
                 >
                   <KTSVG
                     path='/media/icons/duotune/arrows/arr002.svg'
                     className='svg-icon-2x svg-icon-dark me-4'
                   />
                 </Link>
-                <h2 className='fs-1'>Редагувати картку кандидата</h2>
+                <h2 className='fs-2 fw-boldest'>Редагувати картку кандидата</h2>
               </div>
             </div>
           </div>
@@ -107,10 +107,10 @@ function EditCandidate() {
           </div>
         </div>
         <div className='col-lg-2'>
-          <div className='row position-fixed bottom-50'>
+        <div className='row position-fixed top-25'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Персональна інформація
             </button>
@@ -118,7 +118,7 @@ function EditCandidate() {
               onClick={() =>
                 experienceRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Досвід
             </button>
@@ -126,7 +126,7 @@ function EditCandidate() {
               onClick={() =>
                 contactsRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Контакти
             </button>
@@ -134,7 +134,7 @@ function EditCandidate() {
               onClick={() =>
                 resumeRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-3 text-start ms-3'
+              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
             >
               Додаткова інформація
             </button>
@@ -144,10 +144,10 @@ function EditCandidate() {
       <div className='row mt-5'>
         <div className='col-lg-2'></div>
         <div className='col-lg-8'>
-          <div className='row'>
-            <div className='col-lg-12 d-flex justify-content-between'>
-              <Link to={'/candidates'} className='btn btn-dark w-250px h-50px' onClick={() => dispatch(edit(editUser))}>
-                Зберегти зміни
+          <div className='row d-flex justify-content-end'>
+            <div className='col-lg-12 w-60  d-flex justify-content-between align-items-center'>
+              <Link to={'/candidates'} className='btn btn-primary h-40px' onClick={() => dispatch(edit(editUser))}>
+                Зберегти
               </Link>
               <Link
                 to={'/candidates'}
@@ -158,7 +158,7 @@ function EditCandidate() {
                   path='/media/icons/duotune/general/gen027.svg'
                   className='svg-icon-2x svg-icon-danger ms-4'
                 />
-                Видалити з бази
+                Видалити
               </Link>
             </div>
           </div>

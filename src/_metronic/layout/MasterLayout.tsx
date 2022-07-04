@@ -28,9 +28,9 @@ const MasterLayout = () => {
 
   return (
     <PageDataProvider>
-      <div className='page d-flex flex-row flex-column-fluid'>
-        <AsideDefault />
-        <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+      
+        {/* <AsideDefault /> */}
+        <div className='wrapper d-flex flex-column flex-row-fluid ps-0' id='kt_wrapper'>
           <HeaderWrapper />
 
           <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
@@ -43,7 +43,7 @@ const MasterLayout = () => {
           </div>
           <Footer />
         </div>
-      </div>
+      
 
       {/* begin:: Drawers */}
       {/* <ActivityDrawer /> */}

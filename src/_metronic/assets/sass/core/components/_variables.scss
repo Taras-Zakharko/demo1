@@ -540,6 +540,8 @@ $line-height-lg: 1.75 !default;
 $line-height-xl: 2 !default;
 $line-height-xxl: 2.25 !default;
 
+
+
 // Heading sizes
 $h1-font-size: $font-size-base * 1.75 !default; // 22.75px
 $h2-font-size: $font-size-base * 1.5 !default; // 19.50px
@@ -1102,6 +1104,7 @@ $custom-sizes: (
   unset: unset,
   25: 25%,
   50: 50%,
+  60: 60%,
   75: 75%,
   100: 100%,
   auto: auto,

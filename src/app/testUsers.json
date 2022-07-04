@@ -1,7 +1,7 @@
 {
   "Users": [
     {
-      "id": 52345,
+      "id": 523945,
       "photo": "/media/avatars/300-4.jpg",
       "firstName": "Іван",
       "lastName": "Петров",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": 343452342,
+      "id": 3434529342,
       "photo": "/media/avatars/300-2.jpg",
       "firstName": "Андрій",
       "lastName": "Шевченко",
@@ -99,7 +99,7 @@
       }
     },
     {
-      "id": 2345234,
+      "id": 234785234,
       "photo": "/media/avatars/300-3.jpg",
       "firstName": "Інна",
       "lastName": "Косач",
@@ -153,7 +153,7 @@
       }
     },
     {
-      "id": 524,
+      "id": 52978884,
       "photo": "/media/avatars/300-5.jpg",
       "firstName": "Олег",
       "lastName": "Козак",
@@ -212,7 +212,802 @@
       }
     },
     {
-      "id": 3425234,
+      "id": 342523789784,
+      "photo": "/media/avatars/300-7.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Back-End Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 8
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 597892345,
+      "photo": "/media/avatars/300-4.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Front-End Developer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 4
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": [],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 343497852342,
+      "photo": "/media/avatars/300-2.jpg",
+      "firstName": "Андрій",
+      "lastName": "Шевченко",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "IOS Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 2
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 1,
+            "path": "https://github.com/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Work.ua"
+      }
+    },
+    {
+      "id": 23486785234,
+      "photo": "/media/avatars/300-3.jpg",
+      "firstName": "Інна",
+      "lastName": "Косач",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Android Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 10
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 5284,
+      "photo": "/media/avatars/300-5.jpg",
+      "firstName": "Олег",
+      "lastName": "Козак",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "UI/UX Designer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 6
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444445", "380944444446"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 342436555234,
+      "photo": "/media/avatars/300-7.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Back-End Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 8
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 522345344453345,
+      "photo": "/media/avatars/300-4.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Front-End Developer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 4
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": [],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 3434234453452342,
+      "photo": "/media/avatars/300-2.jpg",
+      "firstName": "Андрій",
+      "lastName": "Шевченко",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "IOS Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 2
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 1,
+            "path": "https://github.com/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Work.ua"
+      }
+    },
+    {
+      "id": 234525243524555434,
+      "photo": "/media/avatars/300-3.jpg",
+      "firstName": "Інна",
+      "lastName": "Косач",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Android Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 10
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 52534664,
+      "photo": "/media/avatars/300-5.jpg",
+      "firstName": "Олег",
+      "lastName": "Козак",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "UI/UX Designer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 6
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444445", "380944444446"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 34255343234,
+      "photo": "/media/avatars/300-7.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Back-End Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 8
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 523244445,
+      "photo": "/media/avatars/300-4.jpg",
+      "firstName": "Іван",
+      "lastName": "Петров",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Front-End Developer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 4
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": [],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 3434525334342,
+      "photo": "/media/avatars/300-2.jpg",
+      "firstName": "Андрій",
+      "lastName": "Шевченко",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "IOS Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 2
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 1,
+            "path": "https://github.com/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Work.ua"
+      }
+    },
+    {
+      "id": 23452234,
+      "photo": "/media/avatars/300-3.jpg",
+      "firstName": "Інна",
+      "lastName": "Косач",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "Android Developer",
+      "checked": 1,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 10
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444444", "380944444444"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "Завантажено з файлу"
+      }
+    },
+    {
+      "id": 52334,
+      "photo": "/media/avatars/300-5.jpg",
+      "firstName": "Олег",
+      "lastName": "Козак",
+      "location": {
+        "country": "Україна",
+        "city": "Львів"
+      },
+      "specialty": "UI/UX Designer",
+      "checked": 0,
+      "experience": [
+        {
+          "company": "DotCode",
+          "position": "Front-End Developer",
+          "yearsExperience": 6
+        }
+      ],
+      "skils": ["Web-desigh", "Marketing"],
+      "contacts": {
+        "phone": ["380944444444", "380944444445", "380944444446"],
+        "email": ["sdfasdfa@gmail.com", "sdfasdfa@gmail.com"],
+        "messengers": [
+          {
+            "id":1,
+            "name": 0,
+            "link": "380985656556"
+          },
+          {
+            "id":2,
+            "name": 3,
+            "link": "380985656556"
+          }
+        ],
+        "socialLinks": [
+          {
+            "id": 1,
+            "name": 0,
+            "path": "https://www.linkedin.com/"
+          },
+          {
+            "id": 2,
+            "name": 1,
+            "path": "https://github.com/"
+          },
+          {
+            "id": 3,
+            "name": 2,
+            "path": "https://uk-ua.facebook.com/people/%D0%9F%D0%B5%D1%82%D1%80%D0%BE-%D0%9F%D0%B5%D1%82%D1%80%D0%BE/100081560331704/"
+          }
+        ]
+      },
+      "aboutMyself": {
+        "text": "Hey! I'm Max. I'm a product ux/ui and digital designer. I help teams, companies, and enterprises to design and launch.",
+        "file": [],
+        "GDPR": 0,
+        "source": "LinkedIn"
+      }
+    },
+    {
+      "id": 3425232344,
       "photo": "/media/avatars/300-7.jpg",
       "firstName": "Іван",
       "lastName": "Петров",
