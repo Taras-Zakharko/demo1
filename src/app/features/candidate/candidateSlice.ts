@@ -31,7 +31,7 @@ export const candidateSlice = createSlice({
     create: (state, action: PayloadAction<any>)=>{
       // axios.post('', {data: action.payload})
       state.users.push(action.payload)
-    },
+    }
   },
 })
 

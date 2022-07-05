@@ -32,26 +32,27 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       company === '' &&
       skils.length === 0 &&
       startYear === 0 &&
-      endYear === 1
+      (endYear === 0 || endYear === 1)
     ) {
       setFilterUsers(allUsers)
-    }
-    if (country !== '') {
-      setFilterUsers(allUsers.filter((user) => user.location.country.includes(country)))
-    }
-    if (city !== '') {
-      setFilterUsers(allUsers.filter((user) => user.location.city.includes(city)))
-    }
-    if (position !== '') {
-      setFilterUsers(allUsers.filter((user) => user.experience[0].position.includes(position)))
-    }
-    if (company !== '') {
-      setFilterUsers(allUsers.filter((user) => user.experience[0].company.includes(company)))
-    }
-    if ((startYear !== 0 && endYear !== 0) || (startYear !== 0 && endYear !== 1)) {
+    } else if (startYear === 0 && endYear === 0) {
       setFilterUsers(
         allUsers.filter(
           (user: any) =>
+            user.location.country.includes(country) &&
+            user.location.city.includes(city) &&
+            user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+            user.experience[0].company.toLowerCase().includes(company.toLowerCase())
+        )
+      )
+    } else {
+      setFilterUsers(
+        allUsers.filter(
+          (user: any) =>
+            user.location.country.includes(country) &&
+            user.location.city.includes(city) &&
+            user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+            user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
             user.experience[0].yearsExperience >= startYear &&
             user.experience[0].yearsExperience <= endYear
         )
@@ -76,19 +77,21 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const lastIndex = currentPage * perPage
   const firstIndex = lastIndex - perPage
 
-  const currentUser = filterUsers.slice(firstIndex, lastIndex);
+  const currentUser = filterUsers.slice(firstIndex, lastIndex)
 
-  const pageNumbers = []
+  const pageNumbers: any[] = []
 
   for (let i = 1; i <= Math.ceil(filterUsers.length / perPage); i++) {
     pageNumbers.push(i)
   }
-  
-  const paginate = (pageNum: number) => 
-    setCurrentPage(pageNum);
+
+  const paginate = (pageNum: number) => setCurrentPage(pageNum)
   const nextPage = () => setCurrentPage((prew) => prew + 1)
   const prevPage = () => setCurrentPage((prev) => prev - 1)
-  console.log(currentUser)
+
+  let down = 0
+  let up = 0
+
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -117,12 +120,25 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
         <div className='table-responsive'>
           {filterUsers.length > 0 ? (
             <>
-              <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
+              <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 candidate__list'>
                 {/* begin::Table head */}
 
                 {/* end::Table head */}
                 {/* begin::Table body */}
-                <tbody>
+                <tbody
+                  onTouchStart={(e) => {
+                    down = e.changedTouches[0].clientX
+                  }}
+                  onTouchEnd={(e) => {
+                    up = e.changedTouches[0].clientX
+                    if (down > up && currentPage !== 1) {
+                      prevPage()
+                    }
+                    if (down < up && currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                      nextPage()
+                    }
+                  }}
+                >
                   {currentUser.map((user: any) => (
                     <CandidateCard key={user.id} user={user} />
                   ))}
@@ -130,49 +146,51 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
                 {/* end::Table body */}
               </table>
-              <ul className='pagination '>
-                {currentPage === 1 ? (
-                  <li className='page-item previous disabled'>
-                    <a href='#' className='page-link' onClick={() => prevPage()}>
-                      <i className='previous'></i>
-                    </a>
-                  </li>
-                ) : (
-                  <li className='page-item previous'>
-                    <a href='#' className='page-link' onClick={() => prevPage()}>
-                      <i className='previous'></i>
-                    </a>
-                  </li>
-                )}
-                {pageNumbers.map((num) => {
-                  return currentPage === num ? (
-                    <li key={num} className='page-item active'>
-                      <a href='#' className='page-link' onClick={() => paginate(num)}>
-                        {num}
+              {filterUsers.length > perPage ? (
+                <ul className='pagination '>
+                  {currentPage === 1 ? (
+                    <li className='page-item previous disabled'>
+                      <a href='#' className='page-link' onClick={() => prevPage()}>
+                        <i className='previous'></i>
                       </a>
                     </li>
                   ) : (
-                    <li key={num} className='page-item'>
-                      <a href='#' className='page-link' onClick={() => paginate(num)}>
-                        {num}
+                    <li className='page-item previous'>
+                      <a href='#' className='page-link' onClick={() => prevPage()}>
+                        <i className='previous'></i>
                       </a>
                     </li>
-                  )
-                })}
-                {currentPage === pageNumbers[pageNumbers.length - 1] ? (
-                  <li className='page-item next disabled'>
-                    <a href='#' className='page-link' onClick={() => nextPage()}>
-                      <i className='next'></i>
-                    </a>
-                  </li>
-                ) : (
-                  <li className='page-item next'>
-                    <a href='#' className='page-link' onClick={() => nextPage()}>
-                      <i className='next'></i>
-                    </a>
-                  </li>
-                )}
-              </ul>
+                  )}
+                  {pageNumbers.map((num) => {
+                    return currentPage === num ? (
+                      <li key={num} className='page-item active'>
+                        <a href='#' className='page-link' onClick={() => paginate(num)}>
+                          {num}
+                        </a>
+                      </li>
+                    ) : (
+                      <li key={num} className='page-item'>
+                        <a href='#' className='page-link' onClick={() => paginate(num)}>
+                          {num}
+                        </a>
+                      </li>
+                    )
+                  })}
+                  {currentPage === pageNumbers[pageNumbers.length - 1] ? (
+                    <li className='page-item next disabled'>
+                      <a href='#' className='page-link' onClick={() => nextPage()}>
+                        <i className='next'></i>
+                      </a>
+                    </li>
+                  ) : (
+                    <li className='page-item next'>
+                      <a href='#' className='page-link' onClick={() => nextPage()}>
+                        <i className='next'></i>
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              ) : null}
             </>
           ) : (
             <div className='w-100 d-flex flex-center flex-column h-500px'>

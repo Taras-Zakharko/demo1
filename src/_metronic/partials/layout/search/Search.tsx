@@ -1,11 +1,18 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {SearchComponent} from '../../../assets/ts/components'
-import { KTSVG } from '../../../helpers'
+import {KTSVG} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
-import { setCountry, setCity, setCompany, setPosition, setSkils, setYearEnd, setYearStart} from '../../../../app/features/search/searchSlice'
-
+import {
+  setCountry,
+  setCity,
+  setCompany,
+  setPosition,
+  setSkils,
+  setYearEnd,
+  setYearStart,
+} from '../../../../app/features/search/searchSlice'
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -30,8 +37,10 @@ const Search: FC = () => {
   const searchToogleContent = useRef<HTMLDivElement | null>(null)
   const clearFilter = useRef<HTMLButtonElement | null>(null)
 
-  const dispatch = useDispatch();
-  const searchObj = useSelector((state: RootState) => state.search);
+  const dispatch = useDispatch()
+  const searchObj = useSelector((state: RootState) => state.search)
+
+  const [filterListArr, setFilterListArr] = useState<any>([])
 
   function createFilterList() {
     let inputValueRes = ''
@@ -40,33 +49,32 @@ const Search: FC = () => {
     let companyValue = ''
     let skilsValue = ''
     let experienceValue = ''
-    
-    
+    setFilterListArr([])
 
     if (inputSearch.current !== null) {
       if (countriesSelect.current?.value !== '' && citiesSelect.current?.value !== '') {
-        locationValue = `[локація: ${countriesSelect.current?.value}, ${citiesSelect.current?.value}]`
+        locationValue = `${countriesSelect.current?.value}, ${citiesSelect.current?.value}`
       } else if (countriesSelect.current?.value !== '' && citiesSelect.current?.value === '') {
-        locationValue = `[локація: ${countriesSelect.current?.value}]`
-      }else{
+        locationValue = `${countriesSelect.current?.value}`
+      } else {
         locationValue = ''
       }
 
       if (positionSelect.current?.value !== '') {
-        posinionValue = `[посада: ${positionSelect.current?.value} ]`
-      }else{
+        posinionValue = `${positionSelect.current?.value}`
+      } else {
         posinionValue = ''
       }
 
       if (companySelect.current?.value !== '') {
-        companyValue = `[місце роботи: ${companySelect.current?.value} ]`
-      }else{
+        companyValue = `${companySelect.current?.value}`
+      } else {
         companyValue = ''
       }
 
       if (skilsSelect.current?.value !== '') {
-        skilsValue = `[навички: ${skilsSelect.current?.value} ]`
-      }else{
+        skilsValue = `${skilsSelect.current?.value}`
+      } else {
         skilsValue = ''
       }
 
@@ -74,53 +82,56 @@ const Search: FC = () => {
         experienceStartSelect.current?.value !== '' &&
         experienceEndSelect.current?.value !== ''
       ) {
-        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} до ${experienceEndSelect.current?.value} років]`
+        experienceValue = `від ${experienceStartSelect.current?.value} до ${experienceEndSelect.current?.value} років`
       } else if (
         experienceStartSelect.current?.value !== '' &&
         experienceEndSelect.current?.value === ''
       ) {
-        experienceValue = `[досвід: від ${experienceStartSelect.current?.value} років]`
+        experienceValue = `від ${experienceStartSelect.current?.value} років`
       } else if (
         experienceStartSelect.current?.value === '' &&
         experienceEndSelect.current?.value !== ''
       ) {
-        experienceValue = `[досвід: до ${experienceEndSelect.current?.value} років]`
+        experienceValue = `до ${experienceEndSelect.current?.value} років`
       } else {
         experienceValue = ''
       }
 
-      inputValueRes = `${locationValue}${posinionValue}${companyValue}${skilsValue}${experienceValue}`
-      inputSearch.current.value = `${inputValueRes}`;
+      inputValueRes = `${locationValue};${posinionValue};${companyValue};${skilsValue};${experienceValue}`
+      setFilterListArr(inputValueRes.split(';'))
+
       
+
       dispatch(setCountry(countriesSelect.current!.value))
       dispatch(setCity(citiesSelect.current!.value))
       dispatch(setPosition(positionSelect.current!.value))
       dispatch(setCompany(companySelect.current!.value))
       dispatch(setSkils(setSkilsArr(skilsSelect.current!.value)))
-      dispatch(setYearEnd(+experienceStartSelect.current!.value))
-      dispatch(setYearStart(+experienceEndSelect.current!.value))
+      dispatch(setYearEnd(+experienceEndSelect.current!.value))
+      dispatch(setYearStart(+experienceStartSelect.current!.value))
 
-      if(inputSearch.current.value !== ''){
-      clearFilter.current!.classList.remove('d-none')
+      
     }
-    }
+    
     document.querySelector('#kt_header_search_toggle')?.classList.remove('active')
     document.querySelector('#kt_header_search_toggle')?.classList.remove('show')
     document.querySelector('#kt_header_search')?.classList.remove('show')
     document.querySelector('#kt_header_search')?.classList.remove('menu-dropdown')
     searchToogleContent.current!.classList.remove('show')
-    
   }
 
-  function clearSearchForm () {
-    countriesSelect.current!.value = '';
-    citiesSelect.current!.value = '';
-    positionSelect.current!.value = '';
-    companySelect.current!.value = '';
-    skilsSelect.current!.value = '';
-    experienceStartSelect.current!.value = '';
-    experienceEndSelect.current!.value = '';
-    inputSearch.current!.value = '';
+  filterListArr.map((str: string) => (str!=='') ? clearFilter.current!.classList.remove('d-none') : null )
+  
+  function clearSearchForm() {
+    countriesSelect.current!.value = ''
+    citiesSelect.current!.value = ''
+    positionSelect.current!.value = ''
+    companySelect.current!.value = ''
+    skilsSelect.current!.value = ''
+    experienceStartSelect.current!.value = ''
+    experienceEndSelect.current!.value = ''
+    inputSearch.current!.value = ''
+
     dispatch(setCountry(''))
     dispatch(setCity(''))
     dispatch(setPosition(''))
@@ -128,19 +139,21 @@ const Search: FC = () => {
     dispatch(setSkils([]))
     dispatch(setYearEnd(1))
     dispatch(setYearStart(0))
+    setFilterListArr([])
     clearFilter.current!.classList.add('d-none')
   }
 
   function setSkilsArr(str: string) {
-    let arr = str.replaceAll(' ', ',').split(',').filter((str)=> str !== '');
+    let arr = str
+      .replaceAll(' ', ',')
+      .split(',')
+      .filter((str) => str !== '')
     return arr
-    
   }
-  
 
   useEffect(() => {
     if (myCountry.length) {
-      setMyTowns(towns => (towns = myCountry[0].cities))
+      setMyTowns((towns) => (towns = myCountry[0].cities))
     }
   }, [myCountry])
 
@@ -164,13 +177,11 @@ const Search: FC = () => {
         resultsElement.current!.classList.add('d-none')
         // Show empty message
         emptyElement.current!.classList.remove('d-none')
-        
       } else {
         // Show results
         resultsElement.current!.classList.remove('d-none')
         // Hide empty message
         emptyElement.current!.classList.add('d-none')
-        
       }
 
       // Complete search
@@ -195,7 +206,6 @@ const Search: FC = () => {
     searchObject!.on('kt.search.process', processs)
     // Clear handler
     searchObject!.on('kt.search.clear', clear)
-    
   }, [])
 
   return (
@@ -219,28 +229,37 @@ const Search: FC = () => {
           id='kt_header_search_toggle'
         >
           <KTSVG
-                  path='/media/icons/duotune/general/gen021.svg'
-                  className='svg-icon-2x svg-icon-gray-600 ms-4 d-sm-none'
-                />
+            path='/media/icons/duotune/general/gen021.svg'
+            className='svg-icon-2x svg-icon-gray-600 ms-4 d-sm-none btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+          />
           <input
             ref={inputSearch}
             type='text'
-            className='form-control form-control-solid pe-10 w-lg-750px w-md-550px w-sm-250px d-none d-sm-block h-30px justify-content-end'
-            placeholder='Пошук'
+            className='form-control form-control-solid pe-10 w-lg-750px w-md-550px w-sm-350px d-none d-sm-block h-40px justify-content-end'
           />
-          <button ref={clearFilter} className=' btn p-0 position-absolute cursor-pointer end-0 d-none' onClick={()=> clearSearchForm ()}>
           <KTSVG
-                  path='/media/icons/duotune/abstract/abs012.svg'
-                  className='svg-icon-2x svg-icon-gray-600 ms-4 '
-                />
+            path='/media/icons/duotune/general/gen021.svg'
+            className='svg-icon-2x svg-icon-gray-600 ms-4 d-none d-sm-block position-absolute'
+          />
+          <div id='filtersDiv' className='position-absolute ms-15 d-flex'>
+            {filterListArr.map((str:string, i: number) => str !== '' ? (<div key={i} className='h-30 border d-none d-sm-block bg-secondary p-1 ps-2 pe-2 rounded me-3'>{str}</div>) : null)}
+          </div>
+          <button
+            ref={clearFilter}
+            className=' btn p-0 position-absolute cursor-pointer end-0 d-none'
+            onClick={() => clearSearchForm()}
+          >
+            <KTSVG
+              path='/media/icons/duotune/abstract/abs012.svg'
+              className='svg-icon-2x svg-icon-gray-600 ms-4 '
+            />
           </button>
-          
         </div>
 
         <div
-        ref={searchToogleContent}
+          ref={searchToogleContent}
           data-kt-search-element='content'
-          className='menu menu-sub menu-sub-dropdown p-7 w-325px w-md-800px'
+          className='menu menu-sub menu-sub-dropdown p-7 w-lg-750px w-md-550px w-sm-350px w-100'
         >
           <div
             className={`${menuState === 'main' ? '' : 'd-none'}`}
@@ -248,8 +267,15 @@ const Search: FC = () => {
             data-kt-search-element='wrapper'
           >
             <div className='row align-items-center mb-4'>
+              <input
+                type='text'
+                className='form-control form-control-solid pe-10 mb-6 d-sm-none h-40px justify-content-end'
+                placeholder='Пошук'
+              />
               <div className='col-lg-3 fs-6'>
-                <label htmlFor=''>Локація</label>
+                <label htmlFor='' className='fs-6 mb-5 mb-lg-0'>
+                  Локація
+                </label>
               </div>
               <div className='col-lg-9'>
                 <div className='row'>
@@ -258,7 +284,7 @@ const Search: FC = () => {
                       ref={countriesSelect}
                       name='country'
                       id='country'
-                      className='form-select form-select-solid'
+                      className='form-select form-select-solid mb-5 mb-lg-0'
                       aria-label='Select example'
                       onChange={(e) => {
                         if (countriesSelect.current !== null) {
@@ -270,7 +296,7 @@ const Search: FC = () => {
                             return country
                           })
                           countriesSelect.current.value = e.target.value
-                          // dispatch(setCountry(e.target.value))                          
+                          // dispatch(setCountry(e.target.value))
                         }
                       }}
                     >
@@ -289,7 +315,7 @@ const Search: FC = () => {
                       ref={citiesSelect}
                       name='town'
                       id='town'
-                      className='form-select form-select-solid'
+                      className='form-select form-select-solid mb-5 mb-lg-0'
                       aria-label='Select example'
                       onChange={(e) => {
                         if (citiesSelect.current !== null) {
@@ -310,7 +336,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6'>
+              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
                 <label htmlFor=''>Посада</label>
               </div>
               <div className='col-lg-9'>
@@ -327,7 +353,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6'>
+              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
                 <label htmlFor=''>Місце роботи</label>
               </div>
               <div className='col-lg-9'>
@@ -344,7 +370,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6'>
+              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
                 <label htmlFor=''>Навички</label>
               </div>
               <div className='col-lg-9'>
@@ -355,7 +381,7 @@ const Search: FC = () => {
                       type='text'
                       className='form-control form-control-solid'
                       // onInput={(e)=> {setSkilsArr(e.currentTarget.value)}
-                        // }
+                      // }
                     />
                   </div>
                 </div>
@@ -363,23 +389,23 @@ const Search: FC = () => {
             </div>
 
             <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6'>
+              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
                 <label htmlFor=''>Років досвіду</label>
               </div>
               <div className='col-lg-9'>
                 <div className='row'>
-                  <div className='col-lg-4'>
+                  <div className='col-lg-4 w-50 w-lg-25'>
                     <input
                       ref={experienceStartSelect}
                       type='number'
                       placeholder='Від'
-                      className='form-control form-control-solid'
+                      className='form-control form-control-solid mb-5 mb-lg-0'
                       min={0}
                       max={100}
                       // onChange={(e)=>dispatch(setYearStart(+e.target.value))}
                     />
                   </div>
-                  <div className='col-lg-4'>
+                  <div className='col-lg-4 w-50 w-lg-25'>
                     <input
                       ref={experienceEndSelect}
                       type='number'
@@ -394,7 +420,7 @@ const Search: FC = () => {
               </div>
             </div>
             <div className='row align-items-center mb-4 justify-content-end'>
-              <div className='col-lg-3 d-flex justify-content-end'>
+              <div className='col-lg-3 d-flex justify-content-center justify-content-lg-end'>
                 <button
                   className='btn btn-primary w-88 fs-5 fs-6 ps-8 pe-8 '
                   onClick={() => createFilterList()}
