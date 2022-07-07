@@ -7,6 +7,15 @@ export interface CandidateState {
   users: Array<any>
 }
 
+const url ='https://countriesnow.space/api/v0.1/countries';
+fetch(url)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data.data);
+  });
+
 const initialState: CandidateState = {
   users: data.Users,
 }

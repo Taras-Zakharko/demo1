@@ -2,7 +2,7 @@
 import React, {FC} from 'react'
 import {TablesWidget10} from '../../../_metronic/partials/widgets'
 
-const CandidatesPage: FC = () => <TablesWidget10 className='card-xxl-stretch mb-5 mb-xl-8' />
+const CandidatesPage: FC = () => <TablesWidget10 className='card-xxl-stretch mb-5 mt-10 mb-xl-8' />
 
 const CandidatesWrapper: FC = () => {
   
