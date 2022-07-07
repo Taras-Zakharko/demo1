@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 
 import CandidateContacts from '../../modules/CandidateContacts';
 import CandidateExperience from '../../modules/CandidateExperience';

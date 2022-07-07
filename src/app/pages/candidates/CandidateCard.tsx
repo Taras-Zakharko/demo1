@@ -24,7 +24,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
       <tr className='border-0' id={user.id}>
         <td>
           <div className='d-flex align-items-center'>
-            <div className='symbol symbol-45px me-5'>
+            <div className='symbol symbol-60px me-5'>
               <img src={toAbsoluteUrl(`${user.photo}`)} alt='' />
             </div>
             <div className='d-flex justify-content-start flex-column'>
