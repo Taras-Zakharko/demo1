@@ -88,40 +88,48 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
       >
         <div className='accordion-body'>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3'>
+            <div className='col-lg-3 d-flex justify-content-between'>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Телефон
               </label>
+              <button
+                className='btn ps-0 pt-0 text-primary d-block d-lg-none fs-7'
+                onClick={() => setPhoneNumber((phone) => phone.concat(''))}
+              >
+                Додати ще
+              </button>
             </div>
-            <div className='col-lg-6'>
+            <div className='col-lg-7'>
               {phoneNumber.map((number, i) => {
                 if (i === 0) {
                   return (
-                    <input
-                      key={i}
-                      type='text'
-                      className='form-control form-control-solid w-100 h-40px mb-4'
-                      value={number}
-                      onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
-                    />
-                  )
-                } else {
-                  return (
-                    <div className='row position-relative' id={'phone-' + i}>
-                      <div className='col-lg-12'>
+                    <div className='col-12 col-lg-11'>
                         <input
                           key={i}
                           type='text'
-                          className='form-control form-control-solid w-100 h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-4'
                           value={number}
                           onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
                         />
                       </div>
-                      <div className='col-lg-2 position-absolute start-100 top-25'>
+                  )
+                } else {
+                  return (
+                    <div className='row position-relative' id={'phone-' + i}>
+                      <div className='col-11'>
+                        <input
+                          key={i}
+                          type='text'
+                          className='form-control form-control-solid h-40px mb-4'
+                          value={number}
+                          onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
+                        />
+                      </div>
+                      <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setPhoneNumber, 'phone')}>
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-dark ms-4'
+                            className='svg-icon-1tx svg-icon-muted ms-4'
                           />
                         </button>
                       </div>
@@ -129,9 +137,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 }
               })}
-
               <button
-                className='btn ps-0 pt-0 text-primary fs-7'
+                className='btn ps-0 pt-0 d-none d-lg-block text-primary fs-7'
                 onClick={() => setPhoneNumber((phone) => phone.concat(''))}
               >
                 Додати ще
@@ -140,40 +147,48 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
             <div className='col-lg-3'></div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3'>
+            <div className='col-lg-3 d-flex justify-content-between'>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Ел. пошта
               </label>
+              <button
+                className='btn ps-0 pt-0 text-primary d-block d-lg-none fs-7'
+                onClick={() => setEmail((adres) => adres.concat(''))}
+              >
+                Додати ще
+              </button>
             </div>
-            <div className='col-lg-6'>
+            <div className='col-lg-7'>
               {email.map((adres, i) => {
                 if (i === 0) {
                   return (
-                    <input
-                      key={i}
-                      type='email'
-                      className='form-control form-control-solid w-100 h-40px mb-4'
-                      value={adres}
-                      onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
-                    />
-                  )
-                } else {
-                  return (
-                    <div className='row position-relative' id={'email-' + i}>
-                      <div className='col-lg-12'>
+                    <div className='col-12 col-lg-11'>
                         <input
                           key={i}
                           type='email'
-                          className='form-control form-control-solid w-100 h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-4'
                           value={adres}
                           onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                         />
                       </div>
-                      <div className='col-lg-2 position-absolute start-100 top-25'>
+                  )
+                } else {
+                  return (
+                    <div className='row position-relative' id={'email-' + i}>
+                      <div className='col-12 col-lg-11'>
+                        <input
+                          key={i}
+                          type='email'
+                          className='form-control form-control-solid h-40px mb-4'
+                          value={adres}
+                          onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
+                        />
+                      </div>
+                      <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setEmail, 'email')}>
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-dark ms-4'
+                            className='svg-icon-1tx svg-icon-muted ms-4'
                           />
                         </button>
                       </div>
@@ -183,7 +198,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               })}
 
               <button
-                className='btn ps-0 pt-0 text-primary fs-7'
+                className='btn ps-0 pt-0 text-primary d-none d-lg-block fs-7'
                 onClick={() => setEmail((adres) => adres.concat(''))}
               >
                 Додати ще
@@ -192,17 +207,25 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
             <div className='col-lg-3'></div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3'>
+            <div className='col-lg-3 d-flex justify-content-between'>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Месенджери
               </label>
+              <button
+                className='btn ps-0 text-primary d-block d-lg-none fs-7'
+                onClick={() =>
+                  setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
+                }
+              >
+                Додати ще
+              </button>
             </div>
             <div className='col-lg-9'>
               {messenger.map((mess, i) => {
                 if (i === 0) {
                   return (
-                    <div className='row mb-4 align-items-center'>
-                      <div className='col-lg-4'>
+                    <div className='row mb-6 align-items-center'>
+                      <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
@@ -224,7 +247,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           <option value='3'>Skype</option>
                         </select>
                       </div>
-                      <div className='col-lg-6'>
+                      <div className='col-lg-7'>
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
@@ -245,8 +268,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row mb-4 align-items-center' id={'messenger-' + mess.id}>
-                      <div className='col-lg-4'>
+                    <div className='row mb-6 align-items-center' id={'messenger-' + mess.id}>
+                      <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
@@ -268,7 +291,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           <option value='3'>Skype</option>
                         </select>
                       </div>
-                      <div className='col-lg-6'>
+                      <div className='col-11 col-lg-7'>
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
@@ -286,14 +309,14 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           placeholder='ID'
                         />
                       </div>
-                      <div className='col-lg-1'>
+                      <div className='col-1 text-center'>
                         <button
-                          className='btn p-0 cursor-pointer'
+                          className='btn p-0 cursor-pointer '
                           onClick={() => removeSelect(setMessenger, i, 'messengers')}
                         >
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-dark ms-4'
+                            className='svg-icon-1tx svg-icon-muted'
                           />
                         </button>
                       </div>
@@ -302,7 +325,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 }
               })}
               <button
-                className='btn ps-0 text-primary fs-7'
+                className='btn ps-0 text-primary d-none d-lg-block fs-7'
                 onClick={() =>
                   setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
                 }
@@ -312,17 +335,25 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
             </div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3'>
+            <div className='col-lg-3 d-flex justify-content-between'>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Посилання
               </label>
+              <button
+                className='btn ps-0 text-primary d-block d-lg-none fs-7'
+                onClick={() =>
+                  setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
+                }
+              >
+                Додати ще
+              </button>
             </div>
             <div className='col-lg-9'>
               {userLinks.map((link, i) => {
                 if (i === 0) {
                   return (
-                    <div className='row mb-4 align-items-center'>
-                      <div className='col-lg-4'>
+                    <div className='row mb-6 align-items-center'>
+                      <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
@@ -343,7 +374,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           <option value='2'>Facebook</option>
                         </select>
                       </div>
-                      <div className='col-lg-6'>
+                      <div className='col-lg-7'>
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
@@ -365,8 +396,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row mb-4 align-items-center' id={'user-link-' + link.id}>
-                      <div className='col-lg-4'>
+                    <div className='row mb-6 align-items-center' id={'user-link-' + link.id}>
+                      <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
@@ -387,7 +418,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           <option value='2'>Facebook</option>
                         </select>
                       </div>
-                      <div className='col-lg-6'>
+                      <div className='col-11 col-lg-7'>
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
@@ -405,14 +436,14 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           placeholder='URL'
                         />
                       </div>
-                      <div className='col-lg-1'>
+                      <div className='col-1 text-center'>
                         <button
                           className='btn p-0 cursor-pointer'
                           onClick={() => removeSelect(setUserLinks, i, 'socialLinks')}
                         >
                           <KTSVG
                             path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-dark ms-4'
+                            className='svg-icon-1tx svg-icon-muted'
                           />
                         </button>
                       </div>
@@ -422,7 +453,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               })}
 
               <button
-                className='btn ps-0 text-primary fs-7'
+                className='btn ps-0 text-primary d-none d-lg-block fs-7'
                 onClick={() =>
                   setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
                 }

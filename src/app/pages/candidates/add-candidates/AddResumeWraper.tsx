@@ -58,7 +58,7 @@ const AddResumeWraper = () => {
   }
 
   return (
-    <div className='row'>
+    <div className='row pt-10'>
       <div className='col-lg-2'></div>
       <div className='col-lg-8 d-flex flex-column flex-center'>
         <h2 className='fs-2 fw-boldest text-center'>
@@ -92,7 +92,7 @@ const AddResumeWraper = () => {
             </Link>
           </li>
         </ul>
-        <div className='tab-content card w-550px p-10 fs-4' id='myTabContent'>
+        <div className='tab-content card w-lg-550px p-10 fs-4' id='myTabContent'>
           <div
             ref={addFileContent}
             className='tab-pane fade active show text-center'

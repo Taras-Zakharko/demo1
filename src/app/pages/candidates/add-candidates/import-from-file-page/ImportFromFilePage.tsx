@@ -80,7 +80,7 @@ const ImportFromFilePage = () => {
 
   return (
     <>
-      <div className='row'>
+      <div className='row pt-10'>
         <div className='col-lg-12'>
           <h2 className='fs-2 fw-boldest'>Імпорт файлу Oleksandr_Developer.pdf</h2>
         </div>
@@ -99,7 +99,7 @@ const ImportFromFilePage = () => {
             <button className='btn btn-primary h-50px'>Зберегти</button>
           </div>
         </div>
-        <div className='col-lg-6'>
+        <div className='col-lg-6 mt-4'>
           <PdfWraper />
         </div>
       </div>

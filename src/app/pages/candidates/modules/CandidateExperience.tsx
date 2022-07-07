@@ -1,10 +1,6 @@
-import React, {
-  FC,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import {KTSVG} from '../../../../_metronic/helpers'
+import React, {FC, useEffect, useRef, useState} from 'react'
+import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
+import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 
 interface ICandidateExperience {
   experienceRef?: any
@@ -13,33 +9,12 @@ interface ICandidateExperience {
 }
 
 const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user}) => {
-  const skilsInputRef = useRef<HTMLInputElement>(null)
 
-  const [skilsArr, setSkilsArr] = useState<string[]>(user.skils)
+  const tagifyRef = useRef()
 
-  function addSkilFunk() {
-    if (skilsInputRef.current !== null) {
-      if (skilsInputRef.current.value !== '') {
-        setSkilsArr((arr: string[]) => {
-          if (skilsInputRef.current !== null) {
-            return arr.concat(skilsInputRef.current.value)
-          } else {
-            return arr
-          }
-        })
-      }
-    }
-  }
+  const [skilsArr, setSkilsArr] = useState<any[]>(user.skils)
 
-  function removeSkil(index: number) {
-    setSkilsArr((arr) => {
-      arr.splice(index, 1)
-      setEditUser((user: any) => ({...user, skils: [...arr]}))
-      return arr
-    })
-  }
-
-  useEffect(() => {
+  useEffect(() => {    
     setEditUser((user: any) => ({...user, skils: [...skilsArr]}))
   }, [skilsArr, setEditUser])
 
@@ -64,14 +39,14 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
         data-bs-parent='#kt_accordion_1'
       >
         <div className='accordion-body'>
-          <div className='row border-bottom mb-4'>
+          <div className='row mb-4'>
             <div className='row d-flex align-items-center mb-4'>
               <div className='col-lg-3'>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Поточне місце роботи
                 </label>
               </div>
-              <div className='col-lg-6'>
+              <div className='col-lg-9'>
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
@@ -97,7 +72,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   Поточна посада
                 </label>
               </div>
-              <div className='col-lg-6'>
+              <div className='col-lg-9'>
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
@@ -127,7 +102,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
               <div className='col-lg-6'>
                 <input
                   type='number'
-                  className='form-control form-control-solid w-25 h-40px'
+                  className='form-control form-control-solid w-50 w-md-25 h-40px'
                   min='0'
                   value={user.experience.at(-1).yearsExperience}
                   onChange={(e) =>
@@ -154,48 +129,14 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   Навички
                 </label>
               </div>
-              <div className='col-lg-6'>
-                <input
-                  ref={skilsInputRef}
-                  type='text'
+              <div className='col-lg-9'>
+                <Tags
+                  tagifyRef={tagifyRef}                    
+                  value={skilsArr}
                   className='form-control form-control-solid w-100 h-40px'
-                  placeholder='Наприклад, маркетинг'
+                  onChange={(e)=> setSkilsArr(e.detail.tagify.value)}
                 />
               </div>
-              <div className='col-lg-3'>
-                <button
-                  className='btn btn-light-primary'
-                  onClick={() => {
-                    addSkilFunk()
-                    if (skilsInputRef.current !== null) {
-                      skilsInputRef.current.value = ''
-                    }
-                  }}
-                >
-                  Додати
-                </button>
-              </div>
-            </div>
-            <div className='row d-flex align-items-center mb-4'>
-              <div className='col-lg-3'></div>
-              <div className='col-lg-6'>
-                <div className='skils'>
-                  {skilsArr.map((skil: string, i: number) => {
-                    return (
-                      <li key={i} id={'skil-' + i} className='d-flex align-items-center py-2'>
-                        {skil}{' '}
-                        <button className='btn p-0' onClick={() => removeSkil(i)}>
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-dark ms-4'
-                          />
-                        </button>
-                      </li>
-                    )
-                  })}
-                </div>
-              </div>
-              <div className='col-lg-3'></div>
             </div>
           </div>
         </div>

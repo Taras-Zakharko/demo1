@@ -98,24 +98,27 @@ function CreateCandidatePage() {
           <div className='card mb-5 mb-xl-10 position-relative'>
             <div className='card-header border-bottom-0 position-absolute z-index-1 w-100 p-0'>
               <div className='card-title m-0 w-100 justify-content-between'>
-                <Link to='/candidates' className='fw-bolder m-0 position-fixed end-85'>
+                <div className='d-flex'>
+                <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
                   <KTSVG
                     path='/media/icons/duotune/arrows/arr002.svg'
-                    className='svg-icon-2x svg-icon-dark me-4'
+                    className='svg-icon-2x svg-icon-primary me-4'
                   />
                 </Link>
                 <h2 className='fs-2 fw-boldest'>Новий кандидат</h2>
+                </div>
+                
                 <Link to={'/add'} className='btn btn-sm btn-light-primary fs-5'>
                 <KTSVG
                     path='/media/icons/duotune/files/fil029.svg'
                     className='svg-icon-1x svg-icon-dark me-4'
                   />
-                  Імпортувати з файлу
+                  <span className='d-none d-lg-inline-block'>Імпортувати з файлу</span> 
                 </Link>
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-10 mt-20 flex-row'>
+          <div ref={infoRef} className='card p-10 mt-20 row'>
             <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser}/>
             <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
           </div>
@@ -126,7 +129,7 @@ function CreateCandidatePage() {
           </div>
         </div>
         <div className='col-lg-2'>
-          <div className='row position-fixed top-25'>
+          <div className='row position-fixed top-25 d-none d-lg-block'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
               className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'

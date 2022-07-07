@@ -56,13 +56,13 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user})
             </div>
           </div>
           <div className='row'>
-            <div className='row d-flex align-items-center mb-4 mt-4'>
+            <div className='row d-flex align-items-center mb-4 mt-4 pe-0'>
               <div className='col-lg-3'>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
                   GDPR
                 </label>
               </div>
-              <div className='col-lg-8'>
+              <div className='col-lg-9 pe-0'>
                 <select
                   className='form-select form-select-solid border-0 text-muted'
                   aria-label='Select example'
@@ -70,28 +70,29 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user})
                   value={user.aboutMyself.GDPR}
                 >
                   <option value='1'>
-                    Статус дозволу на використання персональних даних не визначено
+                  GDPR статус не визначено
                   </option>
-                  <option value='2'>Кандидат дав згоду на використаня персональних даних</option>
+                  <option value='2'>Є згода на використання персональних даних</option>
                   <option value='0'>
-                    Видалити кандидата, дозвіл не отримано або неможливо отримати
+                  Дозвіл не отримано або неможливо отримати
                   </option>
                 </select>
               </div>
             </div>
-            <div className='row d-flex align-items-center mb-4'>
+            <div className='row d-flex align-items-center mb-4 pe-0'>
               <div className='col-lg-3'>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
                   Джерело
                 </label>
               </div>
-              <div className='col-lg-6'>
+              <div className='col-12 col-lg-6 pe-0'>
                 <input
                   type='text'
-                  className='form-control form-control-solid w-75 h-40px'
+                  className='form-control form-control-solid w-100 w-lg-75 h-40px mb-3'
                   onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, source: e.target.value})}))}
                   value={user.aboutMyself.source}
                 />
+                <span className='text-gray-500 fs-7'>Де знайшли цього кандидата</span>
               </div>
             </div>
           </div>

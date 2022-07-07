@@ -27,7 +27,7 @@ const AppRoutes: FC = () => {
         <Route element={<App />}>
           <Route path='error/*' element={<ErrorsPage />} />
           <Route path='logout' element={<Logout />} />
-          {currentUser ? (
+          {/* {currentUser ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route index element={<Navigate to='/candidates' />} />
@@ -37,7 +37,9 @@ const AppRoutes: FC = () => {
               <Route path='auth/*' element={<AuthPage />} />
               <Route path='*' element={<Navigate to='/auth' />} />
             </>
-          )}
+          )} */}
+          <Route path='/*' element={<PrivateRoutes />} />
+              <Route index element={<Navigate to='/candidates' />} />
         </Route>
       </Routes>
     </BrowserRouter>
