@@ -103,9 +103,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {phoneNumber.map((number, i) => {
                 if (i === 0) {
                   return (
-                    <div className='col-12 col-lg-11'>
+                    <div key={i} className='col-12 col-lg-11'>
                         <input
-                          key={i}
                           type='text'
                           className='form-control form-control-solid h-40px mb-4'
                           value={number}
@@ -115,10 +114,9 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row position-relative' id={'phone-' + i}>
+                    <div key={i} className='row position-relative' id={'phone-' + i}>
                       <div className='col-11'>
                         <input
-                          key={i}
                           type='text'
                           className='form-control form-control-solid h-40px mb-4'
                           value={number}
@@ -162,9 +160,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {email.map((adres, i) => {
                 if (i === 0) {
                   return (
-                    <div className='col-12 col-lg-11'>
+                    <div key={i} className='col-12 col-lg-11'>
                         <input
-                          key={i}
                           type='email'
                           className='form-control form-control-solid h-40px mb-4'
                           value={adres}
@@ -174,10 +171,9 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row position-relative' id={'email-' + i}>
+                    <div key={i} className='row position-relative' id={'email-' + i}>
                       <div className='col-12 col-lg-11'>
                         <input
-                          key={i}
                           type='email'
                           className='form-control form-control-solid h-40px mb-4'
                           value={adres}
@@ -224,7 +220,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {messenger.map((mess, i) => {
                 if (i === 0) {
                   return (
-                    <div className='row mb-6 align-items-center'>
+                    <div key={i} className='row mb-6 align-items-center'>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
@@ -268,7 +264,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row mb-6 align-items-center' id={'messenger-' + mess.id}>
+                    <div key={i} className='row mb-6 align-items-center' id={'messenger-' + mess.id}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
@@ -352,7 +348,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {userLinks.map((link, i) => {
                 if (i === 0) {
                   return (
-                    <div className='row mb-6 align-items-center'>
+                    <div key={i} className='row mb-6 align-items-center'>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
@@ -396,7 +392,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div className='row mb-6 align-items-center' id={'user-link-' + link.id}>
+                    <div key={i} className='row mb-6 align-items-center' id={'user-link-' + link.id}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid'
