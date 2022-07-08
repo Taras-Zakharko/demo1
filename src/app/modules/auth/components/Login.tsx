@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+// import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
 
 const loginSchema = Yup.object().shape({
@@ -21,8 +21,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: 'email1234@gmail.com',
+  password: '123456789',
 }
 
 /*
@@ -35,6 +35,7 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
 
+  // email=email123@gmail.com&password=123456
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -42,8 +43,10 @@ export function Login() {
       setLoading(true)
       try {
         const {data: auth} = await login(values.email, values.password)
+ 
         saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
+        const {data: user} = await getUserByToken(auth.access_token)
+  
         setCurrentUser(user)
       } catch (error) {
         console.error(error)
@@ -63,7 +66,7 @@ export function Login() {
       id='kt_login_signin_form'
     >
       {/* begin::Heading */}
-      <div className='text-center mb-10'>
+      {/* <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>Sign In to Metronic</h1>
         <div className='text-gray-400 fw-bold fs-4'>
           New Here?{' '}
@@ -71,10 +74,10 @@ export function Login() {
             Create an Account
           </Link>
         </div>
-      </div>
+      </div> */}
       {/* begin::Heading */}
 
-      {formik.status ? (
+      {/* {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
           <div className='alert-text font-weight-bold'>{formik.status}</div>
         </div>
@@ -85,7 +88,7 @@ export function Login() {
             continue.
           </div>
         </div>
-      )}
+      )} */}
 
       {/* begin::Form group */}
       <div className='fv-row mb-10'>
@@ -120,13 +123,13 @@ export function Login() {
             <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
             {/* end::Label */}
             {/* begin::Link */}
-            <Link
+            {/* <Link
               to='/auth/forgot-password'
               className='link-primary fs-6 fw-bolder'
               style={{marginLeft: '5px'}}
             >
               Forgot Password ?
-            </Link>
+            </Link> */}
             {/* end::Link */}
           </div>
         </div>
@@ -172,40 +175,40 @@ export function Login() {
         </button>
 
         {/* begin::Separator */}
-        <div className='text-center text-muted text-uppercase fw-bolder mb-5'>or</div>
+        {/* <div className='text-center text-muted text-uppercase fw-bolder mb-5'>or</div> */}
         {/* end::Separator */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
+        {/* <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
             className='h-20px me-3'
           />
           Continue with Google
-        </a>
+        </a> */}
         {/* end::Google link */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
+        {/* <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/facebook-4.svg')}
             className='h-20px me-3'
           />
           Continue with Facebook
-        </a>
+        </a> */}
         {/* end::Google link */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100'>
+        {/* <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/apple-black.svg')}
             className='h-20px me-3'
           />
           Continue with Apple
-        </a>
+        </a> */}
         {/* end::Google link */}
       </div>
       {/* end::Action */}

@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import React, {FC} from 'react'
+import { useAuth } from '../../../../app/modules/auth'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {HeaderNotificationsMenu, HeaderUserMenu, QuickLinks, Search} from '../../../partials'
 import {useLayout} from '../../core'
@@ -11,6 +12,7 @@ const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
 
 const Topbar: FC = () => {
   const {config} = useLayout()
+  const {logout} = useAuth()
 
   return (
     <div className='d-flex align-items-stretch w-100 justify-content-between justify-content-sm-center flex-shrink-0'>
@@ -112,6 +114,7 @@ const Topbar: FC = () => {
           data-kt-menu-attach='parent'
           data-kt-menu-placement='bottom-end'
           data-kt-menu-flip='bottom'
+          onClick={()=>logout()}
         >
           <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='metronic' />
         </div>

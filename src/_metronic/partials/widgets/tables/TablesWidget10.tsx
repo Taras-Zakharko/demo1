@@ -5,6 +5,7 @@ import CandidateCard from '../../../../app/pages/candidates/CandidateCard'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector} from 'react-redux'
+import { useAuth } from '../../../../app/modules/auth'
 
 type Props = {
   className: string
@@ -13,6 +14,7 @@ type Props = {
 const TablesWidget10: React.FC<Props> = ({className}) => {
   const allUsers = useSelector((state: RootState) => state.candidates.users)
   const searchObj = useSelector((state: RootState) => state.search)
+
 
   const [filterUsers, setFilterUsers] = useState<any>(allUsers)
 

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import {AuthModel, UserModel} from './_models'
 
-const API_URL = process.env.REACT_APP_API_URL
+// const API_URL = process.env.REACT_APP_API_URL
+const API_URL = 'https://turbohiring.dotcode.pp.ua/api'
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`
 export const LOGIN_URL = `${API_URL}/login`
@@ -10,6 +11,7 @@ export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
+  
   return axios.post<AuthModel>(LOGIN_URL, {
     email,
     password,
@@ -24,13 +26,7 @@ export function register(
   password: string,
   password_confirmation: string
 ) {
-  return axios.post(REGISTER_URL, {
-    email,
-    first_name: firstname,
-    last_name: lastname,
-    password,
-    password_confirmation,
-  })
+  return axios.post('https://turbohiring.dotcode.pp.ua/api/register?name=asfsfasfagsfa&email=email1234@gmail.com&password=123456789&password_confirmation=123456789')
 }
 
 // Server should return object => { result: boolean } (Is Email in DB)

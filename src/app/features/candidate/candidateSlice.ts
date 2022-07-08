@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import axios from 'axios';
 // import axios from 'axios'
 // import { actions } from 'react-table'
 import data from '../../testUsers.json'
@@ -7,14 +8,23 @@ export interface CandidateState {
   users: Array<any>
 }
 
-const url ='https://countriesnow.space/api/v0.1/countries';
-fetch(url)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data.data);
-  });
+const url ='https://turbohiring.dotcode.pp.ua/candidates';
+// const url ='https://turbohiring.dotcode.pp.ua/candidates';
+const users = axios.get(url)
+.then(function (response) {
+  // handle success
+  console.log(response.data);
+  return response.data
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+.then(function () {
+  // always executed
+});
+console.log(users);
+
 
 const initialState: CandidateState = {
   users: data.Users,
