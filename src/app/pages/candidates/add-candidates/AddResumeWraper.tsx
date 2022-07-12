@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {KTSVG} from '../../../../_metronic/helpers'
 
 const AddResumeWraper = () => {
   const addFileBtn = useRef<HTMLInputElement | null>(null)

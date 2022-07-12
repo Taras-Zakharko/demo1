@@ -1,7 +1,6 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {SearchComponent} from '../../../assets/ts/components'
-import {KTSVG} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 import {
@@ -13,8 +12,7 @@ import {
   setYearEnd,
   setYearStart,
 } from '../../../../app/features/search/searchSlice'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCoffee} from '@fortawesome/free-solid-svg-icons'
+
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -263,13 +261,10 @@ const Search: FC = () => {
           </div>
           <button
             ref={clearFilter}
-            className=' btn p-0 position-absolute cursor-pointer end-10px d-none '
+            className=' btn p-0 position-absolute cursor-pointer end-10px d-none'
             onClick={() => clearSearchForm()}
           >
-            <KTSVG
-              path='/media/icons/duotune/abstract/abs012.svg'
-              className='svg-icon-1x svg-icon-gray-500 ms-4 '
-            />
+            <i className="fas fa-times fs-4"></i>
           </button>
           <div
             ref={searchToogleContent}
@@ -306,10 +301,7 @@ const Search: FC = () => {
                     className=' btn p-0 position-absolute cursor-pointer top-0 mt-2 end-10px d-none'
                     onClick={() => clearSearchForm()}
                   >
-                    <KTSVG
-                      path='/media/icons/duotune/abstract/abs012.svg'
-                      className='svg-icon-1x svg-icon-gray-500 ms-4 '
-                    />
+                    <i className="fas fa-times fs-4"></i>
                   </button>
                 </div>
 

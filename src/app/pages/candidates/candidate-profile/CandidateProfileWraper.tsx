@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {KTSVG, toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 import {edit} from '../../../features/candidate/candidateSlice'
@@ -34,11 +34,8 @@ export function CandidateProfileWraper() {
     <>
     {user.checked === 0 ? (
           <div className='notice p-7 p-lg-4 ps-9 pe-9 flex-column flex-lg-row position-absolute w-100 z-index-3 start-0 d-flex justify-content-between align-items-center bg-light-warning rounded border-warning all__good-div'>
-            <div className='d-flex fs-6 text-gray-800 text-center mb-5 mb-lg-0'>
-              <KTSVG
-                path='/media/icons/duotune/files/fil028.svg'
-                className='svg-icon-1x svg-icon-warning me-4'
-              />
+            <div className='d-flex fs-6 text-gray-800 align-items-center mb-5 mb-lg-0'>
+              <i className="fas fa-exclamation-triangle text-warning me-4"></i>
               Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка,
               перепровірте дані кандидата.
             </div>
@@ -46,10 +43,7 @@ export function CandidateProfileWraper() {
               className='btn btn-light-success cursor-pointer h-40px fs-6 all__good mb-6 mb-lg-0'
               onClick={allGood}
             >
-              <KTSVG
-                path='/media/icons/duotune/arrows/arr012.svg'
-                className='svg-icon-2x svg-icon-success me-4'
-              />
+              <i className='fas fa-check fs-6 me-3'></i>
               Все ок, зберегти
             </button>
           </div>
@@ -74,32 +68,24 @@ export function CandidateProfileWraper() {
                 </span>
                 <div className='d-flex align-items-center'>
                   {gdpr === 0 ? (
-                    <KTSVG
-                      path='/media/icons/duotune/art/art013.svg'
-                      className='svg-icon-1tx svg-icon-danger'
-                    />
+                    <i className="fas fa-ban text-danger fs-4"></i>
                   ) : gdpr === 1 ? (
-                    <KTSVG
-                      path='/media/icons/duotune/art/art012.svg'
-                      className='svg-icon-1tx svg-icon-muted'
-                    />
+                    <i className="fas fa-question text-gray-500 fs-6"></i>
                   ) : (
-                    <KTSVG
-                      path='/media/icons/duotune/arrows/arr012.svg'
-                      className='svg-icon-1tx svg-icon-success'
-                    />
+                    <i className='fas fa-check text-success fs-6'></i>
                   )}
                   <select
                     ref={GDPRSelect}
                     className={
                       gdpr === 0
-                        ? 'form-select border-0 fs-6 text-danger'
+                        ? 'form-select border-0 fs-6 text-danger bg-white'
                         : gdpr === 1
-                        ? ' form-select border-0 fs-6 text-gray-500'
-                        : 'form-select border-0 fs-6 text-success'
+                        ? ' form-select border-0 fs-6 text-gray-500 bg-white'
+                        : 'form-select border-0 fs-6 text-success bg-white'
                     }
                     aria-label='Select example'
                     value={gdpr}
+                    disabled
                     onChange={() => setGdpr(+GDPRSelect!.current!.value)}
                   >
                     <option value='1' className=' text-gray-500'>
@@ -119,7 +105,7 @@ export function CandidateProfileWraper() {
                 to={`/candidates/edit/user/id=${idUser}`}
                 className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-5 top-5'
               >
-                <KTSVG path='/media/icons/duotune/art/art011.svg' className='svg-icon-1x' />
+                <i className="fas fa-pen fs-4"></i>
               </Link>
             </div>
             <div className='row pb-4 d-none d-lg-flex mb-7 border-bottom'>
@@ -175,10 +161,7 @@ export function CandidateProfileWraper() {
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Файли:</label>
 
                 <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
-                  <KTSVG
-                    path='/media/icons/duotune/files/fil027.svg'
-                    className='svg-icon-1tx svg-icon-primary me-2'
-                  />
+                <i className="fas fa-paperclip fs-4 text-primary"></i>
                   {user.aboutMyself.file.map((file: any, i: number) =>
                     i !== user.aboutMyself.file.length - 1 ? (
                       <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
@@ -289,10 +272,7 @@ export function CandidateProfileWraper() {
                       <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Файли:</label>
 
                       <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
-                        <KTSVG
-                          path='/media/icons/duotune/files/fil027.svg'
-                          className='svg-icon-1tx svg-icon-primary me-2'
-                        />
+                      <i className="fas fa-paperclip fs-4 text-primary"></i>
                         {user.aboutMyself.file.map((file: any, i: number) =>
                           i !== user.aboutMyself.file.length - 1 ? (
                             <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
@@ -324,10 +304,7 @@ export function CandidateProfileWraper() {
               {user.contacts.email.length > 0 ? (
                 <div className='row mb-4'>
                   <label className='col-1 col-lg-2 fw-bold text-gray-500 border-bottom-dotted border-1 border-secondary'>
-                    <KTSVG
-                      path='/media/icons/duotune/communication/com016.svg'
-                      className='svg-icon-3'
-                    />
+                    <i className="fas fa-envelope fs-4"></i>
                   </label>
 
                   <div className='col-11 col-lg-10 fv-row border-bottom-dotted border-1 border-secondary'>
@@ -344,10 +321,7 @@ export function CandidateProfileWraper() {
               {user.contacts.phone.length > 0 ? (
                 <div className='row mb-4'>
                   <label className='col-1 col-lg-2 fw-bold'>
-                    <KTSVG
-                      path='/media/icons/duotune/communication/com017.svg'
-                      className='svg-icon-3 svg-icon-gray-500'
-                    />
+                    <i className="fas fa-phone fs-4"></i>
                   </label>
 
                   <div className='col-11 col-lg-10 fv-row'>
@@ -371,10 +345,7 @@ export function CandidateProfileWraper() {
                       href={'skype:' + mess.link}
                       className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                     >
-                      <KTSVG
-                        path='/media/icons/duotune/communication/com015.svg'
-                        className='svg-icon-3'
-                      />
+                      <i className="fab fa-skype fs-4"></i>
                     </a>
                   ) : null
                 )}
@@ -386,10 +357,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <KTSVG
-                          path='/media/icons/duotune/social/soc012.svg'
-                          className='svg-icon-3'
-                        />
+                        <i className="fab fa-linkedin fs-4"></i>
                       </a>
                     )
                   } else if (link.name === 1) {
@@ -399,10 +367,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <KTSVG
-                          path='/media/icons/duotune/social/soc013.svg'
-                          className='svg-icon-3'
-                        />
+                        <i className="fab fa-github fs-4"></i>
                       </a>
                     )
                   } else if (link.name === 2) {
@@ -412,10 +377,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <KTSVG
-                          path='/media/icons/duotune/social/soc011.svg'
-                          className='svg-icon-3'
-                        />
+                        <i className="fab fa-facebook-square fs-4"></i>
                       </a>
                     )
                   } else {
@@ -425,10 +387,11 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <KTSVG
+                        {/* <KTSVG
                           path='/media/icons/duotune/social/soc014.svg'
                           className='svg-icon-3'
-                        />
+                        /> */}
+                        <i className="fas fa-globe fs-4"></i>
                       </a>
                     )
                   }

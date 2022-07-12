@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import CandidateCard from '../../../../app/pages/candidates/CandidateCard'
-import {KTSVG, toAbsoluteUrl} from '../../../helpers'
+import {toAbsoluteUrl} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 // import { useAuth } from '../../../../app/modules/auth'

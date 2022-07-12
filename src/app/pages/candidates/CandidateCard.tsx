@@ -1,7 +1,7 @@
 import React, {FC, useRef, useState} from 'react'
 import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
-import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useDispatch} from 'react-redux'
 import {remove} from '../../features/candidate/candidateSlice'
 import './CandidateCard.scss'
@@ -34,15 +34,12 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                   className='text-dark fw-bolder text-hover-primary fs-4'
                   to={`user/id=${user.id}`}
                 >
-                  {user.firstName} {user.lastName}
+                  {(user.firstName ==='' && user.lastName === '') ? 'Ім’я не розпізнано' : `${user.firstName} ${user.lastName}`}
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? 
                   <div className='tool'>
-                  <KTSVG
-                      path='/media/icons/duotune/files/fil028.svg'
-                      className='svg-icon-3 ms-3 text-warning'
-                    />
+                  <i className="fas fa-exclamation-triangle text-warning me-4 ms-3"></i>
                     <span className='tooltiptext card shadow fs-6 text-gray-500'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата. </span>
                   </div>
                 
@@ -72,10 +69,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 href={'mailto:' + user.contacts.email[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
               >
-                <KTSVG
-                  path='/media/icons/duotune/communication/com016.svg'
-                  className='svg-icon-3'
-                />
+                <i className="fas fa-envelope fs-4"></i>
               </a>
             ) : null}
             {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
@@ -85,7 +79,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                   href={link.path}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >
-                  <KTSVG path='/media/icons/duotune/social/soc011.svg' className='svg-icon-3' />
+                  <i className="fab fa-facebook-square fs-4"></i>
                 </a>
               ) : null
             )}
@@ -96,10 +90,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                   href={'skype:' + link.link}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >
-                  <KTSVG
-                    path='/media/icons/duotune/communication/com015.svg'
-                    className='svg-icon-3'
-                  />
+                  <i className="fab fa-skype fs-4"></i>
                 </a>
               ) : null
             )}
@@ -108,10 +99,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 href={'tel:' + user.contacts.phone[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
               >
-                <KTSVG
-                  path='/media/icons/duotune/communication/com017.svg'
-                  className='svg-icon-3'
-                />
+                <i className="fas fa-phone fs-4"></i>
               </a>
             ) : null}
           </div>
@@ -123,7 +111,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               onClick={() => setopenModal((openModal) => !openModal)}
               id='open-svg-1'
             >
-              <KTSVG path='/media/icons/duotune/general/gen053.svg' className='svg-icon-3' />
+              <i className="fas fa-ellipsis-v fs-4"></i>
             </button>
             {openModal ? (
               <div className='card shadow position-absolute top-100 end-50 w-150px z-index-1 modal__card'>
