@@ -14,7 +14,7 @@ const QuickLinks: FC = () => (
         alt=''
         className='w-40px h-40px mb-3'
       />
-      <Link to={'https://app.turbohiring.co/'} className='fs-4 text-gray-800 cursor-pointer mb-2'>TurboHiring Sourcing Tool</Link>
+      <a href={'https://app.turbohiring.co/'} className='fs-4 text-gray-800 cursor-pointer mb-2'>TurboHiring Sourcing Tool</a>
       <p className='fs-6 text-gray-500 text-center'>Знаходьте у 3 рази швидше контакти потрібного спеціаліста серед 500 000+ кандидатів</p>
     </div>
   </div>
