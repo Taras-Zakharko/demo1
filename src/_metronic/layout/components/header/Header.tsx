@@ -1,9 +1,11 @@
 import React, {FC} from 'react'
+import { Link } from 'react-router-dom'
 import {MenuInner} from './MenuInner'
 
 const Header: FC = () => {
   return (
-    <div
+    <Link
+    to={'/'}
       className='header-menu align-items-stretch'
       data-kt-drawer='true'
       data-kt-drawer-name='header-menu'
@@ -23,7 +25,7 @@ const Header: FC = () => {
       >
         <MenuInner />
       </div>
-    </div>
+    </Link>
   )
 }
 

@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {KTSVG} from '../../../../_metronic/helpers'
 import CandidateInfoBlock from '../modules/CandidateInfoBlock'
 import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
@@ -86,24 +85,21 @@ function EditCandidate() {
                   to={`/candidates/user/id=${idUser}`}
                   className='fw-bolder m-0 position-lg-absolute end-100'
                 >
-                  <KTSVG
-                    path='/media/icons/duotune/arrows/arr002.svg'
-                    className='svg-icon-2x svg-icon-primary me-4'
-                  />
+                  <i className="fas fa-arrow-left text-primary fs-4 me-6"></i>
                 </Link>
                 <h2 className='fs-2 fw-boldest'>Редагування картки кандидата</h2>
               </div>
             </div>
           </div>
           <div ref={infoRef} className='card p-10 mt-20 row'>
-            <CandidateInfoBlock id={idUser} setEditUser={setEditUser} user={editUser}/>
+            <CandidateInfoBlock id={idUser} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
             <CandidatePhoto url={editUser.photo} setEditUser={setEditUser} />
           </div>
 
-          <div className='accordion' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser}/>
-            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser}/>
-            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser}/>
+          <div className='accordion row' id='kt_accordion_1'>
+            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
           </div>
         </div>
         <div className='col-lg-2'>
@@ -141,9 +137,9 @@ function EditCandidate() {
           </div>
         </div>
       </div>
-      <div className='row mt-5'>
-        <div className='col-lg-2'></div>
-        <div className='col-lg-8'>
+      <div className='row'>
+        <div className='col-lg-1'></div>
+        <div className='col-lg-9 card p-9'>
           <div className='row d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
               <Link to={'/candidates'} className='btn btn-primary h-40px' onClick={() => dispatch(edit(editUser))}>
@@ -151,13 +147,10 @@ function EditCandidate() {
               </Link>
               <Link
                 to={'/candidates'}
-                className='btn text-danger pe-0'
+                className='btn text-danger fs-6 pe-0'
                 onClick={() => dispatch(remove(idUser))}
               >
-                <KTSVG
-                  path='/media/icons/duotune/general/gen027.svg'
-                  className='svg-icon-2x svg-icon-danger ms-4'
-                />
+                <i className="fas fa-trash text-danger fs-4 me-3"></i>
                 Видалити
               </Link>
             </div>

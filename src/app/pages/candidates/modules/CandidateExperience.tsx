@@ -6,9 +6,11 @@ interface ICandidateExperience {
   experienceRef?: any
   setEditUser?: any
   user?: any
+  labelW?: number
+  inputW?: number
 }
 
-const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user}) => {
+const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user, labelW, inputW}) => {
 
   const tagifyRef = useRef()
 
@@ -19,7 +21,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
   }, [skilsArr, setEditUser])
 
   return (
-    <div ref={experienceRef} className='accordion-item'>
+    <div ref={experienceRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_1'>
         <button
           className='accordion-button fs-4 fw-boldest'
@@ -41,12 +43,12 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
         <div className='accordion-body'>
           <div className='row mb-4'>
             <div className='row d-flex align-items-center mb-4'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Поточне місце роботи
                 </label>
               </div>
-              <div className='col-lg-9'>
+              <div className={'col-lg-'+inputW}>
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
@@ -64,15 +66,15 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   }
                 />
               </div>
-              <div className='col-lg-3'></div>
+              
             </div>
             <div className='row d-flex align-items-center mb-4'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Поточна посада
                 </label>
               </div>
-              <div className='col-lg-9'>
+              <div className={'col-lg-'+inputW}>
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
@@ -91,10 +93,10 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   }
                 />
               </div>
-              <div className='col-lg-3'></div>
+              
             </div>
             <div className='row d-flex align-items-center mb-4'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Років досвіду
                 </label>
@@ -119,17 +121,17 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   }
                 />
               </div>
-              <div className='col-lg-3'></div>
+              
             </div>
           </div>
           <div className='row'>
             <div className='row d-flex align-items-center mb-4'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
                   Навички
                 </label>
               </div>
-              <div className='col-lg-9'>
+              <div className={'col-lg-'+inputW}>
                 <Tags
                   tagifyRef={tagifyRef}                    
                   value={skilsArr}

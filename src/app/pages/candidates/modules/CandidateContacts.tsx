@@ -1,13 +1,14 @@
 import React, {FC, useEffect, useState} from 'react'
-import {KTSVG} from '../../../../_metronic/helpers'
 
 interface ICandidateContacts {
   contactsRef?: any
   setEditUser?: any
   user?: any
+  labelW?: number
+  inputW?: number
 }
 
-const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, user}) => {
+const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, user, labelW, inputW}) => {
   const [phoneNumber, setPhoneNumber] = useState<string[]>(user.contacts.phone)
   const [email, setEmail] = useState<string[]>(user.contacts.email)
   const [messenger, setMessenger] = useState<{[key: string]: string | number}[]>(
@@ -64,10 +65,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
     const arr = array.map((num, ind) => (ind === i ? (num = e.target.value) : num))
     funk(arr)
     setEditUser((user: any) => ({...user, contacts: {...user.contacts, [key]: [...arr]}}))
-  }
+  }                
 
   return (
-    <div ref={contactsRef} className='accordion-item'>
+    <div ref={contactsRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_2'>
         <button
           className='accordion-button fs-4 fw-boldest'
@@ -88,7 +89,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
       >
         <div className='accordion-body'>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3 d-flex justify-content-between'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Телефон
               </label>
@@ -99,7 +100,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-7'>
+            <div className='col-lg-5'>
               {phoneNumber.map((number, i) => {
                 if (i === 0) {
                   return (
@@ -125,10 +126,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       </div>
                       <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setPhoneNumber, 'phone')}>
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-muted ms-4'
-                          />
+                          <i className="fas fa-trash text-gray-500 fs-4"></i>
                         </button>
                       </div>
                     </div>
@@ -142,10 +140,9 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-3'></div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3 d-flex justify-content-between'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Ел. пошта
               </label>
@@ -156,7 +153,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-7'>
+            <div className='col-lg-5'>
               {email.map((adres, i) => {
                 if (i === 0) {
                   return (
@@ -182,10 +179,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       </div>
                       <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setEmail, 'email')}>
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-muted ms-4'
-                          />
+                        <i className="fas fa-trash text-gray-500 fs-4"></i>
                         </button>
                       </div>
                     </div>
@@ -200,10 +194,9 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-3'></div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3 d-flex justify-content-between'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Месенджери
               </label>
@@ -216,7 +209,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-9'>
+            <div className={'col-lg-'+inputW}>
               {messenger.map((mess, i) => {
                 if (i === 0) {
                   return (
@@ -310,10 +303,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='btn p-0 cursor-pointer '
                           onClick={() => removeSelect(setMessenger, i, 'messengers')}
                         >
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-muted'
-                          />
+                          <i className="fas fa-trash text-gray-500 fs-4"></i>
                         </button>
                       </div>
                     </div>
@@ -331,7 +321,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
             </div>
           </div>
           <div className='row d-flex mb-4'>
-            <div className='col-lg-3 d-flex justify-content-between'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
               <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
                 Посилання
               </label>
@@ -344,7 +334,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 Додати ще
               </button>
             </div>
-            <div className='col-lg-9'>
+            <div className={'col-lg-'+inputW}>
               {userLinks.map((link, i) => {
                 if (i === 0) {
                   return (
@@ -437,10 +427,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='btn p-0 cursor-pointer'
                           onClick={() => removeSelect(setUserLinks, i, 'socialLinks')}
                         >
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-1tx svg-icon-muted'
-                          />
+                          <i className="fas fa-trash text-gray-500 fs-4"></i>
                         </button>
                       </div>
                     </div>

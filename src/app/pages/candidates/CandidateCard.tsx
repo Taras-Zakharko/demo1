@@ -4,6 +4,7 @@ import {useClickOutside} from '../../../hooks'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useDispatch} from 'react-redux'
 import {remove} from '../../features/candidate/candidateSlice'
+import './CandidateCard.scss'
 
 interface ICandidate {
   user: any
@@ -37,14 +38,20 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? 
+                  <div className='tool'>
                   <KTSVG
-                  path='/media/icons/duotune/files/fil028.svg'
-                  className='svg-icon-3 ms-3 text-warning'
-                />
+                      path='/media/icons/duotune/files/fil028.svg'
+                      className='svg-icon-3 ms-3 text-warning'
+                    />
+                    <span className='tooltiptext card shadow fs-6 text-gray-500'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата. </span>
+                  </div>
+                
                  : null}
               </div>
 
-              <span className='text-muted text-muted text-gray-900 d-block fs-6'>{user.specialty}</span>
+              <span className='text-muted text-muted text-gray-900 d-block fs-6'>
+                {user.specialty}
+              </span>
               <span className='text-muted text-muted d-block fs-6'>
                 {user.location?.country}, {user.location?.city}
               </span>
@@ -74,7 +81,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
               link.name === 0 ? (
                 <a
-                key={i}
+                  key={i}
                   href={link.path}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >
@@ -85,7 +92,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             {user.contacts?.messengers.map((link: {name: number; link: string}, i: number) =>
               link.name === 3 ? (
                 <a
-                key={i}
+                  key={i}
                   href={'skype:' + link.link}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                 >

@@ -49,27 +49,31 @@ export function HeaderWrapper() {
         {aside.display && (
           <div className='d-flex align-items-center'>
             <Link to='/' className='d-lg-none'>
-            <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='metronic' className='rounded-circle w-30px h-30px me-3'/>
+              <img
+                src={toAbsoluteUrl('/media/avatars/300-1.jpg')}
+                alt='metronic'
+                className='rounded-circle w-30px h-30px me-3'
+              />
             </Link>
           </div>
         )}
 
         {/* begin::Wrapper */}
         <div className='d-flex align-items-stretch justify-content-between flex-lg-grow-1 w-sm-100 w-75'>
-        
           {/* begin::Navbar */}
           {header.left === 'menu' && (
             <div className='d-flex align-items-stretch' id='kt_header_nav'>
               <Header />
             </div>
           )}
+          <div className='d-flex w-80 justify-content-between'>
+            <div className='d-flex align-items-center w-25 w-sm-75'>
+              <Search />
+            </div>
 
-          <div className='d-flex align-items-center'>
-            <Search />
-          </div>
-
-          <div className='d-flex align-items-stretch flex-shrink-0 w-sm-auto w-50'>
-            <Topbar />
+            <div className='d-flex align-items-stretch flex-shrink-0 w-sm-25 w-75'>
+              <Topbar />
+            </div>
           </div>
         </div>
         {/* end::Wrapper */}

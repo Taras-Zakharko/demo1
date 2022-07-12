@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {KTSVG} from '../../../../_metronic/helpers'
 import CandidateInfoBlock from '../modules/CandidateInfoBlock'
 import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
@@ -67,19 +66,19 @@ function CreateCandidatePage() {
     ],
     skils: [],
     contacts: {
-      phone: [],
-      email: [],
+      phone: [''],
+      email: [''],
       messengers: [
-        
+        {id: 1, name: 0, link: ''},
       ],
       socialLinks: [
-        
+        {id: 1, name: 0, path: ''}
       ]
     },
     aboutMyself: {
       text: "",
       file: [],
-      GDPR: 0,
+      GDPR: 1,
       source: ""
     }
   }
@@ -100,32 +99,26 @@ function CreateCandidatePage() {
               <div className='card-title m-0 w-100 justify-content-between'>
                 <div className='d-flex'>
                 <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
-                  <KTSVG
-                    path='/media/icons/duotune/arrows/arr002.svg'
-                    className='svg-icon-2x svg-icon-primary me-4'
-                  />
+                  <i className="fas fa-arrow-left text-primary fs-4 me-6"></i>
                 </Link>
                 <h2 className='fs-2 fw-boldest'>Новий кандидат</h2>
                 </div>
                 
                 <Link to={'/add'} className='btn btn-sm btn-light-primary fs-5'>
-                <KTSVG
-                    path='/media/icons/duotune/files/fil029.svg'
-                    className='svg-icon-1x svg-icon-dark me-4'
-                  />
+                  <i className="fas fa-file-import fs-4 me-lg-4"></i>
                   <span className='d-none d-lg-inline-block'>Імпортувати з файлу</span> 
                 </Link>
               </div>
             </div>
           </div>
           <div ref={infoRef} className='card p-10 mt-20 row'>
-            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser}/>
+            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
             <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
           </div>
-          <div className='accordion' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser}/>
-            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser}/>
-            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser}/>
+          <div className='accordion row' id='kt_accordion_1'>
+            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
           </div>
         </div>
         <div className='col-lg-2'>

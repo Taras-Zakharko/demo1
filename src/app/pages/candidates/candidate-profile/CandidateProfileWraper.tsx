@@ -32,10 +32,9 @@ export function CandidateProfileWraper() {
 
   return (
     <>
-      <div className='row pt-5 position-relative'>
-        {user.checked === 0 ? (
-          <div className='notice p-1 ps-9 pe-9 flex-column flex-lg-row d-flex justify-content-between align-items-center mb-9 bg-light-warning rounded border-warning border border-dashed all__good-div'>
-            <div className='d-flex flex-center fs-6 text-gray-800 text-center mb-5 mb-lg-0'>
+    {user.checked === 0 ? (
+          <div className='notice p-7 p-lg-4 ps-9 pe-9 flex-column flex-lg-row position-absolute w-100 z-index-3 start-0 d-flex justify-content-between align-items-center bg-light-warning rounded border-warning all__good-div'>
+            <div className='d-flex fs-6 text-gray-800 text-center mb-5 mb-lg-0'>
               <KTSVG
                 path='/media/icons/duotune/files/fil028.svg'
                 className='svg-icon-1x svg-icon-warning me-4'
@@ -55,7 +54,8 @@ export function CandidateProfileWraper() {
             </button>
           </div>
         ) : null}
-        <div className='card col-lg-8'>
+      <div className='row pt-15 pt-sm-10  position-relative'>
+        <div className={(user.checked === 0)?'card mt-24 mt-lg-20 col-lg-8':'card col-lg-8'}>
           <div className='card-body '>
             <div className='row pb-9 mb-7 align-items-center border-bottom postion-relative'>
               <label className='col-lg-2 col-12 fw-bold text-muted text-center me-9 mb-7 mb-lg-0'>
@@ -117,7 +117,7 @@ export function CandidateProfileWraper() {
 
               <Link
                 to={`/candidates/edit/user/id=${idUser}`}
-                className='fs-4 btn btn-icon btn-bg-light btn-active-color-primary btn-active-light-primary btn-sm  position-absolute end-5 top-5'
+                className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-5 top-5'
               >
                 <KTSVG path='/media/icons/duotune/art/art011.svg' className='svg-icon-1x' />
               </Link>
@@ -318,19 +318,19 @@ export function CandidateProfileWraper() {
           </div>
         </div>
         <div className='col-lg-4 ps-9 mt-4 mt-lg-0'>
-          <div className='card card-custom shadow p-6'>
+          <div className={(user.checked === 0)?'card card-custom mt-lg-20 shadow p-6':'card card-custom shadow p-6'}>
             <h2 className='mb-7 fs-4 fw-boldest'>Контакти</h2>
             <div className='row border-bottom'>
               {user.contacts.email.length > 0 ? (
                 <div className='row mb-4'>
-                  <label className='col-lg-2 fw-bold text-muted border-bottom-dotted border-1 border-secondary'>
+                  <label className='col-1 col-lg-2 fw-bold text-gray-500 border-bottom-dotted border-1 border-secondary'>
                     <KTSVG
                       path='/media/icons/duotune/communication/com016.svg'
                       className='svg-icon-3'
                     />
                   </label>
 
-                  <div className='col-lg-10 fv-row border-bottom-dotted border-1 border-secondary'>
+                  <div className='col-11 col-lg-10 fv-row border-bottom-dotted border-1 border-secondary'>
                     {user.contacts.email.map((email: string, i: number) => (
                       <span key={i} className='d-block fw-bold fs-6'>
                         <a href={'tomail:' + email} className='text-dark text-hover-primary'>
@@ -343,14 +343,14 @@ export function CandidateProfileWraper() {
               ) : null}
               {user.contacts.phone.length > 0 ? (
                 <div className='row mb-4'>
-                  <label className='col-lg-2 fw-bold text-muted'>
+                  <label className='col-1 col-lg-2 fw-bold'>
                     <KTSVG
                       path='/media/icons/duotune/communication/com017.svg'
-                      className='svg-icon-3'
+                      className='svg-icon-3 svg-icon-gray-500'
                     />
                   </label>
 
-                  <div className='col-lg-10 fv-row'>
+                  <div className='col-11 col-lg-10 fv-row'>
                     {user.contacts.phone.map((number: string, i: number) => (
                       <span key={i} className='d-block fw-bold fs-6'>
                         <a href={'tel:' + number} className='text-dark text-hover-primary'>
@@ -363,7 +363,7 @@ export function CandidateProfileWraper() {
               ) : null}
             </div>
             <div className='row mt-4'>
-              <div className='col-lg-12'>
+              <div className='col-12'>
                 {user.contacts.messengers.map((mess: {name: number; link: string}, i: number) =>
                   mess.name === 3 ? (
                     <a

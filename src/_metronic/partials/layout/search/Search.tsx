@@ -13,6 +13,8 @@ import {
   setYearEnd,
   setYearStart,
 } from '../../../../app/features/search/searchSlice'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCoffee} from '@fortawesome/free-solid-svg-icons'
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -36,6 +38,7 @@ const Search: FC = () => {
   const inputSearch = useRef<HTMLInputElement | null>(null)
   const searchToogleContent = useRef<HTMLDivElement | null>(null)
   const clearFilter = useRef<HTMLButtonElement | null>(null)
+  const clearFilter2 = useRef<HTMLButtonElement | null>(null)
 
   const dispatch = useDispatch()
   const searchObj = useSelector((state: RootState) => state.search)
@@ -100,8 +103,6 @@ const Search: FC = () => {
       inputValueRes = `${locationValue};${posinionValue};${companyValue};${skilsValue};${experienceValue}`
       setFilterListArr(inputValueRes.split(';'))
 
-      
-
       dispatch(setCountry(countriesSelect.current!.value))
       dispatch(setCity(citiesSelect.current!.value))
       dispatch(setPosition(positionSelect.current!.value))
@@ -109,10 +110,8 @@ const Search: FC = () => {
       dispatch(setSkils(setSkilsArr(skilsSelect.current!.value)))
       dispatch(setYearEnd(+experienceEndSelect.current!.value))
       dispatch(setYearStart(+experienceStartSelect.current!.value))
-
-      
     }
-    
+
     document.querySelector('#kt_header_search_toggle')?.classList.remove('active')
     document.querySelector('#kt_header_search_toggle')?.classList.remove('show')
     document.querySelector('#kt_header_search')?.classList.remove('show')
@@ -120,8 +119,17 @@ const Search: FC = () => {
     searchToogleContent.current!.classList.remove('show')
   }
 
-  filterListArr.map((str: string) => (str!=='') ? clearFilter.current!.classList.remove('d-none') : null )
-  
+  filterListArr.map((str: string) =>{
+    if(str !== ''){
+      clearFilter.current!.classList.add('d-sm-block');
+      clearFilter2.current!.classList.remove('d-none');
+      clearFilter2.current!.classList.add('d-sm-none');
+      
+    }
+  }
+    
+  )
+
   function clearSearchForm() {
     countriesSelect.current!.value = ''
     citiesSelect.current!.value = ''
@@ -140,7 +148,8 @@ const Search: FC = () => {
     dispatch(setYearEnd(1))
     dispatch(setYearStart(0))
     setFilterListArr([])
-    clearFilter.current!.classList.add('d-none')
+    clearFilter.current!.classList.remove('d-sm-block')
+    clearFilter2.current!.classList.add('d-none')
   }
 
   function setSkilsArr(str: string) {
@@ -212,7 +221,7 @@ const Search: FC = () => {
     <>
       <div
         id='kt_header_search'
-        className='d-flex align-items-stretch'
+        className='d-flex align-items-stretch justify-content-center w-100 mw-lg-750px'
         data-kt-search-keypress='true'
         data-kt-search-min-length='2'
         data-kt-search-enter='enter'
@@ -224,209 +233,242 @@ const Search: FC = () => {
         ref={element}
       >
         <div
-          className='d-flex align-items-center position-relative'
+          className='d-flex align-items-center position-relative w-100 mw-lg-750px'
           data-kt-search-element='toggle'
           id='kt_header_search_toggle'
         >
-          <KTSVG
-            path='/media/icons/duotune/general/gen021.svg'
-            className='svg-icon-2x svg-icon-gray-600 ms-4 d-sm-none btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-          />
+          <button className='d-sm-none btn-sm text-gray-500 me-1 p-2 text-active-primary btn btn-active-light-primary'>
+            <i className='fas fa-search ms-1 fs-2'></i>
+          </button>
+
           <input
             ref={inputSearch}
             type='text'
-            className='form-control form-control-solid pe-10 w-lg-750px w-md-550px w-sm-350px d-none d-sm-block h-40px justify-content-end'
+            disabled
+            className='form-control form-control-solid pe-10 d-none d-sm-block h-40px justify-content-end'
           />
-          <KTSVG
-            path='/media/icons/duotune/general/gen021.svg'
-            className='svg-icon-2x svg-icon-gray-600 ms-4 d-none d-sm-block position-absolute'
-          />
+          <i className='fas fa-search d-none d-sm-block position-absolute text-gray-500 start-15px fs-2'></i>
+
           <div id='filtersDiv' className='position-absolute ms-15 d-flex'>
-            {filterListArr.map((str:string, i: number) => str !== '' ? (<div key={i} className='h-30 border d-none d-sm-block bg-secondary p-1 ps-2 pe-2 rounded me-3'>{str}</div>) : null)}
+            {filterListArr.map((str: string, i: number) =>
+              str !== '' ? (
+                <div
+                  key={i}
+                  className='h-30 border d-none d-sm-block bg-secondary p-1 ps-2 pe-2 rounded me-3'
+                >
+                  {str}
+                </div>
+              ) : null
+            )}
           </div>
           <button
             ref={clearFilter}
-            className=' btn p-0 position-absolute cursor-pointer end-0 d-none'
+            className=' btn p-0 position-absolute cursor-pointer end-10px d-none '
             onClick={() => clearSearchForm()}
           >
             <KTSVG
               path='/media/icons/duotune/abstract/abs012.svg'
-              className='svg-icon-2x svg-icon-gray-600 ms-4 '
+              className='svg-icon-1x svg-icon-gray-500 ms-4 '
             />
           </button>
-        </div>
-
-        <div
-          ref={searchToogleContent}
-          data-kt-search-element='content'
-          className='menu menu-sub menu-sub-dropdown p-7 w-lg-750px w-md-550px w-sm-350px w-100'
-        >
           <div
-            className={`${menuState === 'main' ? '' : 'd-none'}`}
-            ref={wrapperElement}
-            data-kt-search-element='wrapper'
+            ref={searchToogleContent}
+            data-kt-search-element='content'
+            className='menu menu-sub menu-sub-dropdown mt-4 mt-sm-0 p-7 w-100 position-sm-absolute'
           >
-            <div className='row align-items-center mb-4'>
-              <input
-                type='text'
-                className='form-control form-control-solid pe-10 mb-6 d-sm-none h-40px justify-content-end'
-                placeholder='Пошук'
-              />
-              <div className='col-lg-3 fs-6'>
-                <label htmlFor='' className='fs-6 mb-5 mb-lg-0'>
-                  Локація
-                </label>
-              </div>
-              <div className='col-lg-9'>
-                <div className='row'>
-                  <div className='col-lg-6'>
-                    <select
-                      ref={countriesSelect}
-                      name='country'
-                      id='country'
-                      className='form-select form-select-solid mb-5 mb-lg-0'
-                      aria-label='Select example'
-                      onChange={(e) => {
-                        if (countriesSelect.current !== null) {
-                          setMyCountry((country) => {
-                            country = countries.filter(
-                              (country) => country.country === e.target.value
-                            )
+            <div
+              className={`${menuState === 'main' ? '' : 'd-none'}`}
+              ref={wrapperElement}
+              data-kt-search-element='wrapper'
+            >
+              <div className='row align-items-center mb-4'>
+                <div className='position-relative'>
+                  <input
+                    type='text'
+                    className='form-control form-control-solid pe-10 mb-6 d-sm-none h-40px justify-content-end'
+                    placeholder='Пошук'
+                    disabled
+                  />
+                  <div id='filtersDiv2' className='position-absolute top-0 p-2'>
+                    {filterListArr.map((str: string, i: number) =>
+                      str !== '' ? (
+                        <div
+                          key={i}
+                          className='h-30 border d-block d-sm-none bg-secondary p-1 ps-2 pe-2 rounded me-3'
+                        >
+                          {str}
+                        </div>
+                      ) : null
+                    )}
+                  </div>
+                  <button
+                    ref={clearFilter2}
+                    className=' btn p-0 position-absolute cursor-pointer top-0 mt-2 end-10px d-none'
+                    onClick={() => clearSearchForm()}
+                  >
+                    <KTSVG
+                      path='/media/icons/duotune/abstract/abs012.svg'
+                      className='svg-icon-1x svg-icon-gray-500 ms-4 '
+                    />
+                  </button>
+                </div>
 
-                            return country
-                          })
-                          countriesSelect.current.value = e.target.value
-                          // dispatch(setCountry(e.target.value))
-                        }
-                      }}
-                    >
-                      <option value=''>Країна</option>
-                      {countries.map((country, i) => {
-                        return (
-                          <option key={i} value={country.country}>
-                            {country.country}
+                <div className='col-lg-3 fs-6'>
+                  <label htmlFor='' className='fs-6 mb-5 mb-lg-0'>
+                    Локація
+                  </label>
+                </div>
+                <div className='col-lg-9'>
+                  <div className='row'>
+                    <div className='col-lg-6'>
+                      <select
+                        ref={countriesSelect}
+                        name='country'
+                        id='country'
+                        className='form-select form-select-solid mb-5 mb-lg-0'
+                        aria-label='Select example'
+                        onChange={(e) => {
+                          if (countriesSelect.current !== null) {
+                            setMyCountry((country) => {
+                              country = countries.filter(
+                                (country) => country.country === e.target.value
+                              )
+
+                              return country
+                            })
+                            countriesSelect.current.value = e.target.value
+                            // dispatch(setCountry(e.target.value))
+                          }
+                        }}
+                      >
+                        <option value=''>Країна</option>
+                        {countries.map((country, i) => {
+                          return (
+                            <option key={i} value={country.country}>
+                              {country.country}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    </div>
+                    <div className='col-lg-6'>
+                      <select
+                        ref={citiesSelect}
+                        name='town'
+                        id='town'
+                        className='form-select form-select-solid mb-5 mb-lg-0'
+                        aria-label='Select example'
+                        onChange={(e) => {
+                          if (citiesSelect.current !== null) {
+                            citiesSelect.current.value = e.target.value
+                          }
+                          // dispatch(setCity(e.target.value))
+                        }}
+                      >
+                        <option value=''>Місто</option>
+                        {myTowns.map((town, i) => (
+                          <option key={i} value={town}>
+                            {town}
                           </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                  <div className='col-lg-6'>
-                    <select
-                      ref={citiesSelect}
-                      name='town'
-                      id='town'
-                      className='form-select form-select-solid mb-5 mb-lg-0'
-                      aria-label='Select example'
-                      onChange={(e) => {
-                        if (citiesSelect.current !== null) {
-                          citiesSelect.current.value = e.target.value
-                        }
-                        // dispatch(setCity(e.target.value))
-                      }}
-                    >
-                      <option value=''>Місто</option>
-                      {myTowns.map((town, i) => (
-                        <option key={i} value={town}>
-                          {town}
-                        </option>
-                      ))}
-                    </select>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
-                <label htmlFor=''>Посада</label>
-              </div>
-              <div className='col-lg-9'>
-                <div className='row'>
-                  <div className='col-lg-12'>
-                    <input
-                      ref={positionSelect}
-                      type='text'
-                      className='form-control form-control-solid'
-                      // onChange={(e)=>dispatch(setPosition(e.target.value))}
-                    />
+              <div className='row align-items-center mb-4'>
+                <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
+                  <label htmlFor=''>Посада</label>
+                </div>
+                <div className='col-lg-9'>
+                  <div className='row'>
+                    <div className='col-lg-12'>
+                      <input
+                        ref={positionSelect}
+                        type='text'
+                        className='form-control form-control-solid'
+                        // onChange={(e)=>dispatch(setPosition(e.target.value))}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
-                <label htmlFor=''>Місце роботи</label>
-              </div>
-              <div className='col-lg-9'>
-                <div className='row'>
-                  <div className='col-lg-12'>
-                    <input
-                      ref={companySelect}
-                      type='text'
-                      className='form-control form-control-solid'
-                      // onChange={(e)=>dispatch(setCompany(e.target.value))}
-                    />
+              <div className='row align-items-center mb-4'>
+                <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
+                  <label htmlFor=''>Місце роботи</label>
+                </div>
+                <div className='col-lg-9'>
+                  <div className='row'>
+                    <div className='col-lg-12'>
+                      <input
+                        ref={companySelect}
+                        type='text'
+                        className='form-control form-control-solid'
+                        // onChange={(e)=>dispatch(setCompany(e.target.value))}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
-                <label htmlFor=''>Навички</label>
-              </div>
-              <div className='col-lg-9'>
-                <div className='row'>
-                  <div className='col-lg-12'>
-                    <input
-                      ref={skilsSelect}
-                      type='text'
-                      className='form-control form-control-solid'
-                      // onInput={(e)=> {setSkilsArr(e.currentTarget.value)}
-                      // }
-                    />
+              <div className='row align-items-center mb-4'>
+                <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
+                  <label htmlFor=''>Навички</label>
+                </div>
+                <div className='col-lg-9'>
+                  <div className='row'>
+                    <div className='col-lg-12'>
+                      <input
+                        ref={skilsSelect}
+                        type='text'
+                        className='form-control form-control-solid'
+                        // onInput={(e)=> {setSkilsArr(e.currentTarget.value)}
+                        // }
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className='row align-items-center mb-4'>
-              <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
-                <label htmlFor=''>Років досвіду</label>
-              </div>
-              <div className='col-lg-9'>
-                <div className='row'>
-                  <div className='col-lg-4 w-50 w-lg-25'>
-                    <input
-                      ref={experienceStartSelect}
-                      type='number'
-                      placeholder='Від'
-                      className='form-control form-control-solid mb-5 mb-lg-0'
-                      min={0}
-                      max={100}
-                      // onChange={(e)=>dispatch(setYearStart(+e.target.value))}
-                    />
-                  </div>
-                  <div className='col-lg-4 w-50 w-lg-25'>
-                    <input
-                      ref={experienceEndSelect}
-                      type='number'
-                      placeholder='До'
-                      className='form-control form-control-solid'
-                      min={1}
-                      max={100}
-                      // onChange={(e)=>dispatch(setYearEnd(+e.target.value))}
-                    />
+              <div className='row align-items-center mb-4'>
+                <div className='col-lg-3 fs-6 mb-5 mb-lg-0'>
+                  <label htmlFor=''>Років досвіду</label>
+                </div>
+                <div className='col-lg-9'>
+                  <div className='row'>
+                    <div className='col-lg-4 w-50'>
+                      <input
+                        ref={experienceStartSelect}
+                        type='number'
+                        placeholder='Від'
+                        className='form-control form-control-solid mb-5 mb-lg-0'
+                        min={0}
+                        max={100}
+                        // onChange={(e)=>dispatch(setYearStart(+e.target.value))}
+                      />
+                    </div>
+                    <div className='col-lg-4 w-50 '>
+                      <input
+                        ref={experienceEndSelect}
+                        type='number'
+                        placeholder='До'
+                        className='form-control form-control-solid'
+                        min={1}
+                        max={100}
+                        // onChange={(e)=>dispatch(setYearEnd(+e.target.value))}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='row align-items-center mb-4 justify-content-end'>
-              <div className='col-lg-3 d-flex justify-content-center justify-content-lg-end'>
-                <button
-                  className='btn btn-primary w-88 fs-5 fs-6 ps-8 pe-8 '
-                  onClick={() => createFilterList()}
-                >
-                  Знайти
-                </button>
+              <div className='row align-items-center mb-4 justify-content-end'>
+                <div className='col-lg-3 d-flex justify-content-center justify-content-lg-end'>
+                  <button
+                    className='btn btn-primary w-88 fs-5 fs-6 ps-8 pe-8 '
+                    onClick={() => createFilterList()}
+                  >
+                    Знайти
+                  </button>
+                </div>
               </div>
             </div>
           </div>

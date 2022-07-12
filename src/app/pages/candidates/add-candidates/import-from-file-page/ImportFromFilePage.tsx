@@ -1,79 +1,75 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 
-import CandidateContacts from '../../modules/CandidateContacts';
-import CandidateExperience from '../../modules/CandidateExperience';
-import CandidateInfoBlock from '../../modules/CandidateInfoBlock';
-import CandidateResume from '../../modules/CandidateResume';
-import PdfWraper from "../../modules/PdfWraper";
+import CandidateContacts from '../../modules/CandidateContacts'
+import CandidateExperience from '../../modules/CandidateExperience'
+import CandidateInfoBlock from '../../modules/CandidateInfoBlock'
+import CandidateResume from '../../modules/CandidateResume'
+import PdfWraper from '../../modules/PdfWraper'
 import './AddResumeWraper.scss'
 
-
 interface IUserObj {
-  id: number,
-  photo: string,
-  firstName: string,
-  lastName: string,
+  id: number
+  photo: string
+  firstName: string
+  lastName: string
   location: {
-    country: string,
+    country: string
     city: string
-  },
-  specialty: string,
-  checked: number,
-  experience: object[
-    
-  ],
-  skils: string[],
+  }
+  specialty: string
+  checked: number
+  experience: object[]
+  skils: string[]
   contacts: {
-    phone: string[],
-    email: string[],
-    messengers: object[],
+    phone: string[]
+    email: string[]
+    messengers: object[]
     socialLinks: object[]
-  },
+  }
   aboutMyself: {
-    text: string,
-    file: object[],
-    GDPR: number,
+    text: string
+    file: object[]
+    GDPR: number
     source: string
   }
 }
 
 const ImportFromFilePage = () => {
-  
   const newUser = {
     id: Date.now(),
-    photo: "",
-    firstName: "",
-    lastName: "",
+    photo: '',
+    firstName: '',
+    lastName: '',
     location: {
-      country: "",
-      city: ""
+      country: '',
+      city: '',
     },
-    specialty: "",
+    specialty: '',
     checked: 1,
     experience: [
       {
         company: '',
         position: '',
-        yearsExperience: 0
-      }
+        yearsExperience: 0,
+      },
     ],
     skils: [],
     contacts: {
-      phone: [],
-      email: [],
+      phone: [''],
+      email: [''],
       messengers: [
-        
+        {id: 1, name: 0, link: ''},
       ],
       socialLinks: [
-        
+        {id: 1, name: 0, path: ''}
       ]
     },
     aboutMyself: {
-      text: "",
+      text: '',
       file: [],
       GDPR: 0,
-      source: ""
-    }
+      source: '',
+    },
   }
 
   const [editUser, setEditUser] = useState<IUserObj>(newUser)
@@ -86,13 +82,14 @@ const ImportFromFilePage = () => {
         </div>
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
-            <div className='bg-white p-10 mt-4 flex-row'>
-              <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser}/>
+            <div className='bg-white p-10 pb-1 mt-4 flex-row'>
+              <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
+              
             </div>
             <div className='accordion' id='kt_accordion_1'>
-              <CandidateExperience setEditUser={setEditUser} user={editUser}/>
-              <CandidateContacts setEditUser={setEditUser} user={editUser}/>
-              <CandidateResume setEditUser={setEditUser} user={editUser}/>
+              <CandidateExperience setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
+              <CandidateContacts setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
+              <CandidateResume setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
             </div>
           </div>
           <div className='col-lg-12 bg-white d-flex flex-center p-9'>

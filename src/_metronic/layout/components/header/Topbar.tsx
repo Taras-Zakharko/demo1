@@ -15,7 +15,7 @@ const Topbar: FC = () => {
   const {logout} = useAuth()
 
   return (
-    <div className='d-flex align-items-stretch w-100 justify-content-between justify-content-sm-center flex-shrink-0'>
+    <div className='d-flex align-items-stretch w-100 justify-content-around justify-content-sm-end flex-shrink-0'>
       {/* Search */}
       {/* <div className={clsx('d-flex align-items-stretch', toolbarButtonMarginClass)}>
         <Search />
@@ -70,12 +70,8 @@ const Topbar: FC = () => {
           )}
           id='kt_drawer_chat_toggle'
         >
-          <KTSVG
-            path='/media/icons/duotune/general/gen060.svg'
-            className={toolbarButtonIconSizeClass}
-          />
+          <i className="fas fa-question-circle fs-2 text-gray-500"></i>
 
-          
         </a>
         {/* end::Menu wrapper */}
       </div>

@@ -4,19 +4,23 @@ interface ICandidateInfoBlock {
   id?: number
   setEditUser?: any
   user?: any
+  labelW?: number
+  inputW?: number
 }
 
-const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user}) => {
+const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, labelW, inputW}) => {
   return (
     <div className='col-lg-12 mb-10 pe-4'>
       <div className='row name d-flex justify-content-between align-items-center mb-4'>
         <label
           htmlFor='exampleFormControlInput1'
-          className='col-lg-3 required form-label fw-normal mb-4 fs-6'
+          className={'col-lg-' + labelW + ' required form-label fw-normal mb-4 fs-6'}
         >
           Ім'я
         </label>
-        <div className='col-lg-9 d-flex justify-content-between flex-column flex-lg-row'>
+        <div
+          className={'col-lg-' + inputW + ' d-flex justify-content-between flex-column flex-lg-row'}
+        >
           <input
             type='text'
             className='form-control form-control-solid w-lg-47 mb-4 h-40px'
@@ -34,10 +38,15 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user}) =>
         </div>
       </div>
       <div className='row name d-flex justify-content-between align-items-center mb-4'>
-        <label htmlFor='exampleFormControlInput1' className='col-lg-3 form-label fw-normal mb-4 fs-6'>
+        <label
+          htmlFor='exampleFormControlInput1'
+          className={'col-lg-' + labelW + ' form-label fw-normal mb-4 fs-6'}
+        >
           Місцезнаходження
         </label>
-        <div className='col-lg-9 d-flex justify-content-between flex-column flex-lg-row'>
+        <div
+          className={'col-lg-' + inputW + ' d-flex justify-content-between flex-column flex-lg-row'}
+        >
           <input
             type='text'
             className='form-control form-control-solid w-lg-47 mb-4 h-40px'

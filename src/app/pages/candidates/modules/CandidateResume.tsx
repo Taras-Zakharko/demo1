@@ -1,19 +1,20 @@
 import React, {FC} from 'react'
-import {KTSVG} from '../../../../_metronic/helpers'
 
 interface ICandidateContacts {
   resumeRef?: any
   setEditUser?: any
   user?: any
+  labelW?: number
+  inputW?: number
 }
 
-const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user}) => {
+const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user, labelW, inputW}) => {
   
 
   
 
   return (
-    <div ref={resumeRef} className='accordion-item w-100'>
+    <div ref={resumeRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_3'>
         <button
           className='accordion-button fs-4 fw-boldest'
@@ -45,10 +46,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user})
             </div>
             <div className='col-lg-12'>
               <label htmlFor="addFileResume" className='btn text-primary ps-0'>
-                <KTSVG
-                  path='/media/icons/duotune/communication/com008.svg'
-                  className='svg-icon-2x svg-icon-primary me-4'
-                />
+                <i className="fas fa-paperclip fs-4 text-primary"></i>
                 Прикріпити файл</label>
               <input type='file' id='addFileResume' name='addFileResume' className='d-none' accept='.txt, .doc, .docx' onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, file: ([...user.aboutMyself.file, e.target.files])})}))}>
                 
@@ -57,12 +55,12 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user})
           </div>
           <div className='row'>
             <div className='row d-flex align-items-center mb-4 mt-4 pe-0'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
                   GDPR
                 </label>
               </div>
-              <div className='col-lg-9 pe-0'>
+              <div className={'col-lg-'+inputW+' pe-0'}>
                 <select
                   className='form-select form-select-solid border-0 text-muted'
                   aria-label='Select example'
@@ -80,7 +78,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user})
               </div>
             </div>
             <div className='row d-flex align-items-center mb-4 pe-0'>
-              <div className='col-lg-3'>
+              <div className={'col-lg-'+labelW}>
                 <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
                   Джерело
                 </label>
