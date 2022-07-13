@@ -5,7 +5,6 @@ import CandidateCard from '../../../../app/pages/candidates/CandidateCard'
 import {toAbsoluteUrl} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
-// import { useAuth } from '../../../../app/modules/auth'
 import axios from 'axios'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 
