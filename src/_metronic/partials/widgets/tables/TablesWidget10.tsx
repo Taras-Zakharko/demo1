@@ -73,6 +73,17 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
             user.experience[0].company.toLowerCase().includes(company.toLowerCase())
         )
       )
+    } else if (startYear !== 0 && (endYear === 0 || endYear === 1)) {
+      setFilterUsers(
+        allUsers.filter(
+          (user: any) =>
+          user.location.country.includes(country) &&
+          user.location.city.includes(city) &&
+          user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+          user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
+          user.experience[0].yearsExperience >= startYear
+        )
+      )
     } else {
       setFilterUsers(
         allUsers.filter(
@@ -126,7 +137,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       <div className='card-header border-0 p-0  w-100'>
         <h3 className='card-title align-items-start flex-column m-0'>
           <span className='card-label fw-bolder fs-2 mb-1'>Кандидати</span>
-          <span className='text-muted mt-1 fw-bold fs-6'>{allUsers.length} кандидатів</span>
+          <span className='text-muted mt-1 fw-bold fs-6'>{filterUsers.length} кандидатів</span>
         </h3>
         <div
           className='card-toolbar'
