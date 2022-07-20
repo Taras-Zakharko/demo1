@@ -9,20 +9,23 @@ interface ICandidateContacts {
 }
 
 const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, user, labelW, inputW}) => {
-  const [phoneNumber, setPhoneNumber] = useState<string[]>(user.contacts.phone)
-  const [email, setEmail] = useState<string[]>(user.contacts.email)
+  const [phoneNumber, setPhoneNumber] = useState<string[]>([])
+  const [email, setEmail] = useState<string[]>([])
   const [messenger, setMessenger] = useState<{[key: string]: string | number}[]>(
-    user.contacts.messengers
+    []
   )
   const [userLinks, setUserLinks] = useState<{[key: string]: string | number}[]>(
-    user.contacts.socialLinks
+    []
   )
 
   useEffect(() => {
-    setPhoneNumber(user.contacts.phone)
-    setEmail(user.contacts.email)
-    setMessenger(user.contacts.messengers)
-    setUserLinks(user.contacts.socialLinks)
+    if(user.contacts){
+      setPhoneNumber(user.contacts.phone)
+      setEmail(user.contacts.email)
+      setMessenger(user.contacts.messengers)
+      setUserLinks(user.contacts.socialLinks)
+    }
+    
   }, [user])
   
 
@@ -251,6 +254,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                             )
                           }
                           value={mess.link}
+                          placeholder='ID'
                         />
                       </div>
                     </div>

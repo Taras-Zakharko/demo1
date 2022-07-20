@@ -32,9 +32,9 @@ const CandidatePhoto: FC<ICandidatePhoto> = ({url, setEditUser}) => {
 
       <div
         ref={imgEmpty}
-        className={(url === '/media/avatars/blank.png') ? 'col-lg-9 h-100px border border-2 border-white shadow w-100px ms-4 image-input image-input-empty bgi-position-center' : 'col-lg-9 h-100px w-100px ms-4 image-input border border-2 border-white shadow bgi-position-center p-0'}
+        className={(!url) ? 'col-lg-9 h-100px border border-2 border-white shadow w-100px ms-4 image-input image-input-empty bgi-position-center' : 'col-lg-9 h-100px w-100px ms-4 image-input border border-2 border-white shadow bgi-position-center p-0'}
         data-kt-image-input='true'
-        style={{backgroundImage: url !== '' ? `url(${url})` : `url(/media/avatars/blank.png)`}}
+        style={{backgroundImage: url ? `url(${url})` : `url(/media/avatars/blank.png)`}}
       >
         <div
           className='image-input-wrapper w-100 h-100 bgi-position-center'

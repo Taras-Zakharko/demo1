@@ -5,8 +5,8 @@ import CandidateCard from '../../../../app/pages/candidates/CandidateCard'
 import {toAbsoluteUrl} from '../../../helpers'
 import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
-import axios from 'axios'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
+import candidatesApi from '../../../../API/candidates'
 
 type Props = {
   className: string
@@ -15,29 +15,22 @@ type Props = {
 const TablesWidget10: React.FC<Props> = ({className}) => {
   const allUsers = useSelector((state: RootState) => state.candidates.users)
   const searchObj = useSelector((state: RootState) => state.search)
-
+  const [filterUsers, setFilterUsers] = useState<any>(allUsers)
   const dispatch = useDispatch()
 
-  // const url = 'https://turbohiring.dotcode.pp.ua/api/candidates'
 
-  // useEffect(() => {
-  //   axios
-  //     .get(url)
-  //     .then(function (response) {
-  //       // handle success
-  //       dispatch(setUsers(response.data.data))
-  //       console.log(response.data)
-  //     })
-  //     .catch(function (error) {
-  //       // handle error
-  //       console.log(error)
-  //     })
-  //     .then(function () {
-  //       // always executed
-  //     })
-  // }, [dispatch])
+  const handleGetAllCandidate=()=>{
+    candidatesApi.getCandidate()
+    .then((response)=>{
+      dispatch(setUsers(response.data))
+    })
+  }
 
-  const [filterUsers, setFilterUsers] = useState<any>(allUsers)
+  useEffect(() => {
+    
+    handleGetAllCandidate();
+
+  }, [])
 
   useEffect(() => {
     setFilterUsers(allUsers)
@@ -66,33 +59,36 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       setFilterUsers(
         allUsers.filter(
           (user: any) =>
-            user.location.country.includes(country) &&
-            user.location.city.includes(city) &&
-            user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-            user.experience[0].company.toLowerCase().includes(company.toLowerCase())
+            user.location.includes(country) &&
+            user.location.includes(city) 
+            // &&
+            // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+            // user.experience[0].company.toLowerCase().includes(company.toLowerCase())
         )
       )
     } else if (startYear !== 0 && (endYear === 0 || endYear === 1)) {
       setFilterUsers(
         allUsers.filter(
           (user: any) =>
-          user.location.country.includes(country) &&
-          user.location.city.includes(city) &&
-          user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-          user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
-          user.experience[0].yearsExperience >= startYear
+          user.location.includes(country) &&
+          user.location.includes(city) 
+          // &&
+          // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+          // user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
+          // user.experience[0].yearsExperience >= startYear
         )
       )
     } else {
       setFilterUsers(
         allUsers.filter(
           (user: any) =>
-            user.location.country.includes(country) &&
-            user.location.city.includes(city) &&
-            user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-            user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
-            user.experience[0].yearsExperience >= startYear &&
-            user.experience[0].yearsExperience <= endYear
+            user.location.includes(country) &&
+            user.location.includes(city) 
+            // &&
+            // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
+            // user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
+            // user.experience[0].yearsExperience >= startYear &&
+            // user.experience[0].yearsExperience <= endYear
         )
       )
     }
@@ -130,6 +126,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   let down = 0
   let up = 0
 
+  
   return (
     <div className={`card ${className} bg-transparent`}>
       {/* begin::Header */}
@@ -179,8 +176,8 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                   }
                 }}
               >
-                {currentUser.map((user: any) => (
-                  <CandidateCard key={user.id} user={user} />
+                {currentUser.map((user: any, i: number) => (
+                  <CandidateCard key={i} user={user} />
                 ))}
               </tbody>
 

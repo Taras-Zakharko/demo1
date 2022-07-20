@@ -1,76 +1,92 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {RootState} from '../../../../app/store'
-import {useSelector, useDispatch} from 'react-redux'
-import {edit} from '../../../features/candidate/candidateSlice'
+import candidatesApi from '../../../../API/candidates'
 
 export function CandidateProfileWraper() {
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
-  const allUsers = useSelector((state: RootState) => state.candidates.users)
-  const [user, setUser] = useState<any>(allUsers[0])
+
+  const [user, setUser] = useState<any>({})
   const [gdpr, setGdpr] = useState<number>(0)
   const GDPRSelect = useRef<HTMLSelectElement | null>(null)
-  const dispatch = useDispatch()
+  
 
-  useEffect(() => {
-    for (const user of allUsers) {
-      if (user.id === idUser) {
-        setUser(user)
-        setGdpr(user.aboutMyself.GDPR)
-      }
-    }
-  }, [setUser, allUsers, idUser])
+  const handleGetOneCandidate = (id:number)=>{
+    candidatesApi.getSomeCandidate(id)
+    .then((response)=>{
+      setUser(response.data)
+    })
+  }
 
-  function allGood() {
-    setUser((user: any) => ({...user, checked: 1}))
+  const handleEditOneCandidate = (user: any)=>{
+    candidatesApi.editCandidate(user)
+    .then(()=>{
+      handleGetOneCandidate(idUser)
+    })
   }
 
   useEffect(() => {
-    dispatch(edit(user))
-  }, [user, dispatch])
+    handleGetOneCandidate(idUser)
+  }, [idUser])
+
+  const allGood = ()=> {
+    setUser((user: any) => ({...user, checked: 1}))
+    handleEditOneCandidate({...user, checked: 1})
+  }
 
   return (
     <>
-    {user.checked === 0 ? (
-          <div className='notice p-7 p-lg-4 ps-9 pe-9 flex-column flex-lg-row position-absolute w-100 z-index-3 start-0 d-flex justify-content-between align-items-center bg-light-warning rounded border-warning all__good-div'>
-            <div className='d-flex fs-6 text-gray-800 align-items-center mb-5 mb-lg-0'>
-              <i className="fas fa-exclamation-triangle text-warning me-4"></i>
-              Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка,
-              перепровірте дані кандидата.
-            </div>
-            <button
-              className='btn btn-light-success cursor-pointer h-40px fs-6 all__good mb-6 mb-lg-0'
-              onClick={allGood}
-            >
-              <i className='fas fa-check fs-6 me-3'></i>
-              Все ок, зберегти
-            </button>
+      {user.checked === 0 ? (
+        <div className='notice p-7 p-lg-4 ps-9 pe-9 flex-column flex-lg-row position-absolute w-100 z-index-3 start-0 d-flex justify-content-between align-items-center bg-light-warning rounded border-warning all__good-div'>
+          <div className='d-flex fs-6 text-gray-800 align-items-center mb-5 mb-lg-0'>
+            <i className='fas fa-exclamation-triangle text-warning me-4'></i>
+            Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте
+            дані кандидата.
           </div>
-        ) : null}
+          <button
+            className='btn btn-light-success cursor-pointer h-40px fs-6 all__good mb-6 mb-lg-0'
+            onClick={allGood}
+          >
+            <i className='fas fa-check fs-6 me-3'></i>
+            Все ок, зберегти
+          </button>
+        </div>
+      ) : null}
       <div className='row pt-15 pt-sm-10  position-relative'>
-        <div className={(user.checked === 0)?'card mt-24 mt-lg-20 col-lg-8':'card col-lg-8'}>
+        <div className={user.checked === 0 ? 'card mt-24 mt-lg-20 col-lg-8' : 'card col-lg-8'}>
           <div className='card-body '>
             <div className='row pb-9 mb-7 align-items-center border-bottom postion-relative'>
               <label className='col-lg-2 col-12 fw-bold text-muted text-center me-9 mb-7 mb-lg-0'>
-                <img className='symbol w-110px' src={toAbsoluteUrl(`${user.photo}`)} alt='' />
+                <img
+                  className='symbol w-110px'
+                  src={
+                    user.photo
+                      ? toAbsoluteUrl(`${user.photo}`)
+                      : toAbsoluteUrl(`/media/avatars/blank.png`)
+                  }
+                  alt=''
+                />
               </label>
 
               <div className='col-lg-9 col-12 d-flex flex-column align-items-center align-items-lg-start'>
                 <h2 className='fw-bolder fs-2 text-dark'>
-                  {user.firstName} {user.lastName}
+                  {user.firstName === null && user.lastName === null
+                    ? 'Ім’я не розпізнано'
+                    : user.firstName !== null && user.lastName === null
+                    ? `${user.firstName}`
+                    : `${user.firstName} ${user.lastName}`}
                 </h2>
                 <span className='d-block fs-4'>
-                  {user.experience[0].position} в {user.experience[0].company}
+                  {user.specialty === null ? '' : `${user.specialty}`}
                 </span>
                 <span className='text-muted fw-bold d-block fs-6'>
-                  {user.location.city}, {user.location.country}
+                  {(user.location && user.location.length > 0) ? `${user.location[0]}` : ''}
                 </span>
                 <div className='d-flex align-items-center'>
                   {gdpr === 0 ? (
-                    <i className="fas fa-ban text-danger fs-4"></i>
+                    <i className='fas fa-ban text-danger fs-4'></i>
                   ) : gdpr === 1 ? (
-                    <i className="fas fa-question text-gray-500 fs-6"></i>
+                    <i className='fas fa-question text-gray-500 fs-6'></i>
                   ) : (
                     <i className='fas fa-check text-success fs-6'></i>
                   )}
@@ -105,7 +121,7 @@ export function CandidateProfileWraper() {
                 to={`/candidates/edit/user/id=${idUser}`}
                 className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-5 top-5'
               >
-                <i className="fas fa-pen fs-4"></i>
+                <i className='fas fa-pen fs-4'></i>
               </Link>
             </div>
             <div className='row pb-4 d-none d-lg-flex mb-7 border-bottom'>
@@ -120,8 +136,9 @@ export function CandidateProfileWraper() {
 
                 <div className='col-lg-10 fv-row'>
                   <span className='fw-bold fs-4'>
-                    {' '}
-                    {`Більше ${user.experience[0].yearsExperience} років`}{' '}
+                    {user.experience
+                      ? `Більше ${user.experience[0].yearsExperience} років`
+                      : 'Без досвіду'}
                   </span>
                 </div>
               </div>
@@ -130,9 +147,9 @@ export function CandidateProfileWraper() {
 
                 <div className='col-lg-10 fv-row'>
                   <span className='fw-bold fs-4'>
-                    {user.skils.map((skil: any, i: number) =>
-                      i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
-                    )}
+                    {(user.skills) ? user.skills?.map((skil: any, i: number) =>
+                      i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
+                    ) : null}
                   </span>
                 </div>
               </div>
@@ -146,14 +163,14 @@ export function CandidateProfileWraper() {
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Резюме: </label>
 
                 <div className='col-lg-10 fv-row'>
-                  <span className='fw-bold fs-4'>{user.aboutMyself.text}</span>
+                  <span className='fw-bold fs-4'>{user.aboutMyself}</span>
                 </div>
               </div>
               <div className='row mb-4'>
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Джерело:</label>
 
                 <div className='col-lg-10 fv-row'>
-                  <span className='fw-bold fs-4'>{user.aboutMyself.source}</span>
+                  <span className='fw-bold fs-4'>{user.aboutMyself}</span>
                 </div>
               </div>
 
@@ -161,21 +178,21 @@ export function CandidateProfileWraper() {
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Файли:</label>
 
                 <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
-                <i className="fas fa-paperclip fs-4 text-primary"></i>
-                  {user.aboutMyself.file.map((file: any, i: number) =>
+                  <i className='fas fa-paperclip fs-4 text-primary'></i>
+                  {/* {user.aboutMyself.file.map((file: any, i: number) =>
                     i !== user.aboutMyself.file.length - 1 ? (
                       <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
                     ) : (
                       <a className='fw-bold fs-6 ms-1'>{file[i].name}</a>
                     )
-                  )}
+                  )} */}
                 </div>
               </div>
               <div className='row mb-4'>
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Додано:</label>
 
                 <div className='col-lg-10 fv-row'>
-                  <span className='fw-bold fs-4'>10.02.2020 (оновлено: 20.20.2021)</span>
+                  <span className='fw-bold fs-4'>{(user.created_at && user.updated_at) && `${user.created_at.slice(0,user.created_at.indexOf(' ')).replaceAll('-','.')} (оновлено: ${user.updated_at.slice(0,user.updated_at.indexOf(' ')).replaceAll('-','.')})`}</span>
                 </div>
               </div>
             </div>
@@ -208,8 +225,9 @@ export function CandidateProfileWraper() {
 
                       <div className='col-lg-10 fv-row'>
                         <span className='fw-bold fs-4'>
-                          {' '}
-                          {`Більше ${user.experience[0].yearsExperience} років`}{' '}
+                          {user.experience
+                            ? `Більше ${user.experience[0].yearsExperience} років`
+                            : 'Без досвіду'}
                         </span>
                       </div>
                     </div>
@@ -220,9 +238,9 @@ export function CandidateProfileWraper() {
 
                       <div className='col-lg-10 fv-row'>
                         <span className='fw-bold fs-4'>
-                          {user.skils.map((skil: any, i: number) =>
-                            i !== user.skils.length - 1 ? `${skil}, ` : `${skil}`
-                          )}
+                        {(user.skills) ? user.skills?.map((skil: any, i: number) =>
+                      i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
+                    ) : null}
                         </span>
                       </div>
                     </div>
@@ -255,7 +273,7 @@ export function CandidateProfileWraper() {
                       </label>
 
                       <div className='col-lg-10 fv-row'>
-                        <span className='fw-bold fs-4'>{user.aboutMyself.text}</span>
+                        <span className='fw-bold fs-4'>{user.aboutMyself}</span>
                       </div>
                     </div>
                     <div className='row mb-4'>
@@ -264,7 +282,7 @@ export function CandidateProfileWraper() {
                       </label>
 
                       <div className='col-lg-10 fv-row'>
-                        <span className='fw-bold fs-4'>{user.aboutMyself.source}</span>
+                        <span className='fw-bold fs-4'>{user.aboutMyself}</span>
                       </div>
                     </div>
 
@@ -272,14 +290,14 @@ export function CandidateProfileWraper() {
                       <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Файли:</label>
 
                       <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
-                      <i className="fas fa-paperclip fs-4 text-primary"></i>
-                        {user.aboutMyself.file.map((file: any, i: number) =>
+                        <i className='fas fa-paperclip fs-4 text-primary'></i>
+                        {/* {user.aboutMyself.file.map((file: any, i: number) =>
                           i !== user.aboutMyself.file.length - 1 ? (
                             <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
                           ) : (
                             <a className='fw-bold fs-6 ms-1'>{file[i].name}</a>
                           )
-                        )}
+                        )} */}
                       </div>
                     </div>
                     <div className='row mb-4'>
@@ -288,7 +306,7 @@ export function CandidateProfileWraper() {
                       </label>
 
                       <div className='col-lg-10 fv-row'>
-                        <span className='fw-bold fs-4'>10.02.2020 (оновлено: 20.20.2021)</span>
+                        <span className='fw-bold fs-4'>{(user.created_at && user.updated_at) && `${user.created_at.slice(0,user.created_at.indexOf(' ')).replaceAll('-','.')} (оновлено: ${user.updated_at.slice(0,user.updated_at.indexOf(' ')).replaceAll('-','.')})`}</span>
                       </div>
                     </div>
                   </div>
@@ -298,16 +316,22 @@ export function CandidateProfileWraper() {
           </div>
         </div>
         <div className='col-lg-4 ps-9 mt-4 mt-lg-0'>
-          <div className={(user.checked === 0)?'card card-custom mt-lg-20 shadow p-6':'card card-custom shadow p-6'}>
+          <div
+            className={
+              user.checked === 0
+                ? 'card card-custom mt-lg-20 shadow p-6'
+                : 'card card-custom shadow p-6'
+            }
+          >
             <h2 className='mb-7 fs-4 fw-boldest'>Контакти</h2>
             <div className='row border-bottom'>
-              {user.contacts.email.length > 0 ? (
+              {user.contacts && user.contacts.email.length > 0 ? (
                 <div className='row mb-4'>
                   <label className='col-1 col-lg-2 fw-bold text-gray-500 border-bottom-dotted border-1 border-secondary'>
-                    <i className="fas fa-envelope fs-4"></i>
+                    <i className='fas fa-envelope fs-4'></i>
                   </label>
 
-                  <div className='col-11 col-lg-10 fv-row border-bottom-dotted border-1 border-secondary'>
+                  <div className='col-11 col-lg-10 fv-row pb-4 border-bottom-dotted border-1 border-secondary'>
                     {user.contacts.email.map((email: string, i: number) => (
                       <span key={i} className='d-block fw-bold fs-6'>
                         <a href={'tomail:' + email} className='text-dark text-hover-primary'>
@@ -318,10 +342,10 @@ export function CandidateProfileWraper() {
                   </div>
                 </div>
               ) : null}
-              {user.contacts.phone.length > 0 ? (
+              {user.contacts && user.contacts.phone.length > 0 ? (
                 <div className='row mb-4'>
                   <label className='col-1 col-lg-2 fw-bold'>
-                    <i className="fas fa-phone fs-4"></i>
+                    <i className='fas fa-phone fs-4'></i>
                   </label>
 
                   <div className='col-11 col-lg-10 fv-row'>
@@ -338,18 +362,18 @@ export function CandidateProfileWraper() {
             </div>
             <div className='row mt-4'>
               <div className='col-12'>
-                {user.contacts.messengers.map((mess: {name: number; link: string}, i: number) =>
+                {user.contacts && user.contacts.messengers.map((mess: {name: number; link: string}, i: number) =>
                   mess.name === 3 ? (
                     <a
                       key={i}
                       href={'skype:' + mess.link}
                       className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                     >
-                      <i className="fab fa-skype fs-4"></i>
+                      <i className='fab fa-skype fs-4'></i>
                     </a>
                   ) : null
                 )}
-                {user.contacts.socialLinks.map((link: {name: number; path: string}, i: number) => {
+                {user.contacts && user.contacts.socialLinks.map((link: {name: number; path: string}, i: number) => {
                   if (link.name === 0) {
                     return (
                       <a
@@ -357,7 +381,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <i className="fab fa-linkedin fs-4"></i>
+                        <i className='fab fa-linkedin fs-4'></i>
                       </a>
                     )
                   } else if (link.name === 1) {
@@ -367,7 +391,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <i className="fab fa-github fs-4"></i>
+                        <i className='fab fa-github fs-4'></i>
                       </a>
                     )
                   } else if (link.name === 2) {
@@ -377,7 +401,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        <i className="fab fa-facebook-square fs-4"></i>
+                        <i className='fab fa-facebook-square fs-4'></i>
                       </a>
                     )
                   } else {
@@ -387,11 +411,7 @@ export function CandidateProfileWraper() {
                         href={link.path}
                         className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
                       >
-                        {/* <KTSVG
-                          path='/media/icons/duotune/social/soc014.svg'
-                          className='svg-icon-3'
-                        /> */}
-                        <i className="fas fa-globe fs-4"></i>
+                        <i className='fas fa-globe fs-4'></i>
                       </a>
                     )
                   }

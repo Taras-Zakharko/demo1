@@ -1,43 +1,34 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import axios from 'axios';
-// import axios from 'axios'
-// import { actions } from 'react-table'
-import data from '../../testUsers.json'
 
 export interface CandidateState {
-  users: Array<any>|any
+  users: Array<any> | any
 }
-
-
-  const initialState: CandidateState = {
-    users: data.Users,
-    // users: [],
-  }
+const initialState: CandidateState = {
+  users: [],
+}
 
 export const candidateSlice = createSlice({
   name: 'candidate',
   initialState,
   reducers: {
     remove: (state, action: PayloadAction<number>) => {
-      // axios
-      //   .delete('')
-      //   .then((response) => console.log('Delete successful'))
-      state.users.map((user: any, i: number) => (user.id === action.payload) ? state.users.splice(i, 1) : user)
-      state.users = state.users;
+      state.users = state.users.map((user: any, i: number) =>
+        user.id === action.payload ? state.users.splice(i, 1) : user
+      )
     },
     edit: (state, action: PayloadAction<any>) => {
-
-      // axios.put('', {data: action.payload})
-
-      state.users = state.users.map((user: any) => (user.id === action.payload.id) ? user = action.payload : user)
+      state.users.map((user: any) =>
+        user.id === action.payload.id ? (user = action.payload) : user
+      )
+      state.users = state.users
     },
-    create: (state, action: PayloadAction<any>)=>{
-      // axios.post('', {data: action.payload})
+    create: (state, action: PayloadAction<any>) => {
       state.users.push(action.payload)
+      state.users = state.users
     },
-    setUsers: (state, action: PayloadAction<any>)=>{
-      state.users = action.payload;
-    }
+    setUsers: (state, action: PayloadAction<any>) => {
+      state.users = action.payload
+    },
   },
 })
 

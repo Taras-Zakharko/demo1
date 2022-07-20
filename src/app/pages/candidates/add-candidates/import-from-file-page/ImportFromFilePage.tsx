@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import candidatesApi from '../../../../../API/candidates'
 
 import CandidateContacts from '../../modules/CandidateContacts'
 import CandidateExperience from '../../modules/CandidateExperience'
@@ -7,78 +9,36 @@ import CandidateResume from '../../modules/CandidateResume'
 import PdfWraper from '../../modules/PdfWraper'
 import './AddResumeWraper.scss'
 
-interface IUserObj {
-  id: number
-  photo: string
-  firstName: string
-  lastName: string
-  location: {
-    country: string
-    city: string
-  }
-  specialty: string
-  checked: number
-  experience: object[]
-  skils: string[]
-  contacts: {
-    phone: string[]
-    email: string[]
-    messengers: object[]
-    socialLinks: object[]
-  }
-  aboutMyself: {
-    text: string
-    file: object[]
-    GDPR: number
-    source: string
-  }
-}
-
 const ImportFromFilePage = () => {
-  const newUser = {
-    id: Date.now(),
-    photo: '',
-    firstName: '',
-    lastName: '',
-    location: {
-      country: '',
-      city: '',
-    },
-    specialty: '',
-    checked: 1,
-    experience: [
-      {
-        company: '',
-        position: '',
-        yearsExperience: 0,
-      },
-    ],
-    skils: [],
-    contacts: {
-      phone: [''],
-      email: [''],
-      messengers: [
-        {id: 1, name: 0, link: ''},
-      ],
-      socialLinks: [
-        {id: 1, name: 0, path: ''}
-      ]
-    },
-    aboutMyself: {
-      text: '',
-      file: [],
-      GDPR: 0,
-      source: '',
-    },
+  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('/check-data/') + 12);
+  const [editUser, setEditUser] = useState<any>({})
+  const navigate = useNavigate();
+
+  const handleGetOneCandidate = (id:number)=>{
+    candidatesApi.getSomeCandidate(id)
+    .then((response)=>{
+      setEditUser(response.data)
+    })
   }
 
-  const [editUser, setEditUser] = useState<IUserObj>(newUser)
+  const handleEditOneCandidate = (user: any)=>{
+    candidatesApi.editCandidate(user)
+    .then(()=>{
+      navigate('/candidates')
+    })
+  }
+
+  useEffect(()=>{
+    handleGetOneCandidate(idUser)
+  },[])
+
+  let fileName = localStorage.getItem('importFileName')
 
   return (
     <>
       <div className='row pt-10'>
         <div className='col-lg-12'>
-          <h2 className='fs-2 fw-boldest'>Імпорт файлу Oleksandr_Developer.pdf</h2>
+          <h2 className='fs-2 fw-boldest'>Імпорт файлу {fileName}</h2>
         </div>
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
@@ -93,11 +53,11 @@ const ImportFromFilePage = () => {
             </div>
           </div>
           <div className='col-lg-12 bg-white d-flex flex-center p-9'>
-            <button className='btn btn-primary h-50px'>Зберегти</button>
+            <button className='btn btn-primary h-50px' onClick={()=>handleEditOneCandidate({...editUser, checked: 1})}>Зберегти</button>
           </div>
         </div>
         <div className='col-lg-6 mt-4'>
-          <PdfWraper />
+          <PdfWraper fileBase={editUser.base64}/>
         </div>
       </div>
     </>

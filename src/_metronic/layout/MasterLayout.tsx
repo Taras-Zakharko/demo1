@@ -11,6 +11,10 @@ import {PageDataProvider} from './core'
 import {useLocation} from 'react-router-dom'
 import { Main, InviteUsers, UpgradePlan} from '../partials'
 import {MenuComponent} from '../assets/ts/components'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUsers } from '../../app/features/candidate/candidateSlice'
+import { RootState } from '../../app/store'
 
 const MasterLayout = () => {
   const location = useLocation()
@@ -25,6 +29,26 @@ const MasterLayout = () => {
       MenuComponent.reinitialization()
     }, 500)
   }, [location.key])
+
+  // const dispatch = useDispatch();
+  // const url = 'https://turbohiring.dotcode.pp.ua/api/candidates'
+
+  // useEffect(() => {
+  //   axios
+  //     .get(url)
+  //     .then(function (response) {
+  //       // handle success
+  //       dispatch(setUsers(response.data.data))
+  //       console.log(response.data.data)
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error)
+  //     })
+  //     .then(function () {
+  //       // always executed
+  //     })
+  // }, [dispatch])
 
   return (
     <PageDataProvider>

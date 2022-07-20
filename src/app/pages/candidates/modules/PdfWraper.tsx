@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const PdfWraper = () => {
+interface IPdfWraper{
+  fileBase?:string
+}
+
+const PdfWraper: FC<IPdfWraper> = ({fileBase}) => {
+  
   return (
     <embed
-      src='https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
+      src={(fileBase) ? fileBase: ''}
       type='application/pdf'
       className='w-100 h-750px'
     />

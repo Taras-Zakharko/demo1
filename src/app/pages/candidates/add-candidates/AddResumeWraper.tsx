@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import candidatesApi from '../../../../API/candidates'
 
 const AddResumeWraper = () => {
   const addFileBtn = useRef<HTMLInputElement | null>(null)
@@ -13,47 +14,73 @@ const AddResumeWraper = () => {
   const progresDiv = useRef<HTMLDivElement | null>(null)
   const stopLoad = useRef<HTMLButtonElement | null>(null)
 
-  const [rogresValue, setProgresValue] = useState<number>(0)
+  const [progresValue, setProgresValue] = useState<number>(0)
 
-  const selectFile = () => {
-    addFileContent.current?.setAttribute('data-kt-indicator', 'on')
-    setTimeout(() => {
+  const handleAddResumeFile = (file: any) => {
+    candidatesApi.addResumeFileCandidate(file).then((response) => {
       addFileContent.current?.removeAttribute('data-kt-indicator')
-      document.location.href = '/add/check-data'
-    }, 4000)
+      navigate(`/add/check-data/${response.data.id}`)
+    })
+  }
+
+  const handleAddResumeZip = (file: any) => {
+    candidatesApi.addResumeZipCandidates(file).then((response) => {
+      let progresRun = setInterval(() => {
+        candidatesApi.getParsStatusZip(response.data.parse_id).then((res) => {
+          setProgresValue((progresValue) => {
+            progresValue = +res.data.percentage
+
+            if (progresValue === 100) {
+              clearInterval(progresRun)
+              secondZipContent.current?.classList.add('d-none')
+              thirdZipContent.current?.classList.remove('d-none')
+              setTimeout(() => {
+                thirdZipContent.current?.classList.add('d-none')
+                firstZipContent.current?.classList.remove('d-none')
+                addZipBtn.current!.value = ''
+                setProgresValue((value) => (value = 0))
+              }, 2000)
+            }
+
+            stopLoad.current?.addEventListener('click', function stopEvent() {
+              clearInterval(progresRun)
+              firstZipContent.current?.classList.remove('d-none')
+              secondZipContent.current?.classList.add('d-none')
+              addZipBtn.current!.value = ''
+              setProgresValue((value) => (value = 0))
+              stopLoad.current!.removeEventListener('click', stopEvent)
+            })
+            return progresValue
+          })
+        })
+      }, 2000)
+    })
+  }
+
+  const navigate = useNavigate()
+
+  const selectFile = (e: any) => {
+    addFileContent.current?.setAttribute('data-kt-indicator', 'on')
+    const reader = new FileReader()
+
+    reader.onload = (e) => {
+      window.localStorage.setItem('importFileName', addFileBtn.current!.files!.item(0)!.name)
+      handleAddResumeFile(e!.target!.result)
+    }
+
+    reader.readAsDataURL(addFileBtn.current!.files![0])
   }
 
   const selectZip = () => {
     firstZipContent.current?.classList.add('d-none')
     secondZipContent.current?.classList.remove('d-none')
+    const reader = new FileReader()
 
-    let progresRun = setInterval(() => {
-      setProgresValue((rogresValue) => {
-        rogresValue = rogresValue + 1
+    reader.onload = () => {
+      handleAddResumeZip(reader.result)
+    }
 
-        if (rogresValue === 100) {
-          clearInterval(progresRun)
-          secondZipContent.current?.classList.add('d-none')
-          thirdZipContent.current?.classList.remove('d-none')
-          setTimeout(() => {
-            thirdZipContent.current?.classList.add('d-none')
-            firstZipContent.current?.classList.remove('d-none')
-            addZipBtn.current!.value = ''
-            setProgresValue((value) => (value = 0))
-          }, 4000)
-        }
-
-        stopLoad.current?.addEventListener('click', function stopEvent() {
-          clearInterval(progresRun)
-          firstZipContent.current?.classList.remove('d-none')
-          secondZipContent.current?.classList.add('d-none')
-          addZipBtn.current!.value = ''
-          setProgresValue((value) => (value = 0))
-          stopLoad.current!.removeEventListener('click', stopEvent)
-        })
-        return rogresValue
-      })
-    }, 100)
+    reader.readAsDataURL(addZipBtn.current!.files![0])
   }
 
   return (
@@ -173,11 +200,12 @@ const AddResumeWraper = () => {
                 <div
                   ref={progresDiv}
                   className='h-15px top-0 start-0 bg-success position-absolute rounded-pill'
-                  style={{width: `${rogresValue}%`}}
+                  style={{width: `${progresValue}%`}}
                 ></div>
               </div>
               <p className='text-start text-muted mb-10 fs-6'>
-                Якщо у вас виникли проблеми з перенесенням бази резюме,{' '}
+                Якщо у вас виникли проблеми з перенесенням бази резюме,
+                <br />
                 <a href='mailto:#' className='text-primary'>
                   напишіть нам
                 </a>

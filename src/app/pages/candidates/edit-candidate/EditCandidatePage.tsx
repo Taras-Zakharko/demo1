@@ -1,76 +1,56 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import CandidateInfoBlock from '../modules/CandidateInfoBlock'
 import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 
-import { RootState } from '../../../../app/store'
-import { useSelector, useDispatch } from 'react-redux'
-import {edit, remove} from '../../../features/candidate/candidateSlice'
+import candidatesApi from '../../../../API/candidates'
 
-interface IUserObj {
-  id: number
-  photo: string
-  firstName: string
-  lastName: string
-  location: {
-    country: string
-    city: string
-  }
-  specialty: string
-  checked: number
-  experience: [
-    {
-      company: string
-      position: string
-      startWorking: number
-      endWorking: number
-    }
-  ]
-  skils: [string]
-  contacts: {
-    phone: [string]
-    email: [string]
-    messengers: [
-      {
-        name: number
-        link: string
-      }
-    ]
-    socialLinks: [
-      {
-        name: number
-        path: string
-      }
-    ]
-  }
-  aboutMyself: {
-    text: string
-    file: {}
-    GDPR: number
-    source: string
-  }
-}
 
 function EditCandidate() {
   const infoRef = useRef<any>(null)
   const experienceRef = useRef<any>(null)
   const contactsRef = useRef<any>(null)
-  const resumeRef = useRef<any>(null)
+  const resumeRef = useRef<any>(null)   
 
-  const dispatch = useDispatch()
-
-  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
-  const allUsers = useSelector((state: RootState) => state.candidates.users);
-  const [editUser, setEditUser] = useState<IUserObj>(allUsers[0])
-
-  useEffect(()=>{
-    allUsers.map((user:any) => (user.id === idUser) ? setEditUser(user) : user)
-  }, [allUsers, idUser])
+  const navigate = useNavigate();
 
   
+
+  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
+  const [editUser, setEditUser] = useState<any>({})
+
+  const handleGetOneCandidate = (id:number)=>{
+    candidatesApi.getSomeCandidate(id)
+    .then((response)=>{
+      setEditUser(response.data)
+    })
+  }
+
+  const handleEditOneCandidate = (user: any)=>{
+    candidatesApi.editCandidate(user)
+    .then(()=>{
+      navigate('/candidates')
+    })
+  }
+
+
+  const hendleRemoveCandidate = (id: number)=>{
+    candidatesApi.removeCandidate(id)
+    .then(()=>{
+      navigate('/candidates')
+      
+    })
+  }
+
+  useEffect(() => {
+ 
+    handleGetOneCandidate(idUser);
+  }, [idUser])
+
+
   
 
   return (
@@ -142,17 +122,16 @@ function EditCandidate() {
         <div className='col-lg-9 card p-9'>
           <div className='row d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <Link to={'/candidates'} className='btn btn-primary h-40px' onClick={() => dispatch(edit(editUser))}>
+              <button className='btn btn-primary h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
                 Зберегти
-              </Link>
-              <Link
-                to={'/candidates'}
+              </button>
+              <button
                 className='btn text-danger fs-6 pe-0'
-                onClick={() => dispatch(remove(idUser))}
+                onClick={() => hendleRemoveCandidate(idUser)}
               >
                 <i className="fas fa-trash text-danger fs-4 me-3"></i>
                 Видалити
-              </Link>
+              </button>
             </div>
           </div>
         </div>

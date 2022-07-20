@@ -1,43 +1,12 @@
 import React, {useRef, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import CandidateInfoBlock from '../modules/CandidateInfoBlock'
 import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 
-
-import { useDispatch } from 'react-redux'
-import { create} from '../../../features/candidate/candidateSlice'
-
-interface IUserObj {
-  id: number,
-  photo: string,
-  firstName: string,
-  lastName: string,
-  location: {
-    country: string,
-    city: string
-  },
-  specialty: string,
-  checked: number,
-  experience: object[
-    
-  ],
-  skils: string[],
-  contacts: {
-    phone: string[],
-    email: string[],
-    messengers: object[],
-    socialLinks: object[]
-  },
-  aboutMyself: {
-    text: string,
-    file: object[],
-    GDPR: number,
-    source: string
-  }
-}
+import candidatesApi from '../../../../API/candidates'
 
 
 
@@ -47,47 +16,34 @@ function CreateCandidatePage() {
   const contactsRef = useRef<any>(null)
   const resumeRef = useRef<any>(null)
   const newUser = {
-    id: Date.now(),
-    photo: "",
-    firstName: "",
-    lastName: "",
-    location: {
-      country: "",
-      city: ""
-    },
-    specialty: "",
+    firstName: '',
+    lastName: '',
+    location: ['', ''],
+    specialty: '',
     checked: 1,
-    experience: [
-      {
-        company: '',
-        position: '',
-        yearsExperience: 0
-      }
-    ],
-    skils: [],
     contacts: {
       phone: [''],
       email: [''],
-      messengers: [
-        {id: 1, name: 0, link: ''},
-      ],
-      socialLinks: [
-        {id: 1, name: 0, path: ''}
-      ]
+      messengers: [{}],
+      socialLinks: [{}],
     },
-    aboutMyself: {
-      text: "",
-      file: [],
-      GDPR: 1,
-      source: ""
-    }
+    aboutMyself: [],
+    positions: [],
+    skills: [],
+    created_at: '29-06-2022 07:06:05',
+    updated_at: '29-06-2022 07:06:05',
   }
 
-  const [editUser, setEditUser] = useState<IUserObj>(newUser)
+  const [editUser, setEditUser] = useState<any>(newUser)
 
+  const navigate = useNavigate()
 
+  const handleCreateNewCandidate = (user: any) => {
+    candidatesApi.createCandidate(user).then(() => {
+      navigate('/candidates');
+    })
+  }
 
-  const dispatch = useDispatch()
 
   return (
     <div className='row'>
@@ -98,27 +54,51 @@ function CreateCandidatePage() {
             <div className='card-header border-bottom-0 position-absolute z-index-1 w-100 p-0'>
               <div className='card-title m-0 w-100 justify-content-between'>
                 <div className='d-flex'>
-                <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
-                  <i className="fas fa-arrow-left text-primary fs-4 me-6"></i>
-                </Link>
-                <h2 className='fs-2 fw-boldest'>Новий кандидат</h2>
+                  <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
+                    <i className='fas fa-arrow-left text-primary fs-4 me-6'></i>
+                  </Link>
+                  <h2 className='fs-2 fw-boldest'>Новий кандидат</h2>
                 </div>
-                
+
                 <Link to={'/add'} className='btn btn-sm btn-light-primary fs-5'>
-                  <i className="fas fa-file-import fs-4 me-lg-4"></i>
-                  <span className='d-none d-lg-inline-block'>Імпортувати з файлу</span> 
+                  <i className='fas fa-file-import fs-4 me-lg-4'></i>
+                  <span className='d-none d-lg-inline-block'>Імпортувати з файлу</span>
                 </Link>
               </div>
             </div>
           </div>
           <div ref={infoRef} className='card p-10 mt-20 row'>
-            <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
-            <CandidatePhoto url={'/media/avatars/blank.png'} setEditUser={setEditUser}/>
+            <CandidateInfoBlock
+              id={Date.now()}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
+            <CandidatePhoto url={''} setEditUser={setEditUser} />
           </div>
           <div className='accordion row' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
-            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
-            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateExperience
+              experienceRef={experienceRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
+            <CandidateContacts
+              contactsRef={contactsRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
+            <CandidateResume
+              resumeRef={resumeRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
           </div>
         </div>
         <div className='col-lg-2'>
@@ -161,7 +141,12 @@ function CreateCandidatePage() {
         <div className='col-lg-8'>
           <div className='row'>
             <div className='col-lg-12 d-flex flex-center'>
-              <Link to={'/candidates'} className='btn btn-primary h-50px ' onClick={() => dispatch(create(editUser))}>Зберегти кандидата</Link>
+              <button
+                className='btn btn-primary h-50px '
+                onClick={() => handleCreateNewCandidate(editUser)}
+              >
+                Зберегти кандидата
+              </button>
             </div>
           </div>
         </div>

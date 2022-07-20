@@ -9,9 +9,6 @@ interface ICandidateContacts {
 }
 
 const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user, labelW, inputW}) => {
-  
-
-  
 
   return (
     <div ref={resumeRef} className='accordion-item p-0'>
@@ -41,7 +38,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user, 
                 id='resume'
                 className='w-100 h-150px p-3 form-control form-control-solid'
                 onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, text: e.target.value})}))}
-                value={user.aboutMyself.text}
+                value={user.aboutMyself}
               ></textarea>
             </div>
             <div className='col-lg-12'>
@@ -64,8 +61,8 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user, 
                 <select
                   className='form-select form-select-solid border-0 text-muted'
                   aria-label='Select example'
-                  onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, GDPR: e.target.value})}))}
-                  value={user.aboutMyself.GDPR}
+                  // onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, GDPR: e.target.value})}))}
+                  // value={user.aboutMyself}
                 >
                   <option value='1'>
                   GDPR статус не визначено
@@ -88,7 +85,7 @@ const CandidateResume: FC<ICandidateContacts> = ({resumeRef, setEditUser, user, 
                   type='text'
                   className='form-control form-control-solid w-100 w-lg-75 h-40px mb-3'
                   onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, source: e.target.value})}))}
-                  value={user.aboutMyself.source}
+                  value={user.aboutMyself}
                 />
                 <span className='text-gray-500 fs-7'>Де знайшли цього кандидата</span>
               </div>

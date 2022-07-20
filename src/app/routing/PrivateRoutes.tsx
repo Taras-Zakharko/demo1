@@ -32,7 +32,7 @@ const PrivateRoutes = () => {
         <Route path='candidates/user/*' element={<CandidateProfileWraper/>}/>
         <Route path='candidates/edit/user/*' element={<EditCandidate/>}/>
         <Route path='candidates/user/create' element={<CreateCandidatePage/>}/>
-        <Route path='add/check-data' element={<ImportFromFilePage/>}/>
+        <Route path='add/check-data/*' element={<ImportFromFilePage/>}/>
         <Route path='add' element={<AddResumeWraper/>}/>
 {/*         
         <Route path='builder' element={<BuilderPageWrapper />} />

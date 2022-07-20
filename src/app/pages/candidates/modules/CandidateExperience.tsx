@@ -13,11 +13,13 @@ interface ICandidateExperience {
 const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user, labelW, inputW}) => {
 
   const tagifyRef = useRef()
+  
 
-  const [skilsArr, setSkilsArr] = useState<any[]>(user.skils)
+  const [skilsArr, setSkilsArr] = useState<any>([])
 
-  useEffect(() => {    
-    setEditUser((user: any) => ({...user, skils: [...skilsArr]}))
+  useEffect(() => { 
+    (user.skills)&&  setEditUser((user: any) => ({...user, skills: [...skilsArr]}))
+    
   }, [skilsArr, setEditUser])
 
   return (
@@ -53,7 +55,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
                   placeholder='Компанія'
-                  value={user.experience.at(-1).company}
+                  value={(user.expanded)&&user.experience.at(-1).company}
                   onChange={(e) =>
                     setEditUser((user: any) => ({
                       ...user,
@@ -78,17 +80,11 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
-                  value={user.experience[0].position}
+                  value={(user.specialty) && user.specialty}
                   onChange={(e) =>
                     setEditUser((user: any) => ({
                       ...user,
-                      experience: [
-                        ...user.experience.map((obj: any, i: number) =>
-                          i === user.experience.length - 1
-                            ? {...obj, position: e.target.value}
-                            : obj
-                        ),
-                      ],
+                      specialty: e.target.value,
                     }))
                   }
                 />
@@ -106,7 +102,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   type='number'
                   className='form-control form-control-solid w-50 w-md-25 h-40px'
                   min='0'
-                  value={user.experience.at(-1).yearsExperience}
+                  value={(user.experience)&&user.experience.at(-1).yearsExperience}
                   onChange={(e) =>
                     setEditUser((user: any) => ({
                       ...user,
@@ -134,9 +130,11 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
               <div className={'col-lg-'+inputW}>
                 <Tags
                   tagifyRef={tagifyRef}                    
-                  value={skilsArr}
-                  className='form-control form-control-solid w-100 h-40px'
-                  onChange={(e)=> setSkilsArr(e.detail.tagify.value)}
+                  value={user.skills}
+                  className='form-control form-control-solid w-100 min-h-40px'
+                  onChange={(e)=> {
+                    setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
+                  }}
                 />
               </div>
             </div>
