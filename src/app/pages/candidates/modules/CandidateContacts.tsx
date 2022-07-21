@@ -104,7 +104,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               </button>
             </div>
             <div className='col-lg-5'>
-              {phoneNumber.map((number, i) => {
+              {(phoneNumber.length>0)?phoneNumber.map((number, i) => {
                 if (i === 0) {
                   return (
                     <div key={i} className='col-12 col-lg-11'>
@@ -135,7 +135,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              })}
+              }): setPhoneNumber((phone) => phone.concat(''))}
               <button
                 className='btn ps-0 pt-0 d-none d-lg-block text-primary fs-7'
                 onClick={() => setPhoneNumber((phone) => phone.concat(''))}
@@ -157,7 +157,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               </button>
             </div>
             <div className='col-lg-5'>
-              {email.map((adres, i) => {
+              {(email.length> 0)?email.map((adres, i) => {
                 if (i === 0) {
                   return (
                     <div key={i} className='col-12 col-lg-11'>
@@ -188,7 +188,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              })}
+              }): setEmail((adres) => adres.concat(''))}
 
               <button
                 className='btn ps-0 pt-0 text-primary d-none d-lg-block fs-7'
@@ -213,7 +213,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               </button>
             </div>
             <div className={'col-lg-'+inputW}>
-              {messenger.map((mess, i) => {
+              {(messenger.length>0)?messenger.map((mess, i) => {
                 if (i === 0) {
                   return (
                     <div key={i} className='row mb-6 align-items-center'>
@@ -313,7 +313,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              })}
+              }): setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''})) }
               <button
                 className='btn ps-0 text-primary d-none d-lg-block fs-7'
                 onClick={() =>
@@ -339,7 +339,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               </button>
             </div>
             <div className={'col-lg-'+inputW}>
-              {userLinks.map((link, i) => {
+              {(userLinks.length>0)?userLinks.map((link, i) => {
                 if (i === 0) {
                   return (
                     <div key={i} className='row mb-6 align-items-center'>
@@ -437,7 +437,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              })}
+              }):setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''})) }
 
               <button
                 className='btn ps-0 text-primary d-none d-lg-block fs-7'

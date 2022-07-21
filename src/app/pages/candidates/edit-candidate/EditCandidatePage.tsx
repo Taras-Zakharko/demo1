@@ -46,7 +46,7 @@ function EditCandidate() {
   }
 
   useEffect(() => {
- 
+    
     handleGetOneCandidate(idUser);
   }, [idUser])
 

@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import {FC, useEffect, useRef, useState} from 'react'
 
 interface ICandidateInfoBlock {
   id?: number
@@ -9,11 +9,7 @@ interface ICandidateInfoBlock {
 }
 
 const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, labelW, inputW}) => {
-  useEffect(() => {
-    if (user.location && user.location.length < 2) {
-      setEditUser((user: {location: string[]}) => ({...user, location: [...user.location, '']}))
-    }
-  }, [user.location, setEditUser])
+
 
   return (
     <div className='col-lg-12 mb-10 pe-4'>
@@ -57,15 +53,11 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
             type='text'
             className='form-control form-control-solid w-lg-47 mb-4 h-40px'
             placeholder='Країна'
-            value={user.location && user.location.length > 0 ? user.location[0] : ''}
+            value={(user.location)?user.location.country:''}
             onChange={(e) =>
-              setEditUser((user: {location: string[]}) => ({
+              setEditUser((user: {location: any}) => ({
                 ...user,
-                location: [
-                  ...user.location.map((str: string, i: number) => {
-                    return i === 0 ? e.target.value : str
-                  }),
-                ],
+                location: {...user.location, country: e.target.value},
               }))
             }
           />
@@ -73,16 +65,13 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
             type='text'
             className='form-control form-control-solid w-lg-47 h-40px'
             placeholder='Місто'
-            value={user.location && user.location.length > 0 ? user.location[1] : ''}
-            onChange={(e) =>
-              setEditUser((user: {location: string[]}) => ({
-                ...user,
-                location: [
-                  ...user.location.map((str: string, i: number) => {
-                    return i === 1 ? e.target.value : str
-                  }),
-                ],
+            value={(user.location)?user.location.city[0]:''}
+            onChange={(e) =>{
+              setEditUser((user: {location: any})=>({
+                ...user, location: {...user.location, city: user.location.city.map((city:string, i: number)=>(i===0)?city=e.target.value: city)}
               }))
+            }
+              
             }
           />
         </div>

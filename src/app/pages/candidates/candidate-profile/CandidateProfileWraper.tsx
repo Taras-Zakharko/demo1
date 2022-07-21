@@ -13,7 +13,7 @@ export function CandidateProfileWraper() {
 
   const handleGetOneCandidate = (id:number)=>{
     candidatesApi.getSomeCandidate(id)
-    .then((response)=>{
+    .then((response)=>{      
       setUser(response.data)
     })
   }
@@ -25,6 +25,7 @@ export function CandidateProfileWraper() {
     })
   }
 
+
   useEffect(() => {
     handleGetOneCandidate(idUser)
   }, [idUser])
@@ -33,6 +34,8 @@ export function CandidateProfileWraper() {
     setUser((user: any) => ({...user, checked: 1}))
     handleEditOneCandidate({...user, checked: 1})
   }
+  
+  
 
   return (
     <>
@@ -80,7 +83,7 @@ export function CandidateProfileWraper() {
                   {user.specialty === null ? '' : `${user.specialty}`}
                 </span>
                 <span className='text-muted fw-bold d-block fs-6'>
-                  {(user.location && user.location.length > 0) ? `${user.location[0]}` : ''}
+                {(user.location)?`${user.location.country}, `:''} {(user.location)?user.location.city[0]: ''}
                 </span>
                 <div className='d-flex align-items-center'>
                   {gdpr === 0 ? (

@@ -15,12 +15,11 @@ type Props = {
 const TablesWidget10: React.FC<Props> = ({className}) => {
   const allUsers = useSelector((state: RootState) => state.candidates.users)
   const searchObj = useSelector((state: RootState) => state.search)
-  const [filterUsers, setFilterUsers] = useState<any>(allUsers)
   const dispatch = useDispatch()
 
 
-  const handleGetAllCandidate=()=>{
-    candidatesApi.getCandidate()
+  const handleGetAllCandidate=(city:string, specialty: string, skills: string[])=>{
+    candidatesApi.getCandidate(city, specialty, skills)
     .then((response)=>{
       dispatch(setUsers(response.data))
     })
@@ -28,94 +27,21 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
   useEffect(() => {
     
-    handleGetAllCandidate();
+    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils);
 
-  }, [])
-
-  useEffect(() => {
-    setFilterUsers(allUsers)
-  }, [allUsers])
-
-  function filterUsersFunk(
-    country: string,
-    city: string,
-    position: string,
-    company: string,
-    skils: string[],
-    startYear: number,
-    endYear: number
-  ) {
-    if (
-      country === '' &&
-      city === '' &&
-      position === '' &&
-      company === '' &&
-      skils.length === 0 &&
-      startYear === 0 &&
-      (endYear === 0 || endYear === 1)
-    ) {
-      setFilterUsers(allUsers)
-    } else if (startYear === 0 && endYear === 0) {
-      setFilterUsers(
-        allUsers.filter(
-          (user: any) =>
-            user.location.includes(country) &&
-            user.location.includes(city) 
-            // &&
-            // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-            // user.experience[0].company.toLowerCase().includes(company.toLowerCase())
-        )
-      )
-    } else if (startYear !== 0 && (endYear === 0 || endYear === 1)) {
-      setFilterUsers(
-        allUsers.filter(
-          (user: any) =>
-          user.location.includes(country) &&
-          user.location.includes(city) 
-          // &&
-          // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-          // user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
-          // user.experience[0].yearsExperience >= startYear
-        )
-      )
-    } else {
-      setFilterUsers(
-        allUsers.filter(
-          (user: any) =>
-            user.location.includes(country) &&
-            user.location.includes(city) 
-            // &&
-            // user.experience[0].position.toLowerCase().includes(position.toLowerCase()) &&
-            // user.experience[0].company.toLowerCase().includes(company.toLowerCase()) &&
-            // user.experience[0].yearsExperience >= startYear &&
-            // user.experience[0].yearsExperience <= endYear
-        )
-      )
-    }
-  }
-
-  useEffect(() => {
-    filterUsersFunk(
-      searchObj.country,
-      searchObj.city,
-      searchObj.position,
-      searchObj.company,
-      searchObj.skils,
-      searchObj.yearStart,
-      searchObj.yearEnd
-    )
   }, [searchObj])
 
+  
   const [currentPage, setCurrentPage] = useState(1)
   const [perPage] = useState(6)
   const lastIndex = currentPage * perPage
   const firstIndex = lastIndex - perPage
 
-  const currentUser = filterUsers.slice(firstIndex, lastIndex)
+  const currentUser = allUsers.slice(firstIndex, lastIndex)
 
   const pageNumbers: any[] = []
 
-  for (let i = 1; i <= Math.ceil(filterUsers.length / perPage); i++) {
+  for (let i = 1; i <= Math.ceil(allUsers.length / perPage); i++) {
     pageNumbers.push(i)
   }
 
@@ -127,13 +53,14 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   let up = 0
 
   
+  
   return (
     <div className={`card ${className} bg-transparent`}>
       {/* begin::Header */}
       <div className='card-header border-0 p-0  w-100'>
         <h3 className='card-title align-items-start flex-column m-0'>
           <span className='card-label fw-bolder fs-2 mb-1'>Кандидати</span>
-          <span className='text-muted mt-1 fw-bold fs-6'>{filterUsers.length} кандидатів</span>
+          <span className='text-muted mt-1 fw-bold fs-6'>{allUsers.length} кандидатів</span>
         </h3>
         <div
           className='card-toolbar'
@@ -153,7 +80,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       </div>
       {/* end::Header */}
       {/* begin::Body */}
-      {filterUsers.length > 0 ? (
+      {allUsers.length > 0 ? (
         <div className='card card-body mt-6 py-3'>
           {/* begin::Table container */}
           <div className='table'>
@@ -183,7 +110,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
               {/* end::Table body */}
             </table>
-            {filterUsers.length > perPage ? (
+            {allUsers.length > perPage ? (
               <ul className='pagination '>
                 {currentPage === 1 ? (
                   <li className='page-item previous disabled'>

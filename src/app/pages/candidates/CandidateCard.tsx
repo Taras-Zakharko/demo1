@@ -2,10 +2,11 @@ import React, {FC, useRef, useState} from 'react'
 import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {setUsers} from '../../features/candidate/candidateSlice'
 import './CandidateCard.scss'
 import candidatesApi from '../../../API/candidates'
+import { RootState } from '../../store'
 
 
 interface ICandidate {
@@ -15,9 +16,10 @@ interface ICandidate {
 const CandidateCard: FC<ICandidate> = ({user}) => {
   const cardRef = useRef<HTMLDivElement | null>(null)
   const [openModal, setopenModal] = useState<boolean>(false)
+  const searchObj = useSelector((state: RootState) => state.search)
 
-  const handleGetAllCandidate=()=>{
-    candidatesApi.getCandidate()
+  const handleGetAllCandidate=(city:string, specialty: string, skills: string[])=>{
+    candidatesApi.getCandidate(city,specialty,skills)
     .then((response)=>{
       dispatch(setUsers(response.data))
     })
@@ -27,7 +29,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
     candidatesApi.removeCandidate(id)
     .then(()=>{
       setopenModal(false);
-      handleGetAllCandidate();
+      handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils);
     })
   }
 
@@ -36,6 +38,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   })
 
   const dispatch = useDispatch()
+  
   
 
   return (
@@ -68,7 +71,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 {(user.specialty === null ) ? '' : `${user.specialty}`}
               </span>
               <span className='text-gray-500 d-block fs-6'>
-                {(user.location && user.location.length > 1) ? `${user.location[0]}, ${user.location[1]}` : ''}
+                {(user.location.country && user.location.city.length>0 )? `${user.location.country}, ${user.location.city[0]}`: (!user.location.country && user.location.city.length>0 ) ? `${user.location.city[0]}` :(user.location.country && user.location.city.length<1 ) ? `${user.location.country}`: ''}
               </span>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 
 interface ICandidateContacts {
   resumeRef?: any
@@ -15,6 +15,9 @@ const CandidateResume: FC<ICandidateContacts> = ({
   labelW,
   inputW,
 }) => {
+
+  const [fileArr, setFileArr] = useState<any>([])
+
   return (
     <div ref={resumeRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_3'>
@@ -60,17 +63,36 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 type='file'
                 id='addFileResume'
                 name='addFileResume'
+                multiple
                 className='d-none'
-                accept='.txt, .doc, .docx'
-                // onChange={(e) =>
-                //   setEditUser((user: any) => ({
-                //     ...user,
-                //     aboutMyself: {
-                //       ...user.aboutMyself,
-                //       file: [...user.aboutMyself.file, e.target.files],
-                //     },
-                //   }))
-                // }
+                accept='.txt, .doc, .docx, .pdf'
+                onChange={(e) =>
+                  {if(e.target.files!==null){
+                    for (let i = 0; i < e.target.files.length; i++) {
+                      const file = e.target.files[i];
+                     
+                      const reader = new FileReader()
+
+                      reader.onload = () => {
+                        console.log(reader.result);
+                        setFileArr((arr:any[])=> arr = [...arr, {name: file.name, base64: reader.result}])
+                      }
+                  
+                      reader.readAsDataURL(file)
+
+                    }
+                  }
+                    
+                  }
+                  
+                  // setEditUser((user: any) => ({
+                  //   ...user,
+                  //   aboutMyself: {
+                  //     ...user.aboutMyself,
+                  //     file: [...user.aboutMyself.file, e.target.files],
+                  //   },
+                  // }))
+                }
               ></input>
             </div>
           </div>

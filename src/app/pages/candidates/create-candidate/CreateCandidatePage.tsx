@@ -18,7 +18,10 @@ function CreateCandidatePage() {
   const newUser = {
     firstName: '',
     lastName: '',
-    location: ['', ''],
+    location: {
+      country: '',
+      city: ['']
+    },
     specialty: '',
     checked: 1,
     contacts: {

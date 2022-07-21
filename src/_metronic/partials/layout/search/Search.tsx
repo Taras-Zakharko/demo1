@@ -1,8 +1,8 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {SearchComponent} from '../../../assets/ts/components'
-import {RootState} from '../../../../app/store'
-import {useSelector, useDispatch} from 'react-redux'
+// import {RootState} from '../../../../app/store'
+import { useDispatch} from 'react-redux'
 import {
   setCountry,
   setCity,
@@ -12,7 +12,8 @@ import {
   setYearEnd,
   setYearStart,
 } from '../../../../app/features/search/searchSlice'
-
+import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
+import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -25,12 +26,12 @@ const Search: FC = () => {
   const [countries, setCountries] = useState<any[]>([])
   const [myCountry, setMyCountry] = useState<any[]>([])
   const [myTowns, setMyTowns] = useState<string[]>([])
+  const [skilsArr, setSkilsArr] = useState<string[]>([])
 
   const countriesSelect = useRef<HTMLSelectElement>(null)
   const citiesSelect = useRef<HTMLSelectElement | null>(null)
   const positionSelect = useRef<HTMLInputElement | null>(null)
   const companySelect = useRef<HTMLInputElement | null>(null)
-  const skilsSelect = useRef<HTMLInputElement | null>(null)
   const experienceStartSelect = useRef<HTMLInputElement | null>(null)
   const experienceEndSelect = useRef<HTMLInputElement | null>(null)
   const inputSearch = useRef<HTMLInputElement | null>(null)
@@ -38,8 +39,10 @@ const Search: FC = () => {
   const clearFilter = useRef<HTMLButtonElement | null>(null)
   const clearFilter2 = useRef<HTMLButtonElement | null>(null)
 
+  const tagifyRef = useRef()
+
   const dispatch = useDispatch()
-  const searchObj = useSelector((state: RootState) => state.search)
+  // const searchObj = useSelector((state: RootState) => state.search)
 
   const [filterListArr, setFilterListArr] = useState<any>([])
 
@@ -73,8 +76,10 @@ const Search: FC = () => {
         companyValue = ''
       }
 
-      if (skilsSelect.current?.value !== '') {
-        skilsValue = `${skilsSelect.current?.value}`
+      if (skilsArr.length > 0) {
+        skilsArr.map((skil: string, i: number) =>
+          i === skilsArr.length - 1 ? (skilsValue += `${skil}`) : (skilsValue += `${skil}, `)
+        )
       } else {
         skilsValue = ''
       }
@@ -105,7 +110,7 @@ const Search: FC = () => {
       dispatch(setCity(citiesSelect.current!.value))
       dispatch(setPosition(positionSelect.current!.value))
       dispatch(setCompany(companySelect.current!.value))
-      dispatch(setSkils(setSkilsArr(skilsSelect.current!.value)))
+      dispatch(setSkils(skilsArr))
       dispatch(setYearEnd(+experienceEndSelect.current!.value))
       dispatch(setYearStart(+experienceStartSelect.current!.value))
     }
@@ -117,23 +122,20 @@ const Search: FC = () => {
     searchToogleContent.current!.classList.remove('show')
   }
 
-  filterListArr.map((str: string) =>{
-    if(str !== ''){
-      clearFilter.current!.classList.add('d-sm-block');
-      clearFilter2.current!.classList.remove('d-none');
-      clearFilter2.current!.classList.add('d-sm-none');
-      
+  filterListArr.map((str: string) => {
+    if (str !== '') {
+      clearFilter.current!.classList.add('d-sm-block')
+      clearFilter2.current!.classList.remove('d-none')
+      clearFilter2.current!.classList.add('d-sm-none')
     }
-  }
-    
-  )
+  })
 
   function clearSearchForm() {
     countriesSelect.current!.value = ''
     citiesSelect.current!.value = ''
     positionSelect.current!.value = ''
     companySelect.current!.value = ''
-    skilsSelect.current!.value = ''
+    setSkilsArr([])
     experienceStartSelect.current!.value = ''
     experienceEndSelect.current!.value = ''
     inputSearch.current!.value = ''
@@ -149,15 +151,7 @@ const Search: FC = () => {
     clearFilter.current!.classList.remove('d-sm-block')
     clearFilter2.current!.classList.add('d-none')
   }
-
-  function setSkilsArr(str: string) {
-    let arr = str
-      .replaceAll(' ', ',')
-      .split(',')
-      .filter((str) => str !== '')
-    return arr
-  }
-
+  
   useEffect(() => {
     if (myCountry.length) {
       setMyTowns((towns) => (towns = myCountry[0].cities))
@@ -264,7 +258,7 @@ const Search: FC = () => {
             className=' btn p-0 position-absolute cursor-pointer end-10px d-none'
             onClick={() => clearSearchForm()}
           >
-            <i className="fas fa-times fs-4"></i>
+            <i className='fas fa-times fs-4'></i>
           </button>
           <div
             ref={searchToogleContent}
@@ -301,7 +295,7 @@ const Search: FC = () => {
                     className=' btn p-0 position-absolute cursor-pointer top-0 mt-2 end-10px d-none'
                     onClick={() => clearSearchForm()}
                   >
-                    <i className="fas fa-times fs-4"></i>
+                    <i className='fas fa-times fs-4'></i>
                   </button>
                 </div>
 
@@ -396,6 +390,7 @@ const Search: FC = () => {
                         ref={companySelect}
                         type='text'
                         className='form-control form-control-solid'
+                        disabled
                         // onChange={(e)=>dispatch(setCompany(e.target.value))}
                       />
                     </div>
@@ -409,12 +404,15 @@ const Search: FC = () => {
                 <div className='col-lg-9'>
                   <div className='row'>
                     <div className='col-lg-12'>
-                      <input
-                        ref={skilsSelect}
-                        type='text'
-                        className='form-control form-control-solid'
-                        // onInput={(e)=> {setSkilsArr(e.currentTarget.value)}
-                        // }
+                      <Tags
+                        tagifyRef={tagifyRef}
+                        value={skilsArr}
+                        className='form-control form-control-solid w-100 min-h-40px'
+                        onChange={(e) => {
+                          setSkilsArr(
+                            (value) => (value = e.detail.tagify.value.map((obj) => obj.value))
+                          )
+                        }}
                       />
                     </div>
                   </div>
@@ -435,6 +433,7 @@ const Search: FC = () => {
                         className='form-control form-control-solid mb-5 mb-lg-0'
                         min={0}
                         max={100}
+                        disabled
                         // onChange={(e)=>dispatch(setYearStart(+e.target.value))}
                       />
                     </div>
@@ -446,6 +445,7 @@ const Search: FC = () => {
                         className='form-control form-control-solid'
                         min={1}
                         max={100}
+                        disabled
                         // onChange={(e)=>dispatch(setYearEnd(+e.target.value))}
                       />
                     </div>
