@@ -221,17 +221,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +mess.id,
-                              +e.target.value,
-                              'name',
-                              setMessenger,
-                              messenger,
-                              'messengers'
-                            )
-                          }
-                          value={mess.name}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +mess.id,
+                          //     +e.target.value,
+                          //     'name',
+                          //     setMessenger,
+                          //     messenger,
+                          //     'messengers'
+                          //   )
+                          // }
+                          // value={mess.name}
                         >
                           <option value='0'>Telegram</option>
                           <option value='1'>Viber</option>
@@ -243,17 +243,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +mess.id,
-                              e.target.value,
-                              'link',
-                              setMessenger,
-                              messenger,
-                              'messengers'
-                            )
-                          }
-                          value={mess.link}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +mess.id,
+                          //     e.target.value,
+                          //     'link',
+                          //     setMessenger,
+                          //     messenger,
+                          //     'messengers'
+                          //   )
+                          // }
+                          // value={mess.link}
                           placeholder='ID'
                         />
                       </div>
@@ -266,17 +266,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +mess.id,
-                              +e.target.value,
-                              'name',
-                              setMessenger,
-                              messenger,
-                              'messengers'
-                            )
-                          }
-                          value={mess.name}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +mess.id,
+                          //     +e.target.value,
+                          //     'name',
+                          //     setMessenger,
+                          //     messenger,
+                          //     'messengers'
+                          //   )
+                          // }
+                          // value={mess.name}
                         >
                           <option value='0'>Telegram</option>
                           <option value='1'>Viber</option>
@@ -288,17 +288,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +mess.id,
-                              e.target.value,
-                              'link',
-                              setMessenger,
-                              messenger,
-                              'messengers'
-                            )
-                          }
-                          value={mess.link}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +mess.id,
+                          //     e.target.value,
+                          //     'link',
+                          //     setMessenger,
+                          //     messenger,
+                          //     'messengers'
+                          //   )
+                          // }
+                          // value={mess.link}
                           placeholder='ID'
                         />
                       </div>
@@ -347,17 +347,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +link.id,
-                              +e.target.value,
-                              'name',
-                              setUserLinks,
-                              userLinks,
-                              'socialLinks'
-                            )
-                          }
-                          value={link.name}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +link.id,
+                          //     +e.target.value,
+                          //     'name',
+                          //     setUserLinks,
+                          //     userLinks,
+                          //     'socialLinks'
+                          //   )
+                          // }
+                          // value={link.name}
                         >
                           <option value='0'>LinkedIn</option>
                           <option value='1'>GitHub</option>
@@ -368,17 +368,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +link.id,
-                              e.target.value,
-                              'path',
-                              setUserLinks,
-                              userLinks,
-                              'socialLinks'
-                            )
-                          }
-                          value={link.path}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +link.id,
+                          //     e.target.value,
+                          //     'path',
+                          //     setUserLinks,
+                          //     userLinks,
+                          //     'socialLinks'
+                          //   )
+                          // }
+                          // value={link.path}
                           placeholder='URL'
                         />
                       </div>
@@ -391,17 +391,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <select
                           className='form-select form-select-solid'
                           aria-label='Select example'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +link.id,
-                              +e.target.value,
-                              'name',
-                              setUserLinks,
-                              userLinks,
-                              'socialLinks'
-                            )
-                          }
-                          value={link.name}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +link.id,
+                          //     +e.target.value,
+                          //     'name',
+                          //     setUserLinks,
+                          //     userLinks,
+                          //     'socialLinks'
+                          //   )
+                          // }
+                          // value={link.name}
                         >
                           <option value='0'>LinkedIn</option>
                           <option value='1'>GitHub</option>
@@ -412,17 +412,17 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                         <input
                           type='text'
                           className='form-control form-control-solid w-100 h-40px'
-                          onChange={(e) =>
-                            handleChangeSelect(
-                              +link.id,
-                              e.target.value,
-                              'path',
-                              setUserLinks,
-                              userLinks,
-                              'socialLinks'
-                            )
-                          }
-                          value={link.path}
+                          // onChange={(e) =>
+                          //   handleChangeSelect(
+                          //     +link.id,
+                          //     e.target.value,
+                          //     'path',
+                          //     setUserLinks,
+                          //     userLinks,
+                          //     'socialLinks'
+                          //   )
+                          // }
+                          // value={link.path}
                           placeholder='URL'
                         />
                       </div>

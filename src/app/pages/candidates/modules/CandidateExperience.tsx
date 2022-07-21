@@ -13,6 +13,7 @@ interface ICandidateExperience {
 const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUser, user, labelW, inputW}) => {
 
   const tagifyRef = useRef()
+  const inputYearExperience = useRef<HTMLInputElement | null>(null)
   
 
   const [skilsArr, setSkilsArr] = useState<any>([])
@@ -21,6 +22,14 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
     (user.skills)&&  setEditUser((user: any) => ({...user, skills: [...skilsArr]}))
     
   }, [skilsArr, setEditUser])
+
+  // useEffect(()=>{
+  //   console.log(inputYearExperience!.current!.value);
+    
+  //   if(inputYearExperience!.current!.value === '0'){
+  //     inputYearExperience!.current!.value = ''
+  //   };
+  // }, [inputYearExperience])
 
   return (
     <div ref={experienceRef} className='accordion-item p-0'>
@@ -55,17 +64,17 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                   type='text'
                   className='form-control form-control-solid w-100 h-40px'
                   placeholder='Компанія'
-                  value={(user.expanded)&&user.experience.at(-1).company}
-                  onChange={(e) =>
-                    setEditUser((user: any) => ({
-                      ...user,
-                      experience: [
-                        ...user.experience.map((obj: any, i: number) =>
-                          i === user.experience.length - 1 ? {...obj, company: e.target.value} : obj
-                        ),
-                      ],
-                    }))
-                  }
+                  // value={(user.expanded)&&user.experience.at(-1).company}
+                  // onChange={(e) =>
+                  //   setEditUser((user: any) => ({
+                  //     ...user,
+                  //     experience: [
+                  //       ...user.experience.map((obj: any, i: number) =>
+                  //         i === user.experience.length - 1 ? {...obj, company: e.target.value} : obj
+                  //       ),
+                  //     ],
+                  //   }))
+                  // }
                 />
               </div>
               
@@ -99,21 +108,22 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
               </div>
               <div className='col-lg-6'>
                 <input
-                  type='number'
+                  ref={inputYearExperience}
+                  type='text'
                   className='form-control form-control-solid w-50 w-md-25 h-40px'
-                  min='0'
-                  value={(user.experience)&&user.experience.at(-1).yearsExperience}
+                  // value={(user.experience)&&user.experience.at(-1).yearsExperience}
                   onChange={(e) =>
-                    setEditUser((user: any) => ({
-                      ...user,
-                      experience: [
-                        ...user.experience.map((obj: any, i: number) =>
-                          i === user.experience.length - 1
-                            ? {...obj, yearsExperience: e.target.value}
-                            : obj
-                        ),
-                      ],
-                    }))
+                    e.target.value = e.target.value.replaceAll(/\D/gi,'')
+                    // setEditUser((user: any) => ({
+                    //   ...user,
+                    //   experience: [
+                    //     ...user.experience.map((obj: any, i: number) =>
+                    //       i === user.experience.length - 1
+                    //         ? {...obj, yearsExperience: e.target.value}
+                    //         : obj
+                    //     ),
+                    //   ],
+                    // }))
                   }
                 />
               </div>
