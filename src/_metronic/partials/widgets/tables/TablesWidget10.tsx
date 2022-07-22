@@ -95,11 +95,12 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                 }}
                 onTouchEnd={(e) => {
                   up = e.changedTouches[0].clientX
-                  if (down > up && currentPage !== 1) {
-                    prevPage()
-                  }
-                  if (down < up && currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                  if ((down - up) >= 50 && currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                    
                     nextPage()
+                  }
+                  if ((up-down) >= 50 && currentPage !== 1) {
+                    prevPage()
                   }
                 }}
               >

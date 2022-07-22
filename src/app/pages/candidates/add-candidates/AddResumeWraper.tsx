@@ -118,7 +118,7 @@ const AddResumeWraper = () => {
             </Link>
           </li>
         </ul>
-        <div className='tab-content card w-lg-600px p-10 fs-4' id='myTabContent'>
+        <div className='tab-content card w-md-600px p-10 fs-4' id='myTabContent'>
           <div
             ref={addFileContent}
             className='tab-pane fade active show text-center'
