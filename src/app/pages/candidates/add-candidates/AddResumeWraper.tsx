@@ -16,8 +16,20 @@ const AddResumeWraper = () => {
 
   const [progresValue, setProgresValue] = useState<number>(0)
 
-  const handleAddResumeFile = (file: any) => {
-    candidatesApi.addResumeFileCandidate(file).then((response) => {
+  const handleAddResumeFile = (file: any, name: string) => {
+    candidatesApi.addResumeFileCandidate(file, name).then((response) => {
+      if (response.data) {
+        addFileContent.current?.removeAttribute('data-kt-indicator')
+        navigate(`/add/check-data/${response.data.id}`)
+      } else {
+        let firstNum = response.toString().indexOf('id":') + 4
+        let lastNum = response.toString().indexOf(',"first')
+        let id = response.toString().slice(firstNum, lastNum)
+
+        addFileContent.current?.removeAttribute('data-kt-indicator')
+        navigate(`/add/check-data/${id}`)
+      }
+
       addFileContent.current?.removeAttribute('data-kt-indicator')
       navigate(`/add/check-data/${response.data.id}`)
     })
@@ -65,7 +77,7 @@ const AddResumeWraper = () => {
 
     reader.onload = (e) => {
       window.localStorage.setItem('importFileName', addFileBtn.current!.files!.item(0)!.name)
-      handleAddResumeFile(e!.target!.result)
+      handleAddResumeFile(e!.target!.result, addFileBtn.current!.files!.item(0)!.name)
     }
 
     reader.readAsDataURL(addFileBtn.current!.files![0])

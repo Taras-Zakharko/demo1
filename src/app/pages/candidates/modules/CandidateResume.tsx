@@ -15,7 +15,6 @@ const CandidateResume: FC<ICandidateContacts> = ({
   labelW,
   inputW,
 }) => {
-  const [fileArr, setFileArr] = useState<any>([])
 
   
 
@@ -75,16 +74,11 @@ const CandidateResume: FC<ICandidateContacts> = ({
                       const reader = new FileReader()
 
                       reader.onload = () => {
-                        console.log(reader.result)
-
+                        
                         setEditUser((user: any) => ({
                           ...user,
                           files: [...user.files, {name: file.name, base64: reader.result}]
                         }))
-
-                        setFileArr(
-                          (arr: any[]) => (arr = [...arr, {name: file.name, base64: reader.result}])
-                        )
                       }
 
                       reader.readAsDataURL(file)
