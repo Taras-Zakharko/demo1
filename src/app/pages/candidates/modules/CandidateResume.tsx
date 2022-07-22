@@ -86,6 +86,15 @@ const CandidateResume: FC<ICandidateContacts> = ({
                   }
                 }}
               ></input>
+              <p className='ms-3 h-100'>
+                  {(user.files && user.files.length>0)&&user.files.map((file: any, i: number) =>
+                    i !== user.files.length - 1 ? (
+                      <span key={i} className='fw-bold fs-6 text-primary'>{`${file.name}, `}</span>
+                    ) : (
+                      <span key={i} className='fw-bold fs-6 text-primary'>{file.name}</span>
+                    )
+                  )}
+                  </p>
             </div>
           </div>
           <div className='row'>

@@ -297,13 +297,15 @@ export function CandidateProfileWraper() {
 
                       <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
                         <i className='fas fa-paperclip fs-4 text-primary'></i>
-                        {/* {user.aboutMyself.file.map((file: any, i: number) =>
-                          i !== user.aboutMyself.file.length - 1 ? (
-                            <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
-                          ) : (
-                            <a className='fw-bold fs-6 ms-1'>{file[i].name}</a>
-                          )
-                        )} */}
+                        <p className='ms-3 h-100'>
+                  {(user.files && user.files.length>0)&&user.files.map((file: any, i: number) =>
+                    i !== user.files.length - 1 ? (
+                      <span key={i} className='fw-bold fs-6 text-primary'>{`${file.name}, `}</span>
+                    ) : (
+                      <span key={i} className='fw-bold fs-6 text-primary'>{file.name}</span>
+                    )
+                  )}
+                  </p>
                       </div>
                     </div>
                     <div className='row mb-4'>
