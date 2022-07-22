@@ -30,8 +30,6 @@ const AddResumeWraper = () => {
         navigate(`/add/check-data/${id}`)
       }
 
-      addFileContent.current?.removeAttribute('data-kt-indicator')
-      navigate(`/add/check-data/${response.data.id}`)
     })
   }
 
