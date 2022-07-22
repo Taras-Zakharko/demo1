@@ -16,6 +16,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const allUsers = useSelector((state: RootState) => state.candidates.users)
   const searchObj = useSelector((state: RootState) => state.search)
   const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(1)
 
 
   const handleGetAllCandidate=(city:string, specialty: string, skills: string[])=>{
@@ -28,11 +29,11 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   useEffect(() => {
     
     handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils);
-
+    setCurrentPage(1)
   }, [searchObj])
 
   
-  const [currentPage, setCurrentPage] = useState(1)
+  
   const [perPage] = useState(6)
   const lastIndex = currentPage * perPage
   const firstIndex = lastIndex - perPage
