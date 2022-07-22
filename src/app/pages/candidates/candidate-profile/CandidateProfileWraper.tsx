@@ -178,17 +178,20 @@ export function CandidateProfileWraper() {
               </div>
 
               <div className='row mb-4'>
-                <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Файли:</label>
+                <label className='col-lg-2 fw-bold text-muted text-lg-end mt-2 fs-6'>Файли:</label>
 
-                <div className='col-lg-10 fv-row d-flex align-items-center fs-4'>
-                  <i className='fas fa-paperclip fs-4 text-primary'></i>
-                  {/* {user.aboutMyself.file.map((file: any, i: number) =>
-                    i !== user.aboutMyself.file.length - 1 ? (
-                      <a className='fw-bold fs-6'>{`${file[i].name}, `}</a>
+                <div className='col-lg-10 fv-row d-flex fs-4'>
+                  <i className='fas fa-paperclip fs-4 mt-2 text-primary'></i>
+                  <p className='ms-3 h-100'>
+                  {(user.files && user.files.length>0)&&user.files.map((file: any, i: number) =>
+                    i !== user.files.length - 1 ? (
+                      <span key={i} className='fw-bold fs-6 text-primary'>{`${file.name}, `}</span>
                     ) : (
-                      <a className='fw-bold fs-6 ms-1'>{file[i].name}</a>
+                      <span key={i} className='fw-bold fs-6 text-primary'>{file.name}</span>
                     )
-                  )} */}
+                  )}
+                  </p>
+                  
                 </div>
               </div>
               <div className='row mb-4'>

@@ -55,6 +55,8 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
   
   
+  
+  
   return (
     <div className={`card ${className} bg-transparent`}>
       {/* begin::Header */}

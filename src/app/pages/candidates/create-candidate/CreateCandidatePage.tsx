@@ -22,6 +22,7 @@ function CreateCandidatePage() {
       country: '',
       city: ['']
     },
+    files: [],
     specialty: '',
     checked: 1,
     contacts: {
@@ -47,6 +48,7 @@ function CreateCandidatePage() {
     })
   }
 
+console.log(editUser);
 
   return (
     <div className='row'>

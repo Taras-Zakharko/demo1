@@ -51,6 +51,7 @@ function EditCandidate() {
   }, [idUser])
 
 
+  console.log(editUser);
   
 
   return (
