@@ -48,8 +48,6 @@ function CreateCandidatePage() {
     })
   }
 
-console.log(editUser);
-
   return (
     <div className='row'>
       <div className='row'>

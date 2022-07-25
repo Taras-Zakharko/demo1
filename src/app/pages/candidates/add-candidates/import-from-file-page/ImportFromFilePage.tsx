@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, {useEffect, useState, useRef} from 'react'
+import {useNavigate} from 'react-router-dom'
 import candidatesApi from '../../../../../API/candidates'
 
 import CandidateContacts from '../../modules/CandidateContacts'
@@ -10,29 +10,30 @@ import PdfWraper from '../../modules/PdfWraper'
 import './AddResumeWraper.scss'
 
 const ImportFromFilePage = () => {
-  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('/check-data/') + 12);
+  let idUser = +window.location.pathname.slice(
+    window.location.pathname.lastIndexOf('/check-data/') + 12
+  )
   const [editUser, setEditUser] = useState<any>({})
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const handleGetOneCandidate = (id:number)=>{
-    candidatesApi.getSomeCandidate(id)
-    .then((response)=>{
+  const handleGetOneCandidate = (id: number) => {
+    candidatesApi.getSomeCandidate(id).then((response) => {
       setEditUser(response.data)
     })
   }
 
-  const handleEditOneCandidate = (user: any)=>{
-    candidatesApi.editCandidate(user)
-    .then(()=>{
+  const handleEditOneCandidate = (user: any) => {
+    candidatesApi.editCandidate(user).then(() => {
       navigate('/candidates')
     })
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     handleGetOneCandidate(idUser)
-  },[])
+  }, [])
 
-  let fileName = localStorage.getItem('importFileName')
+  let fileName = localStorage.getItem('importFileName') 
+  
 
   return (
     <>
@@ -43,21 +44,36 @@ const ImportFromFilePage = () => {
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
             <div className='bg-white p-10 pb-1 mt-4 flex-row'>
-              <CandidateInfoBlock id={Date.now()} setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
-              
+              <CandidateInfoBlock
+                id={Date.now()}
+                setEditUser={setEditUser}
+                user={editUser}
+                labelW={4}
+                inputW={8}
+              />
             </div>
             <div className='accordion' id='kt_accordion_1'>
-              <CandidateExperience setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
-              <CandidateContacts setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
-              <CandidateResume setEditUser={setEditUser} user={editUser} labelW={4} inputW={8}/>
+              <CandidateExperience
+                setEditUser={setEditUser}
+                user={editUser}
+                labelW={4}
+                inputW={8}
+              />
+              <CandidateContacts setEditUser={setEditUser} user={editUser} labelW={4} inputW={8} />
+              <CandidateResume setEditUser={setEditUser} user={editUser} labelW={4} inputW={8} />
             </div>
           </div>
           <div className='col-lg-12 bg-white d-flex flex-center p-9'>
-            <button className='btn btn-primary h-50px' onClick={()=>handleEditOneCandidate({...editUser, checked: 1})}>Зберегти</button>
+            <button
+              className='btn btn-primary h-50px'
+              onClick={() => handleEditOneCandidate({...editUser, checked: 1})}
+            >
+              Зберегти
+            </button>
           </div>
         </div>
         <div className='col-lg-6 mt-4'>
-          <PdfWraper fileBase={editUser.base64}/>
+          <PdfWraper fileBase={editUser.base64}/>          
         </div>
       </div>
     </>

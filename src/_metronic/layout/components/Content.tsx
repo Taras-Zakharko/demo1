@@ -12,7 +12,7 @@ const Content: React.FC = ({children}) => {
   }, [location])
 
   return (
-    <div id='kt_content_container' className={clsx(classes.contentContainer.join(' '))}>
+    <div id='kt_content_container' className={clsx(classes.contentContainer.join(' '), 'ms-5 me-5 mw-100')}>
       {children}
     </div>
   )

@@ -219,7 +219,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     <div key={i} className='row mb-6 align-items-center'>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
-                          className='form-select form-select-solid'
+                          className='form-select form-select-solid pe-9'
                           aria-label='Select example'
                           // onChange={(e) =>
                           //   handleChangeSelect(

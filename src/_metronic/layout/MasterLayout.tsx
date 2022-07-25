@@ -11,10 +11,6 @@ import {PageDataProvider} from './core'
 import {useLocation} from 'react-router-dom'
 import { Main, InviteUsers, UpgradePlan} from '../partials'
 import {MenuComponent} from '../assets/ts/components'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { setUsers } from '../../app/features/candidate/candidateSlice'
-import { RootState } from '../../app/store'
 
 const MasterLayout = () => {
   const location = useLocation()

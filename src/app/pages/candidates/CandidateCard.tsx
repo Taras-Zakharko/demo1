@@ -3,7 +3,7 @@ import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useDispatch, useSelector} from 'react-redux'
-import {setUsers} from '../../features/candidate/candidateSlice'
+import { setUsers} from '../../features/candidate/candidateSlice'
 import './CandidateCard.scss'
 import candidatesApi from '../../../API/candidates'
 import { RootState } from '../../store'
@@ -144,7 +144,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </Link>
                 <button
                   className='w-100 h-50px btn btn-active-primary'
-                  onClick={() => hendleRemoveCandidate(user.id)}
+                  onClick={() => {document.getElementById(`${user.id}`)?.classList.add('d-none'); hendleRemoveCandidate(user.id); }}
                 >
                   Видалити
                 </button>

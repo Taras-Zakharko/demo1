@@ -49,9 +49,6 @@ function EditCandidate() {
     
     handleGetOneCandidate(idUser);
   }, [idUser])
-
-
-  console.log(editUser);
   
 
   return (
