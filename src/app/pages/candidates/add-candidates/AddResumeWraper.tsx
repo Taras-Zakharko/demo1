@@ -74,6 +74,8 @@ const AddResumeWraper = () => {
     const reader = new FileReader()
 
     reader.onload = (e) => {
+      console.log(e!.target!.result, addFileBtn.current!.files!.item(0));
+      
       window.localStorage.setItem('importFileName', addFileBtn.current!.files!.item(0)!.name)
       handleAddResumeFile(e!.target!.result, addFileBtn.current!.files!.item(0)!.name)
     }

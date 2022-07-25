@@ -93,7 +93,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
         <div className='accordion-body'>
           <div className='row d-flex mb-4'>
             <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal pt-3 fs-6'>
                 Телефон
               </label>
               <button
@@ -146,7 +146,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
           </div>
           <div className='row d-flex mb-4'>
             <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
+              <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal pt-3 fs-6'>
                 Ел. пошта
               </label>
               <button

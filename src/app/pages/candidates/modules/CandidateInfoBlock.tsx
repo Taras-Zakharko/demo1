@@ -42,7 +42,7 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
       <div className='row name d-flex justify-content-between align-items-center mb-4'>
         <label
           htmlFor='exampleFormControlInput1'
-          className={'col-lg-' + labelW + ' form-label fw-normal mb-4 fs-6'}
+          className={'col-lg-' + labelW + ' required form-label fw-normal mb-4 fs-6'}
         >
           Місцезнаходження
         </label>
