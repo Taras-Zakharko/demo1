@@ -144,7 +144,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </Link>
                 <button
                   className='w-100 h-50px btn btn-active-primary'
-                  onClick={() => {document.getElementById(`${user.id}`)?.classList.add('d-none'); hendleRemoveCandidate(user.id); }}
+                  onClick={() => hendleRemoveCandidate(user.id)}
                 >
                   Видалити
                 </button>
