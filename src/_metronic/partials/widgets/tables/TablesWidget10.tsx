@@ -40,7 +40,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
   const currentUser = allUsers.slice(firstIndex, lastIndex)
 
-  const pageNumbers: any[] = []
+  const pageNumbers: number[] = []
 
   for (let i = 1; i <= Math.ceil(allUsers.length / perPage); i++) {
     pageNumbers.push(i)
@@ -53,6 +53,11 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   let down = 0
   let up = 0
 
+  useEffect(()=>{    
+    if(!pageNumbers.includes(currentPage)){
+      setCurrentPage(pageNumbers[pageNumbers.length-1])
+    }
+  }, [allUsers.length])
   
   
   

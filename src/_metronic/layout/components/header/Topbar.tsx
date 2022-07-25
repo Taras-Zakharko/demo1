@@ -70,7 +70,7 @@ const Topbar: FC = () => {
           )}
           id='kt_drawer_chat_toggle'
         >
-          <i className="fas fa-question-circle fs-2 text-gray-500"></i>
+          <i className="fas fa-question-circle fs-2"></i>
 
         </a>
         {/* end::Menu wrapper */}
