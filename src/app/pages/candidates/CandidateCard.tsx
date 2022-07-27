@@ -3,11 +3,10 @@ import {Link, Outlet} from 'react-router-dom'
 import {useClickOutside} from '../../../hooks'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useDispatch, useSelector} from 'react-redux'
-import { setUsers} from '../../features/candidate/candidateSlice'
+import {setUsers} from '../../features/candidate/candidateSlice'
 import './CandidateCard.scss'
 import candidatesApi from '../../../API/candidates'
-import { RootState } from '../../store'
-
+import {RootState} from '../../store'
 
 interface ICandidate {
   user: any
@@ -18,18 +17,16 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   const [openModal, setopenModal] = useState<boolean>(false)
   const searchObj = useSelector((state: RootState) => state.search)
 
-  const handleGetAllCandidate=(city:string, specialty: string, skills: string[])=>{
-    candidatesApi.getCandidate(city,specialty,skills)
-    .then((response)=>{
+  const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
+    candidatesApi.getCandidate(city, specialty, skills).then((response) => {
       dispatch(setUsers(response.data))
     })
   }
 
-  const hendleRemoveCandidate = (id: number)=>{
-    candidatesApi.removeCandidate(id)
-    .then(()=>{
-      setopenModal(false);
-      handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils);
+  const hendleRemoveCandidate = (id: number) => {
+    candidatesApi.removeCandidate(id).then(() => {
+      setopenModal(false)
+      handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
     })
   }
 
@@ -38,40 +35,62 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   })
 
   const dispatch = useDispatch()
-  
-  
 
   return (
     <>
-      <tr className='border-0' id={user.id}>
+      <tr className='border-bottom border-dashed pt-20px pb-20px' id={user.id}>
         <td className='col-12 col-sm-4'>
           <div className='d-flex align-items-center'>
             <div className='symbol symbol-60px me-5'>
-              <img src={(user.photo) ? toAbsoluteUrl(`${user.photo}`) : toAbsoluteUrl(`/media/avatars/blank.png`)} alt='' />
+              <img
+                src={
+                  user.photo
+                    ? toAbsoluteUrl(`${user.photo}`)
+                    : toAbsoluteUrl(`/media/avatars/blank.png`)
+                }
+                alt=''
+              />
             </div>
-            <div className='d-flex justify-content-start flex-column'>
-              <div className='d-flex align-items-center'>
+            <div className='d-flex justify-content-start flex-column '>
+              <div className='d-flex align-items-center '>
                 <Link
                   className='text-dark fw-bolder text-hover-primary fs-4'
                   to={`user/id=${user.id}`}
                 >
-                  {(user.firstName ===null && user.lastName === null) ? 'Ім’я не розпізнано' : (user.firstName !==null && user.lastName === null) ?`${user.firstName}` :`${user.firstName} ${user.lastName}`}
+                  {user.firstName === null && user.lastName === null
+                    ? 'Ім’я не розпізнано'
+                    : user.firstName !== null && user.lastName === null
+                    ? `${user.firstName}`
+                    : `${user.firstName} ${user.lastName}`}
                 </Link>
                 <Outlet />
-                {user.checked === 0 ? 
-                  <div className='tool'>
-                  <i className="fas fa-exclamation-triangle text-warning me-4 ms-3"></i>
-                    <span className='tooltiptext card shadow fs-6 text-gray-500'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата. </span>
+                {user.checked === 0 ? (
+                  // <div className='tool'>
+                  // <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' title='Some tooltip text!'></i>
+                  //   <span className='tooltiptext card shadow fs-6 text-gray-500'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата. </span>
+                  // </div>
+                  <div>
+                    <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' ></i>
+                    <div className='tooltip bs-tooltip-top' role='tooltip'>
+                      <div className='tooltip-arrow start-50'></div>
+                      <div className='tooltip-inner'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.</div>
+                    </div>
+                    
                   </div>
-                
-                 : null}
+                ) : null}
               </div>
 
               <span className='text-gray-800 d-block fs-6'>
-                {(user.specialty === null ) ? '' : `${user.specialty}`}
+                {user.specialty === null ? '' : `${user.specialty}`}
               </span>
               <span className='text-gray-500 d-block fs-6'>
-                {(user.location.country && user.location.city.length>0 )? `${user.location.country}, ${user.location.city[0]}`: (!user.location.country && user.location.city.length>0 ) ? `${user.location.city[0]}` :(user.location.country && user.location.city.length<1 ) ? `${user.location.country}`: ''}
+                {user.location.country && user.location.city.length > 0
+                  ? `${user.location.country}, ${user.location.city[0]}`
+                  : !user.location.country && user.location.city.length > 0
+                  ? `${user.location.city[0]}`
+                  : user.location.country && user.location.city.length < 1
+                  ? `${user.location.country}`
+                  : ''}
               </span>
             </div>
           </div>
@@ -90,7 +109,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 href={'mailto:' + user.contacts.email[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
               >
-                <i className="fas fa-envelope fs-4"></i>
+                <i className='fas fa-envelope fs-4'></i>
               </a>
             ) : null}
             {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
@@ -100,7 +119,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                   href={link.path}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
                 >
-                  <i className="fab fa-facebook-square fs-4"></i>
+                  <i className='fab fa-facebook-square fs-4'></i>
                 </a>
               ) : null
             )}
@@ -111,17 +130,17 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                   href={'skype:' + link.link}
                   className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
                 >
-                  <i className="fab fa-skype fs-4"></i>
+                  <i className='fab fa-skype fs-4'></i>
                 </a>
               ) : null
             )}
             {user.contacts?.phone.length > 0 ? (
-              <a
-                href={'tel:' + user.contacts?.phone[0]}
+              <button
+                value={user.contacts?.phone[0]}
                 className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
               >
-                <i className="fas fa-phone fs-4"></i>
-              </a>
+                <i className='fas fa-phone fs-4'></i>
+              </button>
             ) : null}
           </div>
         </td>
@@ -132,7 +151,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               onClick={() => setopenModal((openModal) => !openModal)}
               id='open-svg-1'
             >
-              <i className="fas fa-ellipsis-v fs-4"></i>
+              <i className='fas fa-ellipsis-v fs-4'></i>
             </button>
             {openModal ? (
               <div className='card shadow position-absolute top-100 end-15px w-150px z-index-1 modal__card'>

@@ -44,7 +44,7 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
           asideMenuCSSClasses.join(' ')
         )}
       >
-        <AsideMenuMain />
+        {/* <AsideMenuMain /> */}
       </div>
     </div>
   )

@@ -34,8 +34,8 @@ function CreateCandidatePage() {
     aboutMyself: [],
     positions: [],
     skills: [],
-    created_at: '29-06-2022 07:06:05',
-    updated_at: '29-06-2022 07:06:05',
+    source: '',
+    gdpr: 1
   }
 
   const [editUser, setEditUser] = useState<any>(newUser)

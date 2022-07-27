@@ -8,7 +8,7 @@ $root-font-size-lg: 13px; // Root font size for tablet mode
 $root-font-size-md: 12px; // Root font size for mobile mode
 
 // Page bg
-$page-bg: if(isDarkMode(), #151521, $gray-100) !default;
+$page-bg: if(isDarkMode(), #151521, #F3F6F9) !default;
 
 // Content border radius
 $content-border-radius: 1.5rem !default;
@@ -17,7 +17,7 @@ $content-border-radius: 1.5rem !default;
 $content-spacing: (
   desktop: 30px,
   // Padding for desktop mode
-  tablet-and-mobile: 15px // Padding for tablet and mobile modes,,
+  tablet-and-mobile: 5px // Padding for tablet and mobile modes,,
 ) !default;
 
 // Header
@@ -26,8 +26,8 @@ $header-config: (
   default:
     (
       height: (
-        desktop: 65px,
-        tablet-and-mobile: 55px,
+        desktop: 80px,
+        tablet-and-mobile: 54px,
       ),
       bg-color: if(isDarkMode(), #1e1e2d, $white),
     ),
@@ -35,8 +35,8 @@ $header-config: (
   fixed:
     (
       height: (
-        desktop: 65px,
-        tablet-and-mobile: 55px,
+        desktop: 80px,
+        tablet-and-mobile: 54px,
       ),
       z-index: 100,
       bg-color: if(isDarkMode(), #1e1e2d, $white),

@@ -71,7 +71,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
           <span className='text-muted mt-1 fw-bold fs-6'>{allUsers.length} кандидатів</span>
         </h3>
         <div
-          className='card-toolbar'
+          className='card-toolbar m-0'
           data-bs-toggle='tooltip'
           data-bs-placement='top'
           data-bs-trigger='hover'
@@ -79,7 +79,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
         >
           <Link
             to={'/candidates/user/create'}
-            className='btn btn-sm d-flex flex-center h-40px btn-primary fs-6'
+            className='btn btn-sm d-flex flex-center h-40px mt-9 mb-9 btn-primary fs-6'
           >
             <i className='fas fa-plus fs-6 me-sm-4'></i>
             <span className='d-none d-sm-inline-block'>Новий кандидат</span>
@@ -89,7 +89,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       {/* end::Header */}
       {/* begin::Body */}
       {allUsers.length > 0 ? (
-        <div className='card card-body mt-6 py-3'>
+        <div className='card card-body py-3 pt-0'>
           {/* begin::Table container */}
           <div className='table'>
             <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 candidate__list'>

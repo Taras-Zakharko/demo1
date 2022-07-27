@@ -108,8 +108,8 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 <select
                   className='form-select form-select-solid border-0 text-muted'
                   aria-label='Select example'
-                  // onChange={(e)=>setEditUser((user: any) => ({...user, aboutMyself: ({...user.aboutMyself, GDPR: e.target.value})}))}
-                  // value={user.aboutMyself}
+                  onChange={(e)=>setEditUser((user: any) => ({...user, gdpr: e.target.value}))}
+                  value={user.gdpr}
                 >
                   <option value='1'>GDPR статус не визначено</option>
                   <option value='2'>Є згода на використання персональних даних</option>
@@ -127,13 +127,13 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 <input
                   type='text'
                   className='form-control form-control-solid w-100 w-lg-75 h-40px mb-3'
-                  // onChange={(e) =>
-                  //   setEditUser((user: any) => ({
-                  //     ...user,
-                  //     aboutMyself: {...user.aboutMyself, source: e.target.value},
-                  //   }))
-                  // }
-                  // value={user.aboutMyself}
+                  onChange={(e) =>
+                    setEditUser((user: any) => ({
+                      ...user,
+                      source: e.target.value,
+                    }))
+                  }
+                  value={user.source}
                 />
                 <span className='text-gray-500 fs-7'>Де знайшли цього кандидата</span>
               </div>

@@ -50,7 +50,7 @@ export function HeaderWrapper() {
           <div className='d-flex align-items-center'>
             <Link to='/' className='d-lg-none'>
               <img
-                src={toAbsoluteUrl('/media/avatars/300-1.jpg')}
+                src={toAbsoluteUrl('/media/logos/Logo.png')}
                 alt='metronic'
                 className='rounded-circle w-30px h-30px me-3'
               />

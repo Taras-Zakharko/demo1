@@ -34,12 +34,14 @@ const ImportFromFilePage = () => {
 
   let fileName = localStorage.getItem('importFileName') 
   
+  console.log(editUser);
+  
 
   return (
     <>
       <div className='row pt-10'>
         <div className='col-lg-12'>
-          <h2 className='fs-2 fw-boldest'>Імпорт файлу {fileName}</h2>
+          <h2 className='fs-2 fw-boldest'>Імпорт файлу {(editUser.files)&&editUser.files[0].name}</h2>
         </div>
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
@@ -73,7 +75,7 @@ const ImportFromFilePage = () => {
           </div>
         </div>
         <div className='col-lg-6 mt-4'>
-          <PdfWraper fileBase={editUser.base64}/>          
+          <PdfWraper fileBase={(editUser.files)&&editUser.files[0].base64}/>          
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ export function CandidateProfileWraper() {
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
 
   const [user, setUser] = useState<any>({})
-  const [gdpr, setGdpr] = useState<number>(0)
+  const [gdpr, setGdpr] = useState<number>(1)
   const GDPRSelect = useRef<HTMLSelectElement | null>(null)
   
 
@@ -15,6 +15,7 @@ export function CandidateProfileWraper() {
     candidatesApi.getSomeCandidate(id)
     .then((response)=>{      
       setUser(response.data)
+      setGdpr(response.data.gdpr)
     })
   }
 
@@ -35,6 +36,8 @@ export function CandidateProfileWraper() {
     handleEditOneCandidate({...user, checked: 1})
   }
   
+console.log(user);
+
   
 
   return (
@@ -173,7 +176,7 @@ export function CandidateProfileWraper() {
                 <label className='col-lg-2 fw-bold text-muted text-lg-end fs-6'>Джерело:</label>
 
                 <div className='col-lg-10 fv-row'>
-                  <span className='fw-bold fs-4'>{user.aboutMyself}</span>
+                  <span className='fw-bold fs-4'>{user.source}</span>
                 </div>
               </div>
 

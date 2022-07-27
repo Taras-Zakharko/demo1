@@ -36,34 +36,33 @@ const AddResumeWraper = () => {
   const handleAddResumeZip = (file: any) => {
     candidatesApi.addResumeZipCandidates(file).then((response) => {
       let progresRun = setInterval(() => {
-        candidatesApi.getParsStatusZip(response.data.parse_id).then((res) => {
-          setProgresValue((progresValue) => {
-            progresValue = +res.data.percentage
+        
+        setProgresValue((progresValue) => {
+          progresValue = progresValue+1;
 
-            if (progresValue === 100) {
-              clearInterval(progresRun)
-              secondZipContent.current?.classList.add('d-none')
-              thirdZipContent.current?.classList.remove('d-none')
-              setTimeout(() => {
-                thirdZipContent.current?.classList.add('d-none')
-                firstZipContent.current?.classList.remove('d-none')
-                addZipBtn.current!.value = ''
-                setProgresValue((value) => (value = 0))
-              }, 2000)
-            }
-
-            stopLoad.current?.addEventListener('click', function stopEvent() {
-              clearInterval(progresRun)
+          if (progresValue === 100) {
+            clearInterval(progresRun)
+            secondZipContent.current?.classList.add('d-none')
+            thirdZipContent.current?.classList.remove('d-none')
+            setTimeout(() => {
+              thirdZipContent.current?.classList.add('d-none')
               firstZipContent.current?.classList.remove('d-none')
-              secondZipContent.current?.classList.add('d-none')
               addZipBtn.current!.value = ''
               setProgresValue((value) => (value = 0))
-              stopLoad.current!.removeEventListener('click', stopEvent)
-            })
-            return progresValue
+            }, 6000)
+          }
+
+          stopLoad.current?.addEventListener('click', function stopEvent() {
+            clearInterval(progresRun)
+            firstZipContent.current?.classList.remove('d-none')
+            secondZipContent.current?.classList.add('d-none')
+            addZipBtn.current!.value = ''
+            setProgresValue((value) => (value = 0))
+            stopLoad.current!.removeEventListener('click', stopEvent)
           })
+          return progresValue
         })
-      }, 2000)
+    }, 50)
     })
   }
 
@@ -74,7 +73,6 @@ const AddResumeWraper = () => {
     const reader = new FileReader()
 
     reader.onload = (e) => {
-      console.log(e!.target!.result, addFileBtn.current!.files!.item(0));
       
       window.localStorage.setItem('importFileName', addFileBtn.current!.files!.item(0)!.name)
       handleAddResumeFile(e!.target!.result, addFileBtn.current!.files!.item(0)!.name)
@@ -90,6 +88,8 @@ const AddResumeWraper = () => {
 
     reader.onload = () => {
       handleAddResumeZip(reader.result)
+
+      
     }
 
     reader.readAsDataURL(addZipBtn.current!.files![0])
