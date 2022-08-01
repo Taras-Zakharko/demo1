@@ -22,7 +22,7 @@ $utilities: map-merge(
       values: $opacity-values,
     ),
     'font-size': (
-      rfs: true,
+      rfs: false,
       responsive: true,
       property: font-size,
       class: fs,

@@ -22,7 +22,7 @@ const CandidateResume: FC<ICandidateContacts> = ({
     <div ref={resumeRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_3'>
         <button
-          className='accordion-button fs-4 fw-boldest'
+          className='accordion-button fs-4 fw-boldestp-8 ps-12 pe-9 bg-white text-dark '
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_3'
@@ -34,24 +34,24 @@ const CandidateResume: FC<ICandidateContacts> = ({
       </h2>
       <div
         id='kt_accordion_1_body_3'
-        className='accordion-collapse collapse show'
+        className='accordion-collapse collapse p-4 show'
         aria-labelledby='kt_accordion_1_header_3'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body'>
+        <div className='accordion-body ps-8'>
           <div className='row border-bottom mb-4'>
             <div className='col-lg-12'>
               <textarea
                 name='resume'
                 id='resume'
-                className='w-100 h-150px p-3 form-control form-control-solid'
+                className='w-100 h-150px p-3 form-control form-control-solid text-gray-800'
                 onChange={(e) =>
                   setEditUser((user: any) => ({
                     ...user,
-                    aboutMyself: {...user.aboutMyself, text: e.target.value},
+                    aboutMyself: [`${e.target.value}`],
                   }))
                 }
-                value={user.aboutMyself}
+                value={user.aboutMyself && user.aboutMyself[0]}
               ></textarea>
             </div>
             <div className='col-lg-12'>

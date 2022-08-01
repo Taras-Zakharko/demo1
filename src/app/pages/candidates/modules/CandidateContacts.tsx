@@ -74,7 +74,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
     <div ref={contactsRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_2'>
         <button
-          className='accordion-button fs-4 fw-boldest'
+          className='accordion-button fs-4 fw-boldest p-8 ps-12 pe-9 bg-white text-dark '
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_2'
@@ -86,11 +86,11 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
       </h2>
       <div
         id='kt_accordion_1_body_2'
-        className='accordion-collapse collapse show'
+        className='accordion-collapse collapse p-4 show'
         aria-labelledby='kt_accordion_1_header_2'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body'>
+        <div className='accordion-body ps-8'>
           <div className='row d-flex mb-4'>
             <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
               <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal pt-3 fs-6'>

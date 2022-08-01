@@ -46,19 +46,18 @@ function EditCandidate() {
   }
 
   useEffect(() => {
-    
     handleGetOneCandidate(idUser);
-  }, [idUser])
+  }, [])
   
 
   return (
     <div className='row'>
-      <div className='row'>
-        <div className='col-lg-1'></div>
-        <div className='col-lg-9'>
-          <div className='card mb-5 mb-xl-10 position-relative'>
-            <div className='card-header border-bottom-0 position-absolute z-index-1 w-100 ps-0'>
-              <div className='card-title m-0 w-100'>
+      <div className='row pe-0 ps-6'>
+        <div className='col-lg-2'></div>
+        <div className='col-lg-8 mt-9'>
+          <div className='card bg-transparent position-relative'>
+            <div className='card-header border-bottom-0 ps-0'>
+              <div className='card-title m-0 w-100 h-40px mt-9 mb-9'>
                 <Link
                   to={`/candidates/user/id=${idUser}`}
                   className='fw-bolder m-0 position-lg-absolute end-100'
@@ -69,7 +68,7 @@ function EditCandidate() {
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-10 mt-20 row'>
+          <div ref={infoRef} className='card p-9 row'>
             <CandidateInfoBlock id={idUser} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
             <CandidatePhoto url={editUser.photo} setEditUser={setEditUser} />
           </div>
@@ -79,12 +78,26 @@ function EditCandidate() {
             <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
             <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
           </div>
+          <div className='row bg-white p-9 d-flex justify-content-end'>
+            <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
+              <button className='btn btn-primary h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
+                Зберегти
+              </button>
+              <button
+                className='btn text-danger fs-6 pe-0'
+                onClick={() => hendleRemoveCandidate(idUser)}
+              >
+                <i className="fas fa-trash text-danger fs-4 me-3"></i>
+                Видалити
+              </button>
+            </div>
+          </div>
         </div>
         <div className='col-lg-2'>
-        <div className='row position-fixed top-25 d-none d-lg-block'>
+        <div className='row position-fixed top-25 d-none  d-lg-block'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Персональна інформація
             </button>
@@ -92,7 +105,7 @@ function EditCandidate() {
               onClick={() =>
                 experienceRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Досвід
             </button>
@@ -100,7 +113,7 @@ function EditCandidate() {
               onClick={() =>
                 contactsRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Контакти
             </button>
@@ -108,16 +121,16 @@ function EditCandidate() {
               onClick={() =>
                 resumeRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Додаткова інформація
             </button>
           </div>
         </div>
       </div>
-      <div className='row'>
-        <div className='col-lg-1'></div>
-        <div className='col-lg-9 card p-9'>
+      {/* <div className='row'>
+        <div className='col-lg-2'></div>
+        <div className='col-lg-8 card p-9'>
           <div className='row d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
               <button className='btn btn-primary h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
@@ -134,7 +147,7 @@ function EditCandidate() {
           </div>
         </div>
         <div className='col-lg-2'></div>
-      </div>
+      </div> */}
     </div>
   )
 }

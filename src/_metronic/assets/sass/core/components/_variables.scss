@@ -207,6 +207,10 @@ $spacer: 1rem !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $spacers: (
   0: 0,
+  2px: (
+    $spacer * 0.12,
+  ),
+  // 3.5px
   1: (
     $spacer * 0.25,
   ),
@@ -233,7 +237,7 @@ $spacers: (
   // 17.5px
   20px:
     (
-      $spacer * 1.3,
+      $spacer * 1.54,
     ),
   // 20px
   6:
@@ -550,7 +554,7 @@ $font-family-sans-serif: Poppins, Helvetica, 'sans-serif' !default;
 
 $font-size-base: 1rem !default; // Assumes the browser default, typically `13px`
 $font-size-lg: $font-size-base * 1.075 !default; // 14.04px
-$font-size-sm: $font-size-base * 0.925 !default; // 12.025px
+$font-size-sm: $font-size-base * 1 !default; // 12.025px
 
 $font-weight-lighter: lighter !default;
 $font-weight-light: 300 !default;
@@ -572,7 +576,10 @@ $line-height-xxl: 2.25 !default;
 
 // Heading sizes
 $h1-font-size: $font-size-base * 1.75 !default; // 22.75px
+$h1-1-font-size: $font-size-base * 1.66 !default; // 
+$h1-2-font-size: $font-size-base * 1.54 !default; // 20.26px
 $h2-font-size: $font-size-base * 1.5 !default; // 19.50px
+$h3-1-font-size: $font-size-base * 1.33 !default; // 17.55px
 $h3-font-size: $font-size-base * 1.35 !default; // 17.55px
 $h4-font-size: $font-size-base * 1.25 !default; // 16.25px
 $h5-font-size: $font-size-base * 1.15 !default; // 14.95px
@@ -582,8 +589,13 @@ $h6-font-size: $font-size-base * 1.075 !default; // 13.97px
 $font-sizes: (
   1: $h1-font-size,
   // 22.75px
+  21px: $h1-1-font-size,
+  20px: $h1-2-font-size,
+
   2: $h2-font-size,
   // 19.50px
+  16px: $h3-1-font-size,
+  // 17.55px
   3: $h3-font-size,
   // 17.55px
   4: $h4-font-size,
@@ -747,7 +759,7 @@ $input-line-height: $input-btn-line-height !default;
 $input-solid-bg: $gray-100 !default; // Custom variable
 $input-solid-bg-focus: darken($gray-100, 2%) !default; // Custom variable
 $input-solid-placeholder-color: $input-placeholder-color !default; // Custom variable
-$input-solid-color: $gray-700 !default; // Custom variable
+$input-solid-color: $gray-500 !default; // Custom variable
 
 $input-bg: $body-bg !default;
 $input-disabled-bg: $gray-200 !default;
@@ -1132,6 +1144,7 @@ $custom-sizes: (
   unset: unset,
   10: 10%,
   25: 25%,
+  33: 33%,
   47: 47%,
   50: 50%,
   57: 57%,
@@ -1155,10 +1168,13 @@ $custom-sizes: (
   20px: 20px,
   25px: 25px,
   30px: 30px,
-  34px: 35px,
+  34px: 34px,
+  36px: 36px,
+  37px: 37px,
   40px: 40px,
   45px: 45px,
   50px: 50px,
+  52px: 52px,
   55px: 55px,
   60px: 60px,
   65px: 65px,

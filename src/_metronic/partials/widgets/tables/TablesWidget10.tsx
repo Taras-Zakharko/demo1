@@ -7,6 +7,7 @@ import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 import candidatesApi from '../../../../API/candidates'
+import {Tooltip} from 'bootstrap'
 
 type Props = {
   className: string
@@ -18,22 +19,17 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
 
-
-  const handleGetAllCandidate=(city:string, specialty: string, skills: string[])=>{
-    candidatesApi.getCandidate(city, specialty, skills)
-    .then((response)=>{
+  const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
+    candidatesApi.getCandidate(city, specialty, skills).then((response) => {
       dispatch(setUsers(response.data))
     })
   }
 
   useEffect(() => {
-    
-    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils);
+    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
     setCurrentPage(1)
   }, [searchObj])
 
-  
-  
   const [perPage] = useState(6)
   const lastIndex = currentPage * perPage
   const firstIndex = lastIndex - perPage
@@ -53,22 +49,29 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   let down = 0
   let up = 0
 
-  useEffect(()=>{    
-    if(!pageNumbers.includes(currentPage)){
-      setCurrentPage(pageNumbers[pageNumbers.length-1])
+  useEffect(() => {
+    for (let i = 1; i <= Math.ceil(allUsers.length / perPage); i++) {
+      pageNumbers.push(i)
+    }
+    if (!pageNumbers.includes(currentPage)) {
+      setCurrentPage(pageNumbers[0])
     }
   }, [allUsers.length])
-  
-  
-  
-  
+
+  useEffect(() => {
+    const tooltips = document.querySelectorAll('.tt')
+    tooltips.forEach((t) => {
+      new Tooltip(t)
+    })
+  }, [currentPage])
+
   return (
     <div className={`card ${className} bg-transparent`}>
       {/* begin::Header */}
       <div className='card-header border-0 p-0  w-100'>
         <h3 className='card-title align-items-start flex-column m-0'>
-          <span className='card-label fw-bolder fs-2 mb-1'>Кандидати</span>
-          <span className='text-muted mt-1 fw-bold fs-6'>{allUsers.length} кандидатів</span>
+          <span className='card-label fw-bolder fs-21px fs-md-20px mb-1'>Кандидати</span>
+          <span className='text-muted mt-1 fw-bold fs-5 fs-md-6'>{allUsers.length} кандидатів</span>
         </h3>
         <div
           className='card-toolbar m-0'
@@ -79,9 +82,9 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
         >
           <Link
             to={'/candidates/user/create'}
-            className='btn btn-sm d-flex flex-center h-40px mt-9 mb-9 btn-primary fs-6'
+            className='btn btn-sm d-flex flex-center h-40px mt-7 mb-7 mt-sm-9 mb-sm-9 min-w-52px btn-primary fs-6'
           >
-            <i className='fas fa-plus fs-6 me-sm-4'></i>
+            <i className='fas fa-plus fs-6 me-sm-4 pe-0 pe-sm-1 text-center'></i>
             <span className='d-none d-sm-inline-block'>Новий кандидат</span>
           </Link>
         </div>
@@ -103,11 +106,10 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                 }}
                 onTouchEnd={(e) => {
                   up = e.changedTouches[0].clientX
-                  if ((down - up) >= 50 && currentPage !== pageNumbers[pageNumbers.length - 1]) {
-                    
+                  if (down - up >= 50 && currentPage !== pageNumbers[pageNumbers.length - 1]) {
                     nextPage()
                   }
-                  if ((up-down) >= 50 && currentPage !== 1) {
+                  if (up - down >= 50 && currentPage !== 1) {
                     prevPage()
                   }
                 }}
@@ -120,44 +122,57 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
               {/* end::Table body */}
             </table>
             {allUsers.length > perPage ? (
-              <ul className='pagination '>
+              <ul className='pagination'>
                 {currentPage === 1 ? (
-                  <li className='page-item previous disabled'>
-                    <a href='#' className='page-link' onClick={() => prevPage()}>
+                  <li className='page-item previous disabled w-37px h-36px'>
+                    <a className='page-link h-100' onClick={() => prevPage()}>
                       <i className='previous'></i>
                     </a>
                   </li>
                 ) : (
-                  <li className='page-item previous'>
-                    <a href='#' className='page-link' onClick={() => prevPage()}>
+                  <li className='page-item previous w-37px h-36px'>
+                    <a className='page-link h-100' onClick={() => prevPage()}>
                       <i className='previous'></i>
                     </a>
                   </li>
                 )}
-                {pageNumbers.map((num) => {
+                {pageNumbers.map((num: number) => {
                   return currentPage === num ? (
-                    <li key={num} className='page-item active'>
-                      <a href='#' className='page-link' onClick={() => paginate(num)}>
+                    <li key={num} className='page-item active w-37px h-36px'>
+                      <a className='page-link h-100' onClick={() => paginate(num)}>
                         {num}
                       </a>
                     </li>
-                  ) : (
-                    <li key={num} className='page-item'>
-                      <a href='#' className='page-link' onClick={() => paginate(num)}>
+                  ) : currentPage === 1 && num < 4 ? (
+                    <li key={num} className='page-item w-37px h-36px'>
+                      <a className='page-link h-100' onClick={() => paginate(num)}>
                         {num}
                       </a>
                     </li>
-                  )
+                  ) : currentPage === pageNumbers[pageNumbers.length - 1] &&
+                    num > pageNumbers[pageNumbers.length - 4] ? (
+                    <li key={num} className='page-item w-37px h-36px'>
+                      <a className='page-link h-100' onClick={() => paginate(num)}>
+                        {num}
+                      </a>
+                    </li>
+                  ) : currentPage - num === 1 || num - currentPage === 1 ? (
+                    <li key={num} className='page-item w-37px h-36px'>
+                      <a className='page-link h-100' onClick={() => paginate(num)}>
+                        {num}
+                      </a>
+                    </li>
+                  ) : null
                 })}
                 {currentPage === pageNumbers[pageNumbers.length - 1] ? (
-                  <li className='page-item next disabled'>
-                    <a href='#' className='page-link' onClick={() => nextPage()}>
+                  <li className='page-item next disabled w-37px h-36px'>
+                    <a className='page-link h-100' onClick={() => nextPage()}>
                       <i className='next'></i>
                     </a>
                   </li>
                 ) : (
-                  <li className='page-item next'>
-                    <a href='#' className='page-link' onClick={() => nextPage()}>
+                  <li className='page-item next w-37px h-36px'>
+                    <a className='page-link h-100' onClick={() => nextPage()}>
                       <i className='next'></i>
                     </a>
                   </li>
@@ -174,7 +189,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       ) : (
         <div className='w-100 d-flex flex-center flex-column h-500px'>
           <img
-            src={toAbsoluteUrl(`media/avatars/blank.png`)}
+            src={toAbsoluteUrl(`media/avatars/com006.png`)}
             alt=''
             className='w-100px h-100px rounded-circle'
           />

@@ -50,12 +50,12 @@ function CreateCandidatePage() {
 
   return (
     <div className='row'>
-      <div className='row'>
+      <div className='row pe-0 ps-6'>
         <div className='col-lg-1'></div>
-        <div className='col-lg-9'>
-          <div className='card mb-5 mb-xl-10 position-relative'>
-            <div className='card-header border-bottom-0 position-absolute z-index-1 w-100 p-0'>
-              <div className='card-title m-0 w-100 justify-content-between'>
+        <div className='col-lg-9 mt-9'>
+          <div className='card bg-transparent position-relative'>
+            <div className='card-header border-bottom-0 p-0'>
+              <div className='card-title m-0 w-100 justify-content-between h-40px mt-9 mb-9'>
                 <div className='d-flex'>
                   <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
                     <i className='fas fa-arrow-left text-primary fs-4 me-6'></i>
@@ -70,7 +70,7 @@ function CreateCandidatePage() {
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-10 mt-20 row'>
+          <div ref={infoRef} className='card p-10 row'>
             <CandidateInfoBlock
               id={Date.now()}
               setEditUser={setEditUser}

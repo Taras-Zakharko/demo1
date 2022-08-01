@@ -8,6 +8,7 @@ import './CandidateCard.scss'
 import candidatesApi from '../../../API/candidates'
 import {RootState} from '../../store'
 
+
 interface ICandidate {
   user: any
 }
@@ -38,7 +39,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
 
   return (
     <>
-      <tr className='border-bottom border-dashed pt-20px pb-20px' id={user.id}>
+      <tr className='border-bottom border-dashed pt-20px h-100px pb-20px' id={user.id}>
         <td className='col-12 col-sm-4'>
           <div className='d-flex align-items-center'>
             <div className='symbol symbol-60px me-5'>
@@ -54,7 +55,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             <div className='d-flex justify-content-start flex-column '>
               <div className='d-flex align-items-center '>
                 <Link
-                  className='text-dark fw-bolder text-hover-primary fs-4'
+                  className='text-dark fw-boldest text-hover-primary  fs-3 fs-sm-4'
                   to={`user/id=${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
@@ -65,25 +66,16 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? (
-                  // <div className='tool'>
-                  // <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' title='Some tooltip text!'></i>
-                  //   <span className='tooltiptext card shadow fs-6 text-gray-500'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата. </span>
-                  // </div>
-                  <div>
-                    <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' ></i>
-                    <div className='tooltip bs-tooltip-top' role='tooltip'>
-                      <div className='tooltip-arrow start-50'></div>
-                      <div className='tooltip-inner'>Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.</div>
-                    </div>
-                    
-                  </div>
+                  <span className='tt' data-bs-placement='top' title='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.'>
+                    <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' title='Some tooltip text!'></i>
+                  </span>
                 ) : null}
               </div>
 
-              <span className='text-gray-800 d-block fs-6'>
+              <span className='text-gray-800 d-block fs-5 fs-sm-6'>
                 {user.specialty === null ? '' : `${user.specialty}`}
               </span>
-              <span className='text-gray-500 d-block fs-6'>
+              <span className='text-gray-500 d-block fs-5 fs-sm-6'>
                 {user.location.country && user.location.city.length > 0
                   ? `${user.location.country}, ${user.location.city[0]}`
                   : !user.location.country && user.location.city.length > 0
@@ -96,9 +88,22 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
           </div>
         </td>
         <td className='d-none d-md-table-cell col-lg-5'>
-          <span className='fw-bold text-gray-800 d-block fs-6'>
-            {user.skills?.map((skil: any, i: number) =>
-              i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
+          <span className='fw-bold text-gray-800 d-block fs-6 '>
+            {user.skills?.map((skil: any, i: number) => {
+              let str = '';
+              if(i<15 && i!==user.skills.length-1){
+                str+= `${skil}, `
+              } else if(i<15 && i===user.skills.length-1){
+                str+=`${skil}.`
+              } else if(i===15 && i!==user.skills.length-1){
+                str+=`${skil} ...`
+              } else if(i>15) {
+                return
+              }
+
+              return str;
+            }
+              
             )}
           </span>
         </td>
@@ -107,7 +112,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             {user.contacts?.email.length > 0 ? (
               <a
                 href={'mailto:' + user.contacts.email[0]}
-                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
+                className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
               >
                 <i className='fas fa-envelope fs-4'></i>
               </a>
@@ -117,7 +122,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 <a
                   key={i}
                   href={link.path}
-                  className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
+                  className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
                 >
                   <i className='fab fa-facebook-square fs-4'></i>
                 </a>
@@ -128,7 +133,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 <a
                   key={i}
                   href={'skype:' + link.link}
-                  className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
+                  className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
                 >
                   <i className='fab fa-skype fs-4'></i>
                 </a>
@@ -137,7 +142,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             {user.contacts?.phone.length > 0 ? (
               <button
                 value={user.contacts?.phone[0]}
-                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-3'
+                className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
               >
                 <i className='fas fa-phone fs-4'></i>
               </button>
@@ -147,28 +152,38 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
         <td className='text-end d-none d-sm-table-cell col-lg-1'>
           <div ref={cardRef} className='d-flex justify-content-end flex-shrink-0 position-relative'>
             <button
-              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+              className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-1'
               onClick={() => setopenModal((openModal) => !openModal)}
               id='open-svg-1'
             >
               <i className='fas fa-ellipsis-v fs-4'></i>
             </button>
             {openModal ? (
-              <div className='card shadow position-absolute top-100 end-15px w-150px z-index-1 modal__card'>
-                <Link
-                  to={`edit/user/id=${user.id}`}
-                  className='w-100 h-50px btn btn-active-primary'
-                >
-                  Редагувати
-                </Link>
-                <button
-                  className='w-100 h-50px btn btn-active-primary'
-                  onClick={() => hendleRemoveCandidate(user.id)}
-                >
-                  Видалити
-                </button>
-                <Outlet />
-              </div>
+              // <div className='card shadow position-absolute top-100 end-15px w-150px z-index-1 modal__card'>
+              //   <Link
+              //     to={`edit/user/id=${user.id}`}
+              //     className='w-100 h-50px btn btn-active-primary d-flex align-items-center'
+              //   >
+              //     Редагувати
+              //   </Link>
+              //   <button
+              //     className='w-100 h-50px btn btn-active-primary text-start'
+              //     onClick={() => hendleRemoveCandidate(user.id)}
+              //   >
+              //     Видалити
+              //   </button>
+              //   <Outlet />
+              // </div>
+              <div className="menu menu-sub menu-sub-dropdown menu-column position-absolute top-100 end-0 w-150px z-index-1 modal__card menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4 show" data-kt-menu="true" data-popper-placement="bottom-end"  data-popper-reference-hidden="">
+																<div className="menu-item px-3">
+																	<Link to={`edit/user/id=${user.id}`} className="menu-link px-3">Редагувати</Link>
+																</div>
+																
+																<div className="menu-item px-3">
+																	<a className="menu-link px-3"  onClick={() => hendleRemoveCandidate(user.id)} data-kt-users-table-filter="delete_row">Видалити</a>
+																</div>
+																
+															</div>
             ) : null}
           </div>
         </td>

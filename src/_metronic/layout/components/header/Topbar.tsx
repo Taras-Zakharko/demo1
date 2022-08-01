@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, {FC} from 'react'
 import { useAuth } from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
-import { QuickLinks} from '../../../partials'
+import { QuickLinks, Search} from '../../../partials'
 
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
@@ -15,7 +15,7 @@ const Topbar: FC = () => {
   const {logout} = useAuth()
 
   return (
-    <div className='d-flex align-items-stretch w-100 justify-content-around justify-content-sm-end flex-shrink-0'>
+    <div className='d-flex align-items-stretch w-100 justify-content-between justify-content-sm-end flex-shrink-0'>
       {/* Search */}
       {/* <div className={clsx('d-flex align-items-stretch', toolbarButtonMarginClass)}>
         <Search />
@@ -61,7 +61,7 @@ const Topbar: FC = () => {
       {/* </div> */}
 
       {/* CHAT */}
-      <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+      <div className={clsx('d-flex align-items-center w-33 w-sm-auto justify-content-center', toolbarButtonMarginClass)}>
         {/* begin::Menu wrapper */}
         <a href='mailto:contact@turbohiring.com'
           className={clsx(
@@ -70,14 +70,14 @@ const Topbar: FC = () => {
           )}
           id='kt_drawer_chat_toggle'
         >
-          <i className="fas fa-question-circle fs-2"></i>
+          <i className="fas fa-question-circle fs-2 fs-md-3"></i>
 
         </a>
         {/* end::Menu wrapper */}
       </div>
 
       {/* Quick links */}
-      <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
+      <div className={clsx('d-flex align-items-center w-33 w-sm-auto justify-content-center', toolbarButtonMarginClass)}>
         {/* begin::Menu wrapper */}
         <div
           className={clsx(
@@ -89,9 +89,9 @@ const Topbar: FC = () => {
           data-kt-menu-placement='bottom-end'
           data-kt-menu-flip='bottom'
         >
-          <i className="fas fa-ellipsis-v fs-4"></i>
-          <i className="fas fa-ellipsis-v fs-4"></i>
-          <i className="fas fa-ellipsis-v fs-4"></i>
+          <i className="fas fa-ellipsis-v fs-2 fs-md-3"></i>
+          <i className="fas fa-ellipsis-v fs-2 fs-md-3"></i>
+          <i className="fas fa-ellipsis-v fs-2 fs-md-3"></i>
         </div>
         <QuickLinks />
         {/* end::Menu wrapper */}
@@ -99,7 +99,7 @@ const Topbar: FC = () => {
 
       {/* begin::User */}
       <div
-        className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}
+        className={clsx('d-flex align-items-center justify-content-end w-33 w-sm-auto', toolbarButtonMarginClass)}
         id='kt_header_user_menu_toggle'
       >
         {/* begin::Toggle */}

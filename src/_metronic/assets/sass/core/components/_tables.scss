@@ -40,11 +40,11 @@
   tfoot,
   tbody {
     tr:last-child {
-      border-bottom: 0 !important;
+      border-bottom: 1 !important;
 
       th,
       td {
-        border-bottom: 0 !important;
+        border-bottom: 1 !important;
       }
     }
   }

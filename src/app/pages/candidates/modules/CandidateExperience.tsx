@@ -35,7 +35,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
     <div ref={experienceRef} className='accordion-item p-0'>
       <h2 className='accordion-header' id='kt_accordion_1_header_1'>
         <button
-          className='accordion-button fs-4 fw-boldest'
+          className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 bg-white text-dark'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_1'
@@ -51,11 +51,11 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
         aria-labelledby='kt_accordion_1_header_1'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body'>
+        <div className='accordion-body ps-8'>
           <div className='row mb-4'>
-            <div className='row d-flex align-items-center mb-4'>
+            <div className='row d-flex align-items-center mb-6'>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-5 fs-sm-6'>
                   Поточне місце роботи
                 </label>
               </div>
@@ -81,7 +81,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
             </div>
             <div className='row d-flex align-items-center mb-4'>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal fs-5 fs-sm-6'>
                   Поточна посада
                 </label>
               </div>
