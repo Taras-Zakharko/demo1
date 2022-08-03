@@ -55,7 +55,7 @@ const KTCard: FC<Props> = (props) => {
         rounded && `card-${rounded}`
       )}
     >
-      {children||(<div></div>)}
+      {children}
     </div>
   )
 }
