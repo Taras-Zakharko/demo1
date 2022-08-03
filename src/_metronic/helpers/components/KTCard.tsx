@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, ReactNode} from 'react'
 import clsx from 'clsx'
 
 // Wrapper on html card:
@@ -17,6 +17,7 @@ type Props = {
   utilityP?: number
   utilityPY?: number
   utilityPX?: number
+  children?: ReactNode
 }
 
 const KTCard: FC<Props> = (props) => {
