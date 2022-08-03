@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
-import {ReactQueryDevtools} from 'react-query/devtools'
+// import {ReactQueryDevtools} from 'react-query/devtools'
 import {store} from './app/store'
 import {Provider} from 'react-redux'
 

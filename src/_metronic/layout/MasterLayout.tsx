@@ -1,11 +1,11 @@
 import {useEffect} from 'react'
-import {Outlet} from 'react-router-dom'
+import {Outlet,useLocation} from 'react-router-dom'
 
 import {HeaderWrapper} from './components/header/HeaderWrapper'
 
 import {Content} from './components/Content'
 import {PageDataProvider} from './core'
-import {useLocation} from 'react-router-dom'
+
 
 import {MenuComponent} from '../assets/ts/components'
 

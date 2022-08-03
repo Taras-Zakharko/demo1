@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, {FC} from 'react'
 import { useAuth } from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
-import { QuickLinks, Search} from '../../../partials'
+import { QuickLinks} from '../../../partials'
 
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',

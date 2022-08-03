@@ -10,8 +10,8 @@ const axiosInstance = axios.create({baseURL:API_URl, headers: {
   }});
 
   axiosInstance.interceptors.response.use(
-    (response) => response.data,
-    (error) => Promise.reject(error.response.data)
+    (response: any) => response.data,
+    (error: any) => Promise.reject(error.response.data)
   );
 
 

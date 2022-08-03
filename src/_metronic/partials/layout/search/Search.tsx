@@ -14,7 +14,7 @@ import {
 } from '../../../../app/features/search/searchSlice'
 import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
-import {hide} from '@popperjs/core'
+// import {hide} from '@popperjs/core'
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')

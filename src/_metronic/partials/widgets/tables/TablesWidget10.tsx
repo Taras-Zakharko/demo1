@@ -20,7 +20,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
-    candidatesApi.getCandidate(city, specialty, skills).then((response) => {
+    candidatesApi.getCandidate(city, specialty, skills).then((response: any) => {
       dispatch(setUsers(response.data))
     })
   }
