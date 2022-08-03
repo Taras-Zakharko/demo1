@@ -34,6 +34,8 @@ const KTCard: FC<Props> = (props) => {
     utilityPX,
     children,
   } = props
+
+  
   return (
     <div
       className={clsx(
@@ -53,7 +55,7 @@ const KTCard: FC<Props> = (props) => {
         rounded && `card-${rounded}`
       )}
     >
-      {children as ReactNode}
+      {children||(<div></div>)}
     </div>
   )
 }
