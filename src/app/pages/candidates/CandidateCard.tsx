@@ -18,7 +18,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   const searchObj = useSelector((state: RootState) => state.search)
 
   const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
-    candidatesApi.getCandidate(city, specialty, skills).then((response) => {
+    candidatesApi.getCandidate(city, specialty, skills).then((response: any) => {
       dispatch(setUsers(response.data))
     })
   }

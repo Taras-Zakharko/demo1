@@ -11,7 +11,7 @@ export function CandidateProfileWraper() {
   const GDPRSelect = useRef<HTMLSelectElement | null>(null)
 
   const handleGetOneCandidate = (id: number) => {
-    candidatesApi.getSomeCandidate(id).then((response) => {
+    candidatesApi.getSomeCandidate(id).then((response: any) => {
       setUser(response.data)
       setGdpr(response.data.gdpr)
     })

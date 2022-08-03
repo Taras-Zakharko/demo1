@@ -17,7 +17,7 @@ const ImportFromFilePage = () => {
   const navigate = useNavigate()
 
   const handleGetOneCandidate = (id: number) => {
-    candidatesApi.getSomeCandidate(id).then((response) => {
+    candidatesApi.getSomeCandidate(id).then((response: { data: any }) => {
       setEditUser(response.data)
     })
   }

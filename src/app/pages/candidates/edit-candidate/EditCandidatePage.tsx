@@ -27,7 +27,7 @@ function EditCandidate() {
 
   const handleGetOneCandidate = (id:number)=>{
     candidatesApi.getSomeCandidate(id)
-    .then((response)=>{
+    .then((response: any)=>{
       setEditUser(response.data)
     })
   }

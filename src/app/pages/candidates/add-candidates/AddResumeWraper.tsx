@@ -17,7 +17,7 @@ const AddResumeWraper = () => {
   const [progresValue, setProgresValue] = useState<number>(0)
 
   const handleAddResumeFile = (file: any, name: string) => {
-    candidatesApi.addResumeFileCandidate(file, name).then((response) => {
+    candidatesApi.addResumeFileCandidate(file, name).then((response: any) => {
       if (response.data) {
         addFileContent.current?.removeAttribute('data-kt-indicator')
         navigate(`/add/check-data/${response.data.id}`)
@@ -34,7 +34,7 @@ const AddResumeWraper = () => {
   }
 
   const handleAddResumeZip = (file: any) => {
-    candidatesApi.addResumeZipCandidates(file).then((response) => {
+    candidatesApi.addResumeZipCandidates(file).then((response: any) => {
       let progresRun = setInterval(() => {
         
         setProgresValue((progresValue) => {
