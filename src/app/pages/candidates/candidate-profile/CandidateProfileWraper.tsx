@@ -28,7 +28,7 @@ export function CandidateProfileWraper() {
   }, [idUser])
 
   const allGood = () => {
-    setUser((user: any) => ({...user, checked: 1}))
+    setUser((user: any) => ({...user, checked: 1}))    
     handleEditOneCandidate({...user, checked: 1})
   }
 

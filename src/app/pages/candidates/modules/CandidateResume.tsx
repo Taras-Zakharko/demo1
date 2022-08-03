@@ -21,7 +21,6 @@ const CandidateResume: FC<ICandidateContacts> = ({
   const tagifyRef = useRef()
 
   const [files, setFiles] = useState<any[]>([])
-  console.log(user);
   
 
   useEffect(()=>{
