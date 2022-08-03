@@ -17,7 +17,6 @@ type Props = {
   utilityP?: number
   utilityPY?: number
   utilityPX?: number
-  children?: ReactNode
 }
 
 const KTCard: FC<Props> = (props) => {
@@ -54,7 +53,7 @@ const KTCard: FC<Props> = (props) => {
         rounded && `card-${rounded}`
       )}
     >
-      {children}
+      {children as ReactNode}
     </div>
   )
 }
