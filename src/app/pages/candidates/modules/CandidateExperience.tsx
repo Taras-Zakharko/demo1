@@ -1,6 +1,8 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
+import './tagifyCustom.scss'
+
 
 interface ICandidateExperience {
   experienceRef?: any
@@ -32,10 +34,10 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
   // }, [inputYearExperience])
 
   return (
-    <div ref={experienceRef} className='accordion-item p-0'>
-      <h2 className='accordion-header' id='kt_accordion_1_header_1'>
+    <div ref={experienceRef} className='accordion-item border-0 p-0'>
+      <h2 className='accordion-header border-1 border-top-dashed  border-secondary ' id='kt_accordion_1_header_1'>
         <button
-          className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 bg-white text-dark'
+          className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 pb-7 pb-lg-20px bg-white text-dark shadow-none'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_1'
@@ -47,22 +49,22 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
       </h2>
       <div
         id='kt_accordion_1_body_1'
-        className='accordion-collapse collapse p-4 show'
+        className='accordion-collapse collapse p-4 pt-0 pb-0 show'
         aria-labelledby='kt_accordion_1_header_1'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body ps-8'>
-          <div className='row mb-4'>
-            <div className='row d-flex align-items-center mb-6'>
+        <div className='accordion-body ps-8 pt-0 pb-7 pb-lg-0'>
+          <div className='row '>
+            <div className='row d-flex align-items-center mb-7 mb-lg-20px pe-0 pe-lg-3'>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-5 fs-sm-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   Поточне місце роботи
                 </label>
               </div>
-              <div className={'col-lg-'+inputW}>
+              <div className={'col-lg-'+inputW+' pe-0 pe-lg-3'}>
                 <input
                   type='text'
-                  className='form-control form-control-solid w-100 h-40px'
+                  className='form-control form-control-solid h-40px text-gray-800'
                   placeholder='Компанія'
                   // value={(user.expanded)&&user.experience.at(-1).company}
                   // onChange={(e) =>
@@ -79,16 +81,16 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
               </div>
               
             </div>
-            <div className='row d-flex align-items-center mb-4'>
+            <div className='row d-flex align-items-center mb-7 mb-lg-20px pe-0 pe-lg-3'>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal fs-5 fs-sm-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   Поточна посада
                 </label>
               </div>
-              <div className={'col-lg-'+inputW}>
+              <div className={'col-lg-'+inputW+' pe-0 pe-lg-3'}>
                 <input
                   type='text'
-                  className='form-control form-control-solid w-100 h-40px'
+                  className='form-control form-control-solid h-40px text-gray-800'
                   value={(user.specialty) && user.specialty}
                   onChange={(e) =>
                     setEditUser((user: any) => ({
@@ -100,9 +102,9 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
               </div>
               
             </div>
-            <div className='row d-flex align-items-center mb-4'>
+            <div className='row d-flex align-items-center mb-7 mb-lg-20px '>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   Років досвіду
                 </label>
               </div>
@@ -110,7 +112,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
                 <input
                   ref={inputYearExperience}
                   type='text'
-                  className='form-control form-control-solid w-50 w-md-25 h-40px'
+                  className='form-control form-control-solid w-50 w-md-25 h-40px text-gray-800'
                   // value={(user.experience)&&user.experience.at(-1).yearsExperience}
                   onChange={(e) =>
                     e.target.value = e.target.value.replaceAll(/\D/gi,'')
@@ -131,17 +133,17 @@ const CandidateExperience: FC<ICandidateExperience> = ({experienceRef, setEditUs
             </div>
           </div>
           <div className='row'>
-            <div className='row d-flex align-items-center mb-4'>
+            <div className='row d-flex align-items-start mb-lg-20px pe-0 pe-lg-3'>
               <div className={'col-lg-'+labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 required fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   Навички
                 </label>
               </div>
-              <div className={'col-lg-'+inputW}>
+              <div className={'col-lg-'+inputW+' pe-0 pe-lg-3'}>
                 <Tags
                   tagifyRef={tagifyRef}                    
                   value={user.skills}
-                  className='form-control form-control-solid w-100 min-h-40px'
+                  className='form-control form-control-solid min-h-40px '
                   onChange={(e)=> {
                     setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
                   }}

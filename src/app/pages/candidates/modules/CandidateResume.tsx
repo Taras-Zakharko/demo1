@@ -1,4 +1,6 @@
-import React, {FC, useEffect, useState} from 'react'
+import Tags from '@yaireo/tagify/dist/react.tagify'
+import React, {FC, useEffect, useRef, useState} from 'react'
+import './tagifyCustom.scss'
 
 interface ICandidateContacts {
   resumeRef?: any
@@ -16,13 +18,31 @@ const CandidateResume: FC<ICandidateContacts> = ({
   inputW,
 }) => {
 
+  const tagifyRef = useRef()
+
+  const [files, setFiles] = useState<any[]>([])
+  console.log(user);
+  
+
+  useEffect(()=>{
+
+    let userFilesName: any = [];
+    
+    (user.files && user.files.length> 0)&&user.files.forEach((file: any) => {
+      userFilesName.push(file.name)
+    });
+    
+
+    setFiles(userFilesName)
+  }, [user.files])
+
   
 
   return (
-    <div ref={resumeRef} className='accordion-item p-0'>
-      <h2 className='accordion-header' id='kt_accordion_1_header_3'>
+    <div ref={resumeRef} className='accordion-item border-start-0 border-end-0 border-bottom-dashed p-0'>
+      <h2 className='accordion-header border-1 border-top-dashed border-secondary' id='kt_accordion_1_header_3'>
         <button
-          className='accordion-button fs-4 fw-boldestp-8 ps-12 pe-9 bg-white text-dark '
+          className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 pb-7 pb-lg-20px bg-white text-dark shadow-none'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_3'
@@ -34,17 +54,17 @@ const CandidateResume: FC<ICandidateContacts> = ({
       </h2>
       <div
         id='kt_accordion_1_body_3'
-        className='accordion-collapse collapse p-4 show'
+        className='accordion-collapse collapse p-4 pt-0 pb-0 show'
         aria-labelledby='kt_accordion_1_header_3'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body ps-8'>
-          <div className='row border-bottom mb-4'>
+        <div className='accordion-body ps-8 pt-0 pb-7 pb-lg-20px'>
+          <div className='row border-bottom-dashed border-1 border-secondary mb-lg-4'>
             <div className='col-lg-12'>
               <textarea
                 name='resume'
                 id='resume'
-                className='w-100 h-150px p-3 form-control form-control-solid text-gray-800'
+                className='w-100 h-150px p-3 mb-7 mb-lg-20px form-control form-control-solid text-gray-800'
                 onChange={(e) =>
                   setEditUser((user: any) => ({
                     ...user,
@@ -54,9 +74,9 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 value={user.aboutMyself && user.aboutMyself[0]}
               ></textarea>
             </div>
-            <div className='col-lg-12'>
-              <label htmlFor='addFileResume' className='btn text-primary ps-0'>
-                <i className='fas fa-paperclip fs-4 text-primary'></i>
+            <div className='col-lg-12 d-flex flex-column flex-lg-row align-items-lg-center'>
+              <label htmlFor='addFileResume' className='btn text-primary fs-5 fs-sm-6 p-0 mb-7 mb-lg-20px text-start'>
+                <i className='fas fa-paperclip fs-16px fs-sm-4 text-primary'></i>
                 Прикріпити файл
               </label>
               <input
@@ -86,27 +106,30 @@ const CandidateResume: FC<ICandidateContacts> = ({
                   }
                 }}
               ></input>
-              <p className='ms-3 h-100'>
-                  {(user.files && user.files.length>0)&&user.files.map((file: any, i: number) =>
-                    i !== user.files.length - 1 ? (
-                      <span key={i} className='fw-bold fs-6 text-primary'>{`${file.name}, `}</span>
-                    ) : (
-                      <span key={i} className='fw-bold fs-6 text-primary'>{file.name}</span>
-                    )
-                  )}
-                  </p>
+              {files.length> 0 && <div className='ms-lg-9 h-100'>
+              <Tags
+                  tagifyRef={tagifyRef}                    
+                  value={files}
+                  className='form-control form-control-solid bg-white border-0 min-h-40px '
+                  onChange={(e)=> {
+                    // setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
+                  }}
+                />
+                
+                  </div>}
+              
             </div>
           </div>
           <div className='row'>
-            <div className='row d-flex align-items-center mb-4 mt-4 pe-0'>
+            <div className='row d-flex align-items-center mt-7 mt-lg-20px pe-0'>
               <div className={'col-lg-' + labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   GDPR
                 </label>
               </div>
               <div className={'col-lg-' + inputW + ' pe-0'}>
                 <select
-                  className='form-select form-select-solid border-0 text-muted'
+                  className='form-select form-select-solid border-0 text-gray-800'
                   aria-label='Select example'
                   onChange={(e)=>setEditUser((user: any) => ({...user, gdpr: e.target.value}))}
                   value={user.gdpr}
@@ -117,16 +140,16 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 </select>
               </div>
             </div>
-            <div className='row d-flex align-items-center mb-4 pe-0'>
+            <div className='row d-flex align-items-center align-items-lg-start mt-7 mt-lg-20px pe-0'>
               <div className={'col-lg-' + labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold fs-6'>
+                <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'>
                   Джерело
                 </label>
               </div>
               <div className='col-12 col-lg-6 pe-0'>
                 <input
                   type='text'
-                  className='form-control form-control-solid w-100 w-lg-75 h-40px mb-3'
+                  className='form-control form-control-solid w-100 w-lg-75 h-40px mb-3 text-gray-800'
                   onChange={(e) =>
                     setEditUser((user: any) => ({
                       ...user,
@@ -135,7 +158,7 @@ const CandidateResume: FC<ICandidateContacts> = ({
                   }
                   value={user.source}
                 />
-                <span className='text-gray-500 fs-7'>Де знайшли цього кандидата</span>
+                <span className='text-gray-500 fs-6 fs-sm-7'>Де знайшли цього кандидата</span>
               </div>
             </div>
           </div>

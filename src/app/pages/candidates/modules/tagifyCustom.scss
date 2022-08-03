@@ -1,0 +1,13 @@
+.tagify{
+    --tag-bg: #E4E6EF;
+}
+.bg-white{
+    --tag-bg: #F3F6F9;
+
+    .tagify__tag{
+        margin: 0 10px 20px 0;
+    }
+    .tagify__input{
+        display: none;
+    }
+}

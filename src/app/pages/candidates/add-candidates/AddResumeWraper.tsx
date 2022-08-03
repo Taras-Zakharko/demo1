@@ -99,7 +99,7 @@ const AddResumeWraper = () => {
     <div className='row pt-10 h-100'>
       <div className='col-lg-2'></div>
       <div className='col-lg-8 d-flex flex-column flex-center'>
-        <h2 className='fs-2 fw-boldest text-center'>
+        <h2 className='fs-1 fs-lg-20px fw-boldest text-center'>
           Щоб розпочати, додайте кандидатів у свою базу
         </h2>
         <ul className='nav nav-tabs nav-line-tabs fs-4 flex-center mt-10'>
@@ -130,19 +130,19 @@ const AddResumeWraper = () => {
             </Link>
           </li>
         </ul>
-        <div className='tab-content card w-md-600px p-10 fs-4' id='myTabContent'>
+        <div className='tab-content card w-md-600px ps-10 pe-10 p-15 ps-lg-15 pe-lg-15 fs-4' id='myTabContent'>
           <div
             ref={addFileContent}
             className='tab-pane fade active show text-center'
             id='kt_tab_pane_1'
             role='tabpanel'
           >
-            <div className='indicator-label p-6'>
-              <p className='fs-4'>
+            <div className='indicator-label ps-5 pe-5 p-lg-0'>
+              <p className='fs-16px fs-sm-4 mb-0'>
                 Оберіть файл на вашому комп’ютері:
                 <br /> Допускаються формати файлів: .doc, .docx, .rtf, .pdf, .odt, .txt
               </p>
-              <label htmlFor='file' className='btn btn-sm btn-primary m-4 fs-4'>
+              <label htmlFor='file' className='btn btn-sm btn-primary mt-9 fs-16px fs-sm-4'>
                 Завантажити резюме
                 <input
                   ref={addFileBtn}
@@ -156,7 +156,7 @@ const AddResumeWraper = () => {
                 ></input>
               </label>
             </div>
-            <div className='indicator-progress w-md-600px p-6 w-sm-350px'>
+            <div className='indicator-progress'>
               <div className='sk-fading-circle'>
                 <div className='sk-circle1 sk-circle'></div>
                 <div className='sk-circle2 sk-circle'></div>
@@ -171,7 +171,7 @@ const AddResumeWraper = () => {
                 <div className='sk-circle11 sk-circle'></div>
                 <div className='sk-circle12 sk-circle'></div>
               </div>
-              <p className='fs-4'>Обробка резюме</p>
+              <p className='fs-16px fs-sm-4'>Обробка резюме</p>
             </div>
           </div>
           <div
@@ -180,13 +180,13 @@ const AddResumeWraper = () => {
             id='kt_tab_pane_2'
             role='tabpanel'
           >
-            <div ref={firstZipContent} className='indicator-label p-6'>
-              <p className='fs-4'>
+            <div ref={firstZipContent} className='indicator-label ps-5 pe-5 p-lg-0'>
+              <p className='fs-16px fs-sm-4 mb-0'>
                 Ви можете перенести вашу поточну базу кандидатів до MyCandidates. Для цього,
                 збережіть всі резюме в одній папці і заархівуйте її (створіть zip-архів). Одержаний
                 zip файл завантажте на цій сторінці. Резюме будуть оброблені та додані в вашу базу.
               </p>
-              <label htmlFor='zip' className='btn btn-sm btn-primary m-4 fs-4'>
+              <label htmlFor='zip' className='btn btn-sm btn-primary mt-9 fs-16px fs-sm-4'>
                 Завантажити ZIP-архів
                 <input
                   ref={addZipBtn}
@@ -199,15 +199,15 @@ const AddResumeWraper = () => {
                 ></input>
               </label>
             </div>
-            <div ref={secondZipContent} className='d-none p-6'>
-              <div className='d-flex justify-content-between align-items-center mb-4'>
-                <p className='m-0 p-3 fs-6'>Завантаження архіву </p>
-                <button ref={stopLoad} className='btn'>
-                  <i className='fas fa-stop-circle fs-6 text-gray-500'></i>
-                  <span className='text-gray-500 fs-6 fw-normal'>Cкасувати</span>
+            <div ref={secondZipContent} className='d-none'>
+              <div className='d-flex justify-content-between align-items-center mb-8'>
+                <p className='m-0 p-0 fs-5 fs-sm-6'>Завантаження архіву </p>
+                <button ref={stopLoad} className='btn p-0'>
+                  <i className='fas fa-stop-circle fs-5 fs-sm-6 text-gray-500'></i>
+                  <span className='text-gray-500 fs-5 fs-sm-6 fw-normal'>Cкасувати</span>
                 </button>
               </div>
-              <div className='progres-wraper position-relative mb-15'>
+              <div className='progres-wraper position-relative mb-14'>
                 <div className='w-100 h-15px bg-light-success rounded-pill'></div>
                 <div
                   ref={progresDiv}
@@ -215,18 +215,18 @@ const AddResumeWraper = () => {
                   style={{width: `${progresValue}%`}}
                 ></div>
               </div>
-              <p className='text-start text-muted mb-10 fs-6'>
-                Якщо у вас виникли проблеми з перенесенням бази резюме,
-                <br />
+              <p className='text-start text-muted mb-0 fs-5 fs-sm-6'>
+                Якщо у вас виникли проблеми з перенесенням бази резюме,{' '}
+                <br className='d-none'/>
                 <a href='mailto:#' className='text-primary'>
                   напишіть нам
                 </a>
                 .
               </p>
             </div>
-            <div ref={thirdZipContent} className='d-none p-6'>
-              <i className='fas fa-check-circle text-success fs-3x'></i>
-              <p className='mt-4 fs-4 text-justify'>
+            <div ref={thirdZipContent} className='d-none ps-5 pe-5 p-lg-0'>
+              <i className='fas fa-check-circle text-success mb-20px fs-3x'></i>
+              <p className='m-0 fs-16px fs-sm-4 text-justify'>
                 Архів успішно завантажено та поставлено в чергу на обробку. Обробка триватиме певний
                 час. Ви отримаєте повідомлення на електронну пошту, коли всі резюме з архіву буде
                 додано.

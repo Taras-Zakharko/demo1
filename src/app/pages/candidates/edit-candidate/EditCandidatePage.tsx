@@ -6,6 +6,9 @@ import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 
+import Swal from 'sweetalert2'
+
+
 import candidatesApi from '../../../../API/candidates'
 
 
@@ -13,11 +16,11 @@ function EditCandidate() {
   const infoRef = useRef<any>(null)
   const experienceRef = useRef<any>(null)
   const contactsRef = useRef<any>(null)
-  const resumeRef = useRef<any>(null)   
+  const resumeRef = useRef<any>(null) 
+  const deleteCandidate = useRef<HTMLButtonElement| null>(null)  
 
   const navigate = useNavigate();
-
-  
+ 
 
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
   const [editUser, setEditUser] = useState<any>({})
@@ -48,7 +51,28 @@ function EditCandidate() {
   useEffect(() => {
     handleGetOneCandidate(idUser);
   }, [])
+
   
+  
+
+  function deleteCandidateFunk(btn: any){
+    Swal.fire({
+      text: `Ви точно хочете видалити кандидата!`,
+      icon: 'error',
+      buttonsStyling: false,
+      showCancelButton: true,
+      confirmButtonText: 'Так, видалити',
+      cancelButtonText: 'Ні',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+        cancelButton: 'swal2-cancel btn fw-bold btn-primary mt-5 ms-2',
+        icon: 'text-danger border-danger',
+      },
+    }).then((result) => {
+      result.isConfirmed && hendleRemoveCandidate(editUser.id)
+    })
+  }
+    
 
   return (
     <div className='row'>
@@ -68,7 +92,7 @@ function EditCandidate() {
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-9 row'>
+          <div ref={infoRef} className='card p-9 pt-8 pt-sm-9 row'>
             <CandidateInfoBlock id={idUser} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
             <CandidatePhoto url={editUser.photo} setEditUser={setEditUser} />
           </div>
@@ -80,14 +104,17 @@ function EditCandidate() {
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
+              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
                 Зберегти
               </button>
               <button
-                className='btn text-danger fs-6 pe-0'
-                onClick={() => hendleRemoveCandidate(idUser)}
+              ref={deleteCandidate}
+                type='button'
+                id="kt_docs_sweetalert_state_warning"
+                className='btn text-danger d-flex flex-center fs-5 fs-sm-6 pe-0'
+                onClick={() => deleteCandidateFunk(deleteCandidate.current)}
               >
-                <i className="fas fa-trash text-danger fs-4 me-3"></i>
+                <i className="fas fa-trash text-danger fs-3 fs-sm-4 me-3"></i>
                 Видалити
               </button>
             </div>
@@ -128,26 +155,6 @@ function EditCandidate() {
           </div>
         </div>
       </div>
-      {/* <div className='row'>
-        <div className='col-lg-2'></div>
-        <div className='col-lg-8 card p-9'>
-          <div className='row d-flex justify-content-end'>
-            <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
-                Зберегти
-              </button>
-              <button
-                className='btn text-danger fs-6 pe-0'
-                onClick={() => hendleRemoveCandidate(idUser)}
-              >
-                <i className="fas fa-trash text-danger fs-4 me-3"></i>
-                Видалити
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className='col-lg-2'></div>
-      </div> */}
     </div>
   )
 }

@@ -51,11 +51,11 @@ function CreateCandidatePage() {
   return (
     <div className='row'>
       <div className='row pe-0 ps-6'>
-        <div className='col-lg-1'></div>
-        <div className='col-lg-9 mt-9'>
+        <div className='col-lg-2'></div>
+        <div className='col-lg-8 mt-9'>
           <div className='card bg-transparent position-relative'>
-            <div className='card-header border-bottom-0 p-0'>
-              <div className='card-title m-0 w-100 justify-content-between h-40px mt-9 mb-9'>
+            <div className='row card-header border-bottom-0 p-0'>
+              <div className='card-title m-0 w-100 justify-content-between h-40px mt-9 mb-9 p-0'>
                 <div className='d-flex'>
                   <Link to='/candidates' className='fw-bolder position-lg-absolute end-100 m-0'>
                     <i className='fas fa-arrow-left text-primary fs-4 me-6'></i>
@@ -70,7 +70,7 @@ function CreateCandidatePage() {
               </div>
             </div>
           </div>
-          <div ref={infoRef} className='card p-10 row'>
+          <div ref={infoRef} className='card p-9 pt-8 pt-sm-9 row'>
             <CandidateInfoBlock
               id={Date.now()}
               setEditUser={setEditUser}
@@ -103,12 +103,23 @@ function CreateCandidatePage() {
               inputW={9}
             />
           </div>
+          <div className='row bg-white p-9 d-flex justify-content-end'>
+        <div className='col-lg-12 d-flex flex-center'>
+              <button
+                className='btn btn-primary d-flex flex-center h-40px '
+                onClick={() => handleCreateNewCandidate(editUser)}
+              >
+                Зберегти кандидата
+              </button>
+            </div>
+          </div>
         </div>
+        
         <div className='col-lg-2'>
           <div className='row position-fixed top-25 d-none d-lg-block'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Персональна інформація
             </button>
@@ -116,7 +127,7 @@ function CreateCandidatePage() {
               onClick={() =>
                 experienceRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Досвід
             </button>
@@ -124,7 +135,7 @@ function CreateCandidatePage() {
               onClick={() =>
                 contactsRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Контакти
             </button>
@@ -132,14 +143,14 @@ function CreateCandidatePage() {
               onClick={() =>
                 resumeRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})
               }
-              className='btn p-0 pt-3 text-start text-dark text-hover-primary ms-3 fs-8'
+              className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'
             >
               Додаткова інформація
             </button>
           </div>
         </div>
       </div>
-      <div className='row mt-5'>
+      {/* <div className='row mt-5'>
         <div className='col-lg-2'></div>
         <div className='col-lg-8'>
           <div className='row'>
@@ -154,7 +165,7 @@ function CreateCandidatePage() {
           </div>
         </div>
         <div className='col-lg-2'></div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -40,12 +40,12 @@ const ImportFromFilePage = () => {
   return (
     <>
       <div className='row pt-10'>
-        <div className='col-lg-12'>
+        <div className='col-lg-12 pt-8 pb-9 pt-lg-11 pb-lg-11'>
           <h2 className='fs-2 fw-boldest'>Імпорт файлу {(editUser.files)&&editUser.files[0].name}</h2>
         </div>
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
-            <div className='bg-white p-10 pb-1 mt-4 flex-row'>
+            <div className='bg-white p-10 pb-1 flex-row'>
               <CandidateInfoBlock
                 id={Date.now()}
                 setEditUser={setEditUser}
@@ -67,14 +67,14 @@ const ImportFromFilePage = () => {
           </div>
           <div className='col-lg-12 bg-white d-flex flex-center p-9'>
             <button
-              className='btn btn-primary h-50px'
+              className='btn btn-primary pt-0 pb-0 h-40px'
               onClick={() => handleEditOneCandidate({...editUser, checked: 1})}
             >
               Зберегти
             </button>
           </div>
         </div>
-        <div className='col-lg-6 mt-4'>
+        <div className='col-lg-6 '>
           <PdfWraper fileBase={(editUser.files)&&editUser.files[0].base64}/>          
         </div>
       </div>

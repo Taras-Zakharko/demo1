@@ -4,10 +4,9 @@ import {useClickOutside} from '../../../hooks'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useDispatch, useSelector} from 'react-redux'
 import {setUsers} from '../../features/candidate/candidateSlice'
-import './CandidateCard.scss'
 import candidatesApi from '../../../API/candidates'
 import {RootState} from '../../store'
-
+import Swal from 'sweetalert2'
 
 interface ICandidate {
   user: any
@@ -36,6 +35,24 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   })
 
   const dispatch = useDispatch()
+
+  function deleteCandidateFunk(btn: any) {
+    Swal.fire({
+      text: `Ви точно хочете видалити кандидата!`,
+      icon: 'error',
+      buttonsStyling: false,
+      showCancelButton: true,
+      confirmButtonText: 'Так, видалити',
+      cancelButtonText: 'Ні',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+        cancelButton: 'swal2-cancel btn fw-bold btn-primary mt-5 ms-2',
+        icon: 'text-danger border-danger',
+      },
+    }).then((result) => {
+      result.isConfirmed && hendleRemoveCandidate(user.id)
+    })
+  }
 
   return (
     <>
@@ -66,8 +83,16 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? (
-                  <span className='tt' data-bs-placement='top' title='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.'>
-                    <i className="fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6" data-bs-toggle='tooltip' title='Some tooltip text!'></i>
+                  <span
+                    className='tt'
+                    data-bs-placement='top'
+                    title='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.'
+                  >
+                    <i
+                      className='fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6'
+                      data-bs-toggle='tooltip'
+                      title='Some tooltip text!'
+                    ></i>
                   </span>
                 ) : null}
               </div>
@@ -90,21 +115,19 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
         <td className='d-none d-md-table-cell col-lg-5'>
           <span className='fw-bold text-gray-800 d-block fs-6 '>
             {user.skills?.map((skil: any, i: number) => {
-              let str = '';
-              if(i<15 && i!==user.skills.length-1){
-                str+= `${skil}, `
-              } else if(i<15 && i===user.skills.length-1){
-                str+=`${skil}.`
-              } else if(i===15 && i!==user.skills.length-1){
-                str+=`${skil} ...`
-              } else if(i>15) {
+              let str = ''
+              if (i < 15 && i !== user.skills.length - 1) {
+                str += `${skil}, `
+              } else if (i < 15 && i === user.skills.length - 1) {
+                str += `${skil}.`
+              } else if (i === 15 && i !== user.skills.length - 1) {
+                str += `${skil} ...`
+              } else if (i > 15) {
                 return
               }
 
-              return str;
-            }
-              
-            )}
+              return str
+            })}
           </span>
         </td>
         <td className='d-none d-sm-table-cell col-lg-3'>
@@ -159,31 +182,28 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               <i className='fas fa-ellipsis-v fs-4'></i>
             </button>
             {openModal ? (
-              // <div className='card shadow position-absolute top-100 end-15px w-150px z-index-1 modal__card'>
-              //   <Link
-              //     to={`edit/user/id=${user.id}`}
-              //     className='w-100 h-50px btn btn-active-primary d-flex align-items-center'
-              //   >
-              //     Редагувати
-              //   </Link>
-              //   <button
-              //     className='w-100 h-50px btn btn-active-primary text-start'
-              //     onClick={() => hendleRemoveCandidate(user.id)}
-              //   >
-              //     Видалити
-              //   </button>
-              //   <Outlet />
-              // </div>
-              <div className="menu menu-sub menu-sub-dropdown menu-column position-absolute top-100 end-0 w-150px z-index-1 modal__card menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4 show" data-kt-menu="true" data-popper-placement="bottom-end"  data-popper-reference-hidden="">
-																<div className="menu-item px-3">
-																	<Link to={`edit/user/id=${user.id}`} className="menu-link px-3">Редагувати</Link>
-																</div>
-																
-																<div className="menu-item px-3">
-																	<a className="menu-link px-3"  onClick={() => hendleRemoveCandidate(user.id)} data-kt-users-table-filter="delete_row">Видалити</a>
-																</div>
-																
-															</div>
+              <div
+                className='menu menu-sub menu-sub-dropdown menu-column position-absolute top-100 end-0 w-150px z-index-1 modal__card menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4 show'
+                data-kt-menu='true'
+                data-popper-placement='bottom-end'
+                data-popper-reference-hidden=''
+              >
+                <div className='menu-item px-3'>
+                  <Link to={`edit/user/id=${user.id}`} className='menu-link px-3'>
+                    Редагувати
+                  </Link>
+                </div>
+
+                <div className='menu-item px-3'>
+                  <a
+                    className='menu-link px-3'
+                    onClick={(e) => deleteCandidateFunk(e.target)}
+                    data-kt-users-table-filter='delete_row'
+                  >
+                    Видалити
+                  </a>
+                </div>
+              </div>
             ) : null}
           </div>
         </td>

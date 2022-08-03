@@ -12,11 +12,11 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
 
 
   return (
-    <div className='col-lg-12 mb-10'>
-      <div className='row name d-flex justify-content-between align-items-center'>
+    <div className='col-lg-12 mb-0 mb-lg-9'>
+      <div className='row name d-flex justify-content-between mb-6 mb-lg-0 align-items-center'>
         <label
           htmlFor='exampleFormControlInput1'
-          className={'col-lg-' + labelW + ' required form-label fw-normal mb-4 fs-5 fs-sm-6'}
+          className={'col-lg-' + labelW + ' required form-label fw-normal mb-5 fs-5 fs-sm-6'}
         >
           Ім'я
         </label>
@@ -25,7 +25,7 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
         >
           <input
             type='text'
-            className='form-control form-control-solid w-lg-47 mb-6 h-40px text-gray-800'
+            className='form-control form-control-solid w-lg-47 mb-3 mb-lg-6 h-40px text-gray-800'
             placeholder="Ім'я"
             value={user.firstName}
             onChange={(e) => setEditUser((user: object) => ({...user, firstName: e.target.value}))}
@@ -39,10 +39,10 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
           />
         </div>
       </div>
-      <div className='row name d-flex justify-content-between align-items-center mb-4'>
+      <div className='row name d-flex justify-content-between align-items-center mb-7 mb-lg-0'>
         <label
           htmlFor='exampleFormControlInput1'
-          className={'col-lg-' + labelW + ' required form-label fw-normal mb-4 fs-6'}
+          className={'col-lg-' + labelW + ' required form-label fw-normal mb-5 mb-lg-0 fs-5 fs-sm-6'}
         >
           Місцезнаходження
         </label>
@@ -51,7 +51,7 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
         >
           <input
             type='text'
-            className='form-control form-control-solid w-lg-47 mb-4 h-40px text-gray-800'
+            className='form-control form-control-solid w-lg-47 mb-3 mb-lg-0 h-40px text-gray-800'
             placeholder='Країна'
             value={(user.location)?user.location.country:''}
             onChange={(e) =>

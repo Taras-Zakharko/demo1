@@ -71,10 +71,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
   }                
 
   return (
-    <div ref={contactsRef} className='accordion-item p-0'>
-      <h2 className='accordion-header' id='kt_accordion_1_header_2'>
+    <div ref={contactsRef} className='accordion-item border-0 rounded-0  p-0'>
+      <h2 className='accordion-header border-1 border-top-dashed  border-secondary' id='kt_accordion_1_header_2'>
         <button
-          className='accordion-button fs-4 fw-boldest p-8 ps-12 pe-9 bg-white text-dark '
+          className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 pb-7 pb-lg-20px bg-white text-dark shadow-none'
           type='button'
           data-bs-toggle='collapse'
           data-bs-target='#kt_accordion_1_body_2'
@@ -86,18 +86,18 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
       </h2>
       <div
         id='kt_accordion_1_body_2'
-        className='accordion-collapse collapse p-4 show'
+        className='accordion-collapse collapsed p-4 pt-0 pb-0 pb-lg-20px show'
         aria-labelledby='kt_accordion_1_header_2'
         data-bs-parent='#kt_accordion_1'
       >
-        <div className='accordion-body ps-8'>
-          <div className='row d-flex mb-4'>
-            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal pt-3 fs-6'>
+        <div className='accordion-body ps-8 pt-0 pb-7 pb-lg-0'>
+          <div className='row d-flex mb-7 mb-lg-20px'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between align-items-center align-items-lg-start'}>
+              <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 required fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                 Телефон
               </label>
               <button
-                className='btn ps-0 pt-0 text-primary d-block d-lg-none fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7'
                 onClick={() => setPhoneNumber((phone) => phone.concat(''))}
               >
                 Додати ще
@@ -110,7 +110,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     <div key={i} className='col-12 col-lg-11'>
                         <input
                           type='text'
-                          className='form-control form-control-solid h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-lg-4 text-gray-800'
                           value={number}
                           onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
                         />
@@ -118,18 +118,18 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row position-relative' id={'phone-' + i}>
+                    <div key={i} className='row mt-7 mt-lg-20px position-relative' id={'phone-' + i}>
                       <div className='col-11'>
                         <input
                           type='text'
-                          className='form-control form-control-solid h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-lg-4 text-gray-800'
                           value={number}
                           onChange={(e) => cangeArray(e, i, phoneNumber, setPhoneNumber, 'phone')}
                         />
                       </div>
                       <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setPhoneNumber, 'phone')}>
-                          <i className="fas fa-trash text-gray-500 fs-4"></i>
+                          <i className="fas fa-trash text-gray-500 fs-16px fs-sm-4"></i>
                         </button>
                       </div>
                     </div>
@@ -137,20 +137,20 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 }
               }): setPhoneNumber((phone) => phone.concat(''))}
               <button
-                className='btn ps-0 pt-0 d-none d-lg-block text-primary fs-7'
+                className='btn p-0 d-none d-lg-block border-bottom border-dashed border-primary rounded-0 text-primary  fs-6 fs-sm-7'
                 onClick={() => setPhoneNumber((phone) => phone.concat(''))}
               >
                 Додати ще
               </button>
             </div>
           </div>
-          <div className='row d-flex mb-4'>
-            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label required fw-normal pt-3 fs-6'>
+          <div className='row d-flex mb-7 mb-lg-20px'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between align-items-center align-items-lg-start'}>
+              <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 required fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                 Ел. пошта
               </label>
               <button
-                className='btn ps-0 pt-0 text-primary d-block d-lg-none fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7'
                 onClick={() => setEmail((adres) => adres.concat(''))}
               >
                 Додати ще
@@ -163,7 +163,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     <div key={i} className='col-12 col-lg-11'>
                         <input
                           type='email'
-                          className='form-control form-control-solid h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-lg-4 text-gray-800'
                           value={adres}
                           onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                         />
@@ -171,18 +171,18 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row position-relative' id={'email-' + i}>
-                      <div className='col-12 col-lg-11'>
+                    <div key={i} className='row mt-7 mt-lg-20px position-relative' id={'email-' + i}>
+                      <div className='col-11'>
                         <input
                           type='email'
-                          className='form-control form-control-solid h-40px mb-4'
+                          className='form-control form-control-solid h-40px mb-lg-4 text-gray-800'
                           value={adres}
                           onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                         />
                       </div>
                       <div className='col-1 d-flex flex-center mb-4'>
                         <button className='btn p-0 cursor-pointer' onClick={() => removeArray(i, setEmail, 'email')}>
-                        <i className="fas fa-trash text-gray-500 fs-4"></i>
+                        <i className="fas fa-trash text-gray-500 fs-16px fs-sm-4"></i>
                         </button>
                       </div>
                     </div>
@@ -191,20 +191,20 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               }): setEmail((adres) => adres.concat(''))}
 
               <button
-                className='btn ps-0 pt-0 text-primary d-none d-lg-block fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7'
                 onClick={() => setEmail((adres) => adres.concat(''))}
               >
                 Додати ще
               </button>
             </div>
           </div>
-          <div className='row d-flex mb-4'>
-            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
+          <div className='row d-flex mb-7 mb-lg-20px'>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between align-items-center align-items-lg-start'}>
+              <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                 Месенджери
               </label>
               <button
-                className='btn ps-0 text-primary d-block d-lg-none fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7'
                 onClick={() =>
                   setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
                 }
@@ -216,10 +216,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {(messenger.length>0)?messenger.map((mess, i) => {
                 if (i === 0) {
                   return (
-                    <div key={i} className='row mb-6 align-items-center'>
-                      <div className='col-lg-4 mb-4 mb-lg-0'>
+                    <div key={i} className='row align-items-center'>
+                      <div className='col-lg-4 mb-3 mb-lg-0'>
                         <select
-                          className='form-select form-select-solid pe-9'
+                          className='form-select form-select-solid pe-9 text-gray-800'
                           aria-label='Select example'
                           // onChange={(e) =>
                           //   handleChangeSelect(
@@ -242,7 +242,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       <div className='col-lg-7'>
                         <input
                           type='text'
-                          className='form-control form-control-solid w-100 h-40px'
+                          className='form-control form-control-solid w-100 h-40px text-gray-800'
                           // onChange={(e) =>
                           //   handleChangeSelect(
                           //     +mess.id,
@@ -261,10 +261,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row mb-6 align-items-center' id={'messenger-' + mess.id}>
+                    <div key={i} className='row mt-7 mt-lg-20px align-items-center' id={'messenger-' + mess.id}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
-                          className='form-select form-select-solid'
+                          className='form-select form-select-solid text-gray-800'
                           aria-label='Select example'
                           // onChange={(e) =>
                           //   handleChangeSelect(
@@ -287,7 +287,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       <div className='col-11 col-lg-7'>
                         <input
                           type='text'
-                          className='form-control form-control-solid w-100 h-40px'
+                          className='form-control form-control-solid w-100 h-40px text-gray-800'
                           // onChange={(e) =>
                           //   handleChangeSelect(
                           //     +mess.id,
@@ -302,12 +302,12 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           placeholder='ID'
                         />
                       </div>
-                      <div className='col-1 text-center'>
+                      <div className='col-1 text-center p-0'>
                         <button
                           className='btn p-0 cursor-pointer '
                           onClick={() => removeSelect(setMessenger, i, 'messengers')}
                         >
-                          <i className="fas fa-trash text-gray-500 fs-4"></i>
+                          <i className="fas fa-trash text-gray-500 fs-16px fs-sm-4"></i>
                         </button>
                       </div>
                     </div>
@@ -315,7 +315,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                 }
               }): setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''})) }
               <button
-                className='btn ps-0 text-primary d-none d-lg-block fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7 mt-lg-3'
                 onClick={() =>
                   setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
                 }
@@ -324,13 +324,13 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               </button>
             </div>
           </div>
-          <div className='row d-flex mb-4'>
-            <div className={'col-lg-'+labelW+' d-flex justify-content-between'}>
-              <label htmlFor='exampleFormControlInput1' className='form-label fw-normal pt-3 fs-6'>
+          <div className='row d-flex '>
+            <div className={'col-lg-'+labelW+' d-flex justify-content-between align-items-center align-items-lg-start'}>
+              <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 fw-normal mb-5 mb-lg-2 fs-5 fs-sm-6'>
                 Посилання
               </label>
               <button
-                className='btn ps-0 text-primary d-block d-lg-none fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7 '
                 onClick={() =>
                   setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
                 }
@@ -342,10 +342,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               {(userLinks.length>0)?userLinks.map((link, i) => {
                 if (i === 0) {
                   return (
-                    <div key={i} className='row mb-6 align-items-center'>
-                      <div className='col-lg-4 mb-4 mb-lg-0'>
+                    <div key={i} className='row align-items-center'>
+                      <div className='col-lg-4 mb-3 mb-lg-0'>
                         <select
-                          className='form-select form-select-solid'
+                          className='form-select form-select-solid pe-9 text-gray-800'
                           aria-label='Select example'
                           // onChange={(e) =>
                           //   handleChangeSelect(
@@ -367,7 +367,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       <div className='col-lg-7'>
                         <input
                           type='text'
-                          className='form-control form-control-solid w-100 h-40px'
+                          className='form-control form-control-solid w-100 h-40px text-gray-800'
                           // onChange={(e) =>
                           //   handleChangeSelect(
                           //     +link.id,
@@ -386,10 +386,10 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row mb-6 align-items-center' id={'user-link-' + link.id}>
+                    <div key={i} className='row mt-7 align-items-center' id={'user-link-' + link.id}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
-                          className='form-select form-select-solid'
+                          className='form-select form-select-solid text-gray-800'
                           aria-label='Select example'
                           // onChange={(e) =>
                           //   handleChangeSelect(
@@ -411,7 +411,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                       <div className='col-11 col-lg-7'>
                         <input
                           type='text'
-                          className='form-control form-control-solid w-100 h-40px'
+                          className='form-control form-control-solid w-100 h-40px text-gray-800'
                           // onChange={(e) =>
                           //   handleChangeSelect(
                           //     +link.id,
@@ -426,12 +426,12 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           placeholder='URL'
                         />
                       </div>
-                      <div className='col-1 text-center'>
+                      <div className='col-1 text-center p-0'>
                         <button
                           className='btn p-0 cursor-pointer'
                           onClick={() => removeSelect(setUserLinks, i, 'socialLinks')}
                         >
-                          <i className="fas fa-trash text-gray-500 fs-4"></i>
+                          <i className="fas fa-trash text-gray-500 fs-16px fs-sm-4"></i>
                         </button>
                       </div>
                     </div>
@@ -440,7 +440,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               }):setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''})) }
 
               <button
-                className='btn ps-0 text-primary d-none d-lg-block fs-7'
+                className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7 mt-lg-3'
                 onClick={() =>
                   setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
                 }
