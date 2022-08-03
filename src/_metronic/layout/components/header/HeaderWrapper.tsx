@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {KTSVG, toAbsoluteUrl} from '../../../helpers'
+import { toAbsoluteUrl} from '../../../helpers'
 import {Search} from '../../../partials/index'
 import {useLayout} from '../../core'
 import {Header} from './Header'
