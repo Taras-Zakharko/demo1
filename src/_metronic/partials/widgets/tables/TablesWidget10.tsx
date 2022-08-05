@@ -7,7 +7,7 @@ import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 import candidatesApi from '../../../../API/candidates'
-import {Tooltip} from 'bootstrap'
+import {Tooltip, Popover} from 'bootstrap'
 
 type Props = {
   className: string
@@ -30,7 +30,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
     setCurrentPage(1)
   }, [searchObj])
 
-  const [perPage] = useState(6)
+  const [perPage] = useState(30)
   const lastIndex = currentPage * perPage
   const firstIndex = lastIndex - perPage
 
@@ -60,8 +60,14 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('.tt')
+    const popover = document.querySelectorAll('.popover-btn')
+
     tooltips.forEach((t) => {
       new Tooltip(t)
+    })
+    popover.forEach((p) => {
+      new Popover(p)
+
     })
   }, [currentPage])
 

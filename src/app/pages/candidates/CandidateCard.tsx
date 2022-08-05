@@ -26,6 +26,19 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   const hendleRemoveCandidate = (id: number) => {
     candidatesApi.removeCandidate(id).then(() => {
       setopenModal(false)
+      Swal.fire({
+        text: `Ви точно хочете видалити кандидата!`,
+        icon: 'success',
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: 'Так, видалити',
+        cancelButtonText: 'Ні',
+        customClass: {
+          confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+          cancelButton: 'swal2-cancel btn fw-bold btn-primary mt-5 ms-2',
+          icon: 'text-danger border-danger',
+        },
+      })
       handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
     })
   }
@@ -54,6 +67,18 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
     })
   }
 
+  function copyContacts(el: any) {
+    navigator.clipboard
+      .writeText(el.value)
+      .then(() => {
+        console.log('Text copied to clipboard')
+      })
+      .catch((err) => {
+        console.error('Error in copying text: ', err)
+      })
+  }
+  
+
   return (
     <>
       <tr className='border-bottom border-dashed pt-20px h-100px pb-20px' id={user.id}>
@@ -73,7 +98,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
               <div className='d-flex align-items-center '>
                 <Link
                   className='text-dark fw-boldest text-hover-primary  fs-3 fs-sm-4'
-                  to={`user/id=${user.id}`}
+                  to={(user.checked === 1) ? `user/id=${user.id}`: `/add/check-data/${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
                     ? 'Ім’я не розпізнано'
@@ -133,18 +158,25 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
         <td className='d-none d-sm-table-cell col-lg-3'>
           <div className='d-flex justify-content-end flex-shrink-0'>
             {user.contacts?.email.length > 0 ? (
-              <a
-                href={'mailto:' + user.contacts.email[0]}
-                className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+              <button
+                className='popover-btn btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                data-bs-toggle='popover'
+                data-bs-trigger='focus'
+                data-bs-custom-class='popover-inverse popover-dark'
+                data-bs-placement='top'
+                title='Скопійовано'
+                onClick={(e) => copyContacts(e.target)}
               >
                 <i className='fas fa-envelope fs-4'></i>
-              </a>
+              </button>
             ) : null}
             {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
               link.name === 0 ? (
                 <a
                   key={i}
                   href={link.path}
+                  target='_blank'
+                  rel='noreferrer'
                   className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
                 >
                   <i className='fab fa-facebook-square fs-4'></i>
@@ -153,19 +185,32 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
             )}
             {user.contacts?.messengers.map((link: {name: number; link: string}, i: number) =>
               link.name === 3 ? (
-                <a
+                <button
                   key={i}
-                  href={'skype:' + link.link}
+                  value={link.link}
                   className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                  data-bs-toggle='popover'
+                  data-bs-trigger='focus'
+                  data-bs-custom-class='popover-inverse popover-dark'
+                  data-bs-placement='top'
+                  title='Скопійовано'
+                  onClick={(e) => copyContacts(e.target)}
                 >
                   <i className='fab fa-skype fs-4'></i>
-                </a>
+                </button>
               ) : null
             )}
             {user.contacts?.phone.length > 0 ? (
               <button
+                type='button'
                 value={user.contacts?.phone[0]}
-                className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                className='popover-btn btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                data-bs-toggle='popover'
+                data-bs-trigger='focus'
+                data-bs-custom-class='popover-inverse popover-dark'
+                data-bs-placement='top'
+                title='Скопійовано'
+                onClick={(e) => copyContacts(e.target)}
               >
                 <i className='fas fa-phone fs-4'></i>
               </button>
@@ -196,7 +241,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
 
                 <div className='menu-item px-3'>
                   <a
-                    className='menu-link px-3'
+                    className='menu-link px-3 fs-7'
                     onClick={(e) => deleteCandidateFunk(e.target)}
                     data-kt-users-table-filter='delete_row'
                   >

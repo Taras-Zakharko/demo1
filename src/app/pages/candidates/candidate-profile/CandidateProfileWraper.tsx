@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import candidatesApi from '../../../../API/candidates'
+import { Popover } from 'bootstrap'
 
 export function CandidateProfileWraper() {
   let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
@@ -42,6 +43,12 @@ export function CandidateProfileWraper() {
         console.error('Error in copying text: ', err)
       })
   }
+  useEffect(() => {
+    const popover = document.querySelectorAll('.popover-btn')
+    popover.forEach((p) => {
+      new Popover(p)
+    })
+  }, [user])
 
   return (
     <div className='row pt-9'>
@@ -438,12 +445,17 @@ export function CandidateProfileWraper() {
                     <div className='fv-row pb-3'>
                       {user.contacts.email.map((email: string, i: number) => (
                         <p key={i} className='d-block fw-bold fs-5 fs-sm-6 mb-0'>
-                          <span
-                            className='text-dark text-hover-primary cursor-pointer'
+                          <button
+                            className='popover-btn btn p-0 text-dark text-hover-primary cursor-pointer'
+                            data-bs-toggle='popover'
+                            data-bs-trigger='focus'
+                            data-bs-custom-class='popover-inverse popover-dark'
+                            data-bs-placement='top'
+                            title='Скопійовано'
                             onClick={(e) => copyContacts(e.target)}
                           >
                             {email}
-                          </span>
+                          </button>
                         </p>
                       ))}
                     </div>
@@ -460,12 +472,17 @@ export function CandidateProfileWraper() {
                     <div className='fv-row pb-3'>
                       {user.contacts.phone.map((number: string, i: number) => (
                         <p key={i} className='d-block fw-bold fs-5 fs-sm-6 mb-0'>
-                          <span
-                            className='text-dark text-hover-primary cursor-pointer'
+                          <button
+                            className='popover-btn btn p-0 text-dark text-hover-primary cursor-pointer'
+                            data-bs-toggle='popover'
+                            data-bs-trigger='focus'
+                            data-bs-custom-class='popover-inverse popover-dark'
+                            data-bs-placement='top'
+                            title='Скопійовано'
                             onClick={(e) => copyContacts(e.target)}
                           >
                             {number}
-                          </span>
+                          </button>
                         </p>
                       ))}
                     </div>

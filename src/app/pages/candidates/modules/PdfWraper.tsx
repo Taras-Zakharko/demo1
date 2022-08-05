@@ -5,7 +5,7 @@ interface IPdfWraper {
 }
 
 const PdfWraper: FC<IPdfWraper> = ({fileBase}) => {
-  return <iframe src={fileBase ? fileBase : ''} className='w-100 h-750px'></iframe>
+  return <iframe title='pdf' src={fileBase ? fileBase : ''} className='w-100 h-750px'></iframe>
 }
 
 export default PdfWraper
