@@ -8,58 +8,39 @@ import {useSelector, useDispatch} from 'react-redux'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 import candidatesApi from '../../../../API/candidates'
 import {Tooltip, Popover} from 'bootstrap'
+import Paginate from '../../../../app/pages/candidates/modules/Paginate'
 
 type Props = {
   className: string
 }
 
 const TablesWidget10: React.FC<Props> = ({className}) => {
-  const allUsers = useSelector((state: RootState) => state.candidates.users)
+  const allUsers = useSelector((state: RootState) => state!.candidates.users)
   const searchObj = useSelector((state: RootState) => state.search)
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
+  const [perPage, setPerPage] = useState(1)
 
-  const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
-    candidatesApi.getCandidate(city, specialty, skills).then((response: any) => {
+  const handleGetAllCandidate = (city: string, specialty: string, skills: string[], page: number) => {
+    candidatesApi.getCandidate(city, specialty, skills, page).then((response: any) => {
       dispatch(setUsers(response.data))
-      console.log(response.data);
-      console.log(response);
+      setLastPage(response.last_page)
+      setPerPage(response.per_page);
       
     })
   }
 
   useEffect(() => {
-    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
-    setCurrentPage(1)
-  }, [searchObj])
+    console.log(currentPage);
+    
+    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage)
+  }, [searchObj, currentPage])
 
-  const [perPage] = useState(30)
-  const lastIndex = currentPage * perPage
-  const firstIndex = lastIndex - perPage
-
-  const currentUser = allUsers.slice(firstIndex, lastIndex)
-
-  const pageNumbers: number[] = []
-
-  for (let i = 1; i <= Math.ceil(allUsers.length / perPage); i++) {
-    pageNumbers.push(i)
-  }
-
-  const paginate = (pageNum: number) => setCurrentPage(pageNum)
-  const nextPage = () => setCurrentPage((prew) => prew + 1)
-  const prevPage = () => setCurrentPage((prev) => prev - 1)
 
   let down = 0
   let up = 0
 
-  useEffect(() => {
-    for (let i = 1; i <= Math.ceil(allUsers.length / perPage); i++) {
-      pageNumbers.push(i)
-    }
-    if (!pageNumbers.includes(currentPage)) {
-      setCurrentPage(pageNumbers[0])
-    }
-  }, [allUsers.length])
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('.tt')
@@ -115,79 +96,23 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                 }}
                 onTouchEnd={(e) => {
                   up = e.changedTouches[0].clientX
-                  if (down - up >= 50 && currentPage !== pageNumbers[pageNumbers.length - 1]) {
-                    nextPage()
+                  if (down - up >= 50 && currentPage !== lastPage) {
+                    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage+1)
                   }
                   if (up - down >= 50 && currentPage !== 1) {
-                    prevPage()
+                    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage-1)
                   }
                 }}
               >
-                {currentUser.map((user: any, i: number) => (
-                  <CandidateCard key={i} user={user} />
+                {allUsers.map((user: any, i: number) => (
+                  <CandidateCard key={i} user={user} page={currentPage}/>
                 ))}
               </tbody>
 
               {/* end::Table body */}
             </table>
-            {allUsers.length > perPage ? (
-              <ul className='pagination'>
-                {currentPage === 1 ? (
-                  <li className='page-item previous disabled w-37px h-36px'>
-                    <a className='page-link h-100' onClick={() => prevPage()}>
-                      <i className='previous'></i>
-                    </a>
-                  </li>
-                ) : (
-                  <li className='page-item previous w-37px h-36px'>
-                    <a className='page-link h-100' onClick={() => prevPage()}>
-                      <i className='previous'></i>
-                    </a>
-                  </li>
-                )}
-                {pageNumbers.map((num: number) => {
-                  return currentPage === num ? (
-                    <li key={num} className='page-item active w-37px h-36px'>
-                      <a className='page-link h-100' onClick={() => paginate(num)}>
-                        {num}
-                      </a>
-                    </li>
-                  ) : currentPage === 1 && num < 4 ? (
-                    <li key={num} className='page-item w-37px h-36px'>
-                      <a className='page-link h-100' onClick={() => paginate(num)}>
-                        {num}
-                      </a>
-                    </li>
-                  ) : currentPage === pageNumbers[pageNumbers.length - 1] &&
-                    num > pageNumbers[pageNumbers.length - 4] ? (
-                    <li key={num} className='page-item w-37px h-36px'>
-                      <a className='page-link h-100' onClick={() => paginate(num)}>
-                        {num}
-                      </a>
-                    </li>
-                  ) : currentPage - num === 1 || num - currentPage === 1 ? (
-                    <li key={num} className='page-item w-37px h-36px'>
-                      <a className='page-link h-100' onClick={() => paginate(num)}>
-                        {num}
-                      </a>
-                    </li>
-                  ) : null
-                })}
-                {currentPage === pageNumbers[pageNumbers.length - 1] ? (
-                  <li className='page-item next disabled w-37px h-36px'>
-                    <a className='page-link h-100' onClick={() => nextPage()}>
-                      <i className='next'></i>
-                    </a>
-                  </li>
-                ) : (
-                  <li className='page-item next w-37px h-36px'>
-                    <a className='page-link h-100' onClick={() => nextPage()}>
-                      <i className='next'></i>
-                    </a>
-                  </li>
-                )}
-              </ul>
-            ) : null}
+            {(allUsers.length >perPage )&&<Paginate setCurrentPage={setCurrentPage} currentPage={currentPage} searchObj={searchObj} lastPage={lastPage}/>}
+            
 
             {/* begin::Table */}
 

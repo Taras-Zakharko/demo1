@@ -180,7 +180,7 @@ const AddResumeWraper = () => {
             id='kt_tab_pane_2'
             role='tabpanel'
           >
-            <div ref={firstZipContent} className='indicator-label d-none ps-5 pe-5 p-lg-0'>
+            <div ref={firstZipContent} className='indicator-label ps-5 pe-5 p-lg-0'>
               <p className='fs-16px fs-sm-4 mb-0'>
                 Ви можете перенести вашу поточну базу кандидатів до MyCandidates. Для цього,
                 збережіть всі резюме в одній папці і заархівуйте її (створіть zip-архів). Одержаний
@@ -199,7 +199,7 @@ const AddResumeWraper = () => {
                 ></input>
               </label>
             </div>
-            <div ref={secondZipContent} className='d-block'>
+            <div ref={secondZipContent} className='d-none'>
               <div className='d-flex justify-content-between align-items-center mb-8'>
                 <p className='m-0 p-0 fs-5 fs-sm-6'>Завантаження архіву </p>
                 <button ref={stopLoad} className='btn p-0'>
