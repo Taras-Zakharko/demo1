@@ -26,19 +26,7 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
   const hendleRemoveCandidate = (id: number) => {
     candidatesApi.removeCandidate(id).then(() => {
       setopenModal(false)
-      Swal.fire({
-        text: `Ви точно хочете видалити кандидата!`,
-        icon: 'success',
-        buttonsStyling: false,
-        showCancelButton: true,
-        confirmButtonText: 'Так, видалити',
-        cancelButtonText: 'Ні',
-        customClass: {
-          confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
-          cancelButton: 'swal2-cancel btn fw-bold btn-primary mt-5 ms-2',
-          icon: 'text-danger border-danger',
-        },
-      })
+      
       handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
     })
   }
@@ -63,6 +51,16 @@ const CandidateCard: FC<ICandidate> = ({user}) => {
         icon: 'text-danger border-danger',
       },
     }).then((result) => {
+      Swal.fire({
+        text: `Ви видалили ${user.firstName} ${user.lastName}!`,
+        icon: 'success',
+        buttonsStyling: false,
+        confirmButtonText: 'Добре',
+        customClass: {
+          confirmButton: 'swal2-confirm btn fw-bold btn-primary mt-5 me-2',
+          icon: 'text-success border-success',
+        },
+      })
       result.isConfirmed && hendleRemoveCandidate(user.id)
     })
   }
