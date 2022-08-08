@@ -31,9 +31,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
     })
   }
 
-  useEffect(() => {
-    console.log(currentPage);
-    
+  useEffect(() => {    
     handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage)
   }, [searchObj, currentPage])
 

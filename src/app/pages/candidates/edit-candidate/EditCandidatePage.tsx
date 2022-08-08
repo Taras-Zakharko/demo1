@@ -73,6 +73,8 @@ function EditCandidate() {
     })
   }
     
+  console.log(editUser);
+  
 
   return (
     <div className='row'>

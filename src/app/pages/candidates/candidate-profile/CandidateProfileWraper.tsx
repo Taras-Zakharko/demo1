@@ -72,9 +72,9 @@ export function CandidateProfileWraper() {
         <div className={user.checked === 0 ? 'card mt-24 mt-lg-20 col-lg-8' : 'card col-lg-8'}>
           <div className='card-body pt-9 pb-9 ps-7 pe-7'>
             <div className='row pb-9 mb-7 align-items-center border-bottom-1 border-bottom-dashed border-secondary postion-relative'>
-              <label className='col-lg-2 col-12 fw-bold text-muted text-center me-4 mb-7 mb-lg-0'>
+              <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-4 mb-7 mb-lg-0'>
                 <img
-                  className='symbol w-110px'
+                  className='symbol w-100 '
                   src={
                     user.photo
                       ? toAbsoluteUrl(`${user.photo}`)
@@ -141,14 +141,14 @@ export function CandidateProfileWraper() {
               </Link>
             </div>
             <div className='row pb-4 d-none d-lg-flex mb-7 border-bottom-1 border-bottom-dashed border-secondary'>
-              <div className='col-lg-2 me-4'>
+              <div className='col-lg-2 w-110px me-4'>
                 <div className='w-110px '></div>
               </div>
               <div className='col-lg-9 mb-4'>
                 <h2 className='fs-4 fw-boldest'>Досвід</h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px ps-0 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Досвід роботи:
                 </label>
 
@@ -163,7 +163,7 @@ export function CandidateProfileWraper() {
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Навички:{' '}
                 </label>
 
@@ -181,14 +181,14 @@ export function CandidateProfileWraper() {
               </div>
             </div>
             <div className='row d-none d-lg-flex'>
-              <div className='col-lg-2 me-4'>
+              <div className='col-lg-2 w-110px me-4'>
                 <div className='w-110px '></div>
               </div>
               <div className='col-lg-9 mb-4'>
                 <h2 className='fs-4 fw-boldest'>Резюме і файли </h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Резюме:
                 </label>
 
@@ -203,7 +203,7 @@ export function CandidateProfileWraper() {
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Джерело:
                 </label>
 
@@ -219,7 +219,7 @@ export function CandidateProfileWraper() {
               </div>
 
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Файли:
                 </label>
 
@@ -249,7 +249,7 @@ export function CandidateProfileWraper() {
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Додано:
                 </label>
 
