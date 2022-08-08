@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import candidatesApi from '../../../../API/candidates'
 import { Popover } from 'bootstrap'
 
 export function CandidateProfileWraper() {
-  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
+  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('candidates/') + 11)
 
   const [user, setUser] = useState<any>({})
   const [gdpr, setGdpr] = useState<number>(1)
@@ -49,6 +49,13 @@ export function CandidateProfileWraper() {
       new Popover(p)
     })
   }, [user])
+
+  const navigate = useNavigate();
+
+  if(Array.isArray(user)){
+    navigate('/error/404')
+  }
+  
 
   return (
     <div className='row pt-9'>
@@ -134,7 +141,7 @@ export function CandidateProfileWraper() {
               </div>
 
               <Link
-                to={`/candidates/edit/user/id=${idUser}`}
+                to={`/candidates/${idUser}/edit`}
                 className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-5 top-5'
               >
                 <i className='fas fa-pen fs-4'></i>
@@ -148,8 +155,8 @@ export function CandidateProfileWraper() {
                 <h2 className='fs-4 fw-boldest'>Досвід</h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px ps-0 pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
-                  Досвід роботи:
+                <label className='col-lg-2 w-110px ps-0 pe-0 me-5 fw-bold text-gray-500 text-lg-end fs-6'>
+                  <span>Досвід роботи: </span> 
                 </label>
 
                 <div className='col-lg-9 fv-row'>

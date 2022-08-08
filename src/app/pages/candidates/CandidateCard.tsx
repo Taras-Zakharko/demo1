@@ -97,7 +97,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
               <div className='d-flex align-items-center '>
                 <Link
                   className='text-dark fw-boldest text-hover-primary  fs-3 fs-sm-4'
-                  to={(user.checked === 1) ? `user/id=${user.id}`: `/add/check-data/${user.id}`}
+                  to={(user.checked === 1) ? `${user.id}`: `/add/check-data/${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
                     ? 'Ім’я не розпізнано'
@@ -233,7 +233,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
                 data-popper-reference-hidden=''
               >
                 <div className='menu-item px-3'>
-                  <Link to={`edit/user/id=${user.id}`} className='menu-link px-3'>
+                  <Link to={`${user.id}/edit`} className='menu-link px-3'>
                     Редагувати
                   </Link>
                 </div>

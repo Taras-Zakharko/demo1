@@ -19,10 +19,9 @@ function EditCandidate() {
   const resumeRef = useRef<any>(null) 
   const deleteCandidate = useRef<HTMLButtonElement| null>(null)  
 
-  const navigate = useNavigate();
- 
+  const navigate = useNavigate();  
 
-  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('id=') + 3)
+  let idUser = +window.location.pathname.slice(+window.location.pathname.lastIndexOf('candidates/') + 11, +window.location.pathname.lastIndexOf('/edit'))
   const [editUser, setEditUser] = useState<any>({})
 
   const handleGetOneCandidate = (id:number)=>{
@@ -52,6 +51,10 @@ function EditCandidate() {
     handleGetOneCandidate(idUser);
   }, [])
 
+  if(Array.isArray(editUser)){
+    navigate('/error/404')
+  }
+
   
   
 
@@ -73,7 +76,7 @@ function EditCandidate() {
     })
   }
     
-  console.log(editUser);
+  
   
 
   return (
@@ -85,7 +88,7 @@ function EditCandidate() {
             <div className='card-header border-bottom-0 ps-0'>
               <div className='card-title m-0 w-100 h-40px mt-9 mb-9'>
                 <Link
-                  to={`/candidates/user/id=${idUser}`}
+                  to={`/candidates/${idUser}`}
                   className='fw-bolder m-0 position-lg-absolute end-100'
                 >
                   <i className="fas fa-arrow-left text-primary fs-4 me-6"></i>
