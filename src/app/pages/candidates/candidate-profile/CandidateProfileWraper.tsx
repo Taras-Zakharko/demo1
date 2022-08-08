@@ -162,7 +162,7 @@ export function CandidateProfileWraper() {
                 <div className='col-lg-9 fv-row'>
                   <span className='fw-normal fs-4'>
                     {user.experience ? (
-                      `Більше ${user.experience[0].yearsExperience} років`
+                      `Більше ${user.experience} років`
                     ) : (
                       <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
                     )}
@@ -303,7 +303,7 @@ export function CandidateProfileWraper() {
                       <div className='col-lg-10 fv-row'>
                         <span className='fw-normal fs-16px'>
                           {user.experience ? (
-                            `Більше ${user.experience[0].yearsExperience} років`
+                            `Більше ${user.experience} років`
                           ) : (
                             <span className='text-gray-500'>не вказано</span>
                           )}

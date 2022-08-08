@@ -24,17 +24,13 @@ const ImportFromFilePage = () => {
 
   const handleEditOneCandidate = (user: any) => {
     candidatesApi.editCandidate(user).then(() => {
-      navigate('/candidates')
+      navigate(`/candidates/${editUser.id}`)
     })
   }
 
   useEffect(() => {
     handleGetOneCandidate(idUser)
-  }, [])
-
-  
-  console.log(editUser);
-  
+  }, [])  
 
   return (
     <>

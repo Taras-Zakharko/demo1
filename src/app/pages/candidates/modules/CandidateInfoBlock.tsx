@@ -39,10 +39,10 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
           />
         </div>
       </div>
-      <div className='row name d-flex justify-content-between align-items-center mb-7 mb-lg-0'>
+      <div className='row d-flex justify-content-between align-items-center mb-7 mb-lg-0'>
         <label
           htmlFor='exampleFormControlInput1'
-          className={'col-lg-' + labelW + ' required form-label fw-normal mb-5 mb-lg-0 fs-5 fs-sm-6'}
+          className={'col-lg-' + labelW + ' form-label fw-normal mb-5 mb-lg-0 fs-5 fs-sm-6'}
         >
           Місцезнаходження
         </label>

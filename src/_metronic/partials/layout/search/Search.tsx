@@ -11,6 +11,7 @@ import {
   setSkils,
   setYearEnd,
   setYearStart,
+  setInput,
 } from '../../../../app/features/search/searchSlice'
 import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
@@ -37,6 +38,7 @@ const Search: FC = () => {
   const experienceStartSelect = useRef<HTMLSelectElement | null>(null)
   const experienceEndSelect = useRef<HTMLSelectElement | null>(null)
   const inputSearch = useRef<HTMLInputElement | null>(null)
+  const inputSearchSmall = useRef<HTMLInputElement | null>(null)
   const searchToogleContent = useRef<HTMLDivElement | null>(null)
   const clearFilter = useRef<HTMLButtonElement | null>(null)
   const clearFilter2 = useRef<HTMLButtonElement | null>(null)
@@ -52,6 +54,7 @@ const Search: FC = () => {
   const [filterListArr, setFilterListArr] = useState<any>([])
 
   function createFilterList() {
+    let inputSearchValue = ''
     let inputValueRes = ''
     let locationValue = ''
     let posinionValue = ''
@@ -108,16 +111,25 @@ const Search: FC = () => {
         experienceValue = ''
       }
 
-      inputValueRes = `${locationValue};${posinionValue};${companyValue};${skilsValue};${experienceValue}`
+      if(inputSearch.current.value !== ''){
+        inputSearchValue = inputSearch.current.value;
+      } else if(inputSearchSmall.current?.value !== ''){
+        inputSearchValue = inputSearchSmall.current!.value;
+      }
+
+      
+
+      inputValueRes = `${inputSearchValue};${locationValue};${posinionValue};${companyValue};${skilsValue};${experienceValue}`
       setFilterListArr(inputValueRes.split(';'))
 
+      dispatch(setInput(`${inputSearch.current!.value}${inputSearchSmall.current?.value}`))
       dispatch(setCountry(countriesSelect.current!.value))
       dispatch(setCity(citiesSelect.current!.value))
       dispatch(setPosition(positionSelect.current!.value))
       dispatch(setCompany(companySelect.current!.value))
       dispatch(setSkils(skilsArr))
-      dispatch(setYearEnd(+experienceEndSelect.current!.value))
-      dispatch(setYearStart(+experienceStartSelect.current!.value))
+      dispatch(setYearEnd(`${experienceEndSelect.current!.value}`))
+      dispatch(setYearStart(`${experienceStartSelect.current!.value}`))
     }
 
     document.querySelector('#kt_header_search_toggle')?.classList.remove('active')
@@ -136,6 +148,8 @@ const Search: FC = () => {
   })
 
   function clearSearchForm() {
+    inputSearch.current!.value = ''
+    inputSearchSmall.current!.value = ''
     countriesSelect.current!.value = ''
     citiesSelect.current!.value = ''
     positionSelect.current!.value = ''
@@ -145,13 +159,15 @@ const Search: FC = () => {
     experienceEndSelect.current!.value = ''
     inputSearch.current!.value = ''
 
+
+    dispatch(setInput(''))
     dispatch(setCountry(''))
     dispatch(setCity(''))
     dispatch(setPosition(''))
     dispatch(setCompany(''))
     dispatch(setSkils([]))
-    dispatch(setYearEnd(1))
-    dispatch(setYearStart(0))
+    dispatch(setYearEnd(''))
+    dispatch(setYearStart(''))
     setFilterListArr([])
     clearFilter.current!.classList.remove('d-sm-block')
     clearFilter2.current!.classList.add('d-none')
@@ -234,6 +250,12 @@ const Search: FC = () => {
     }
   }
 
+  function searchFromInput(e: any){
+    if(e.code === 'Enter'){
+      createFilterList()
+    }
+  }
+
   useEffect(() => {
     showHideSearchMobile(show)
   }, [show])
@@ -269,8 +291,8 @@ const Search: FC = () => {
           <input
             ref={inputSearch}
             type='text'
-            disabled
-            className='form-control form-control-solid pe-10 d-none d-sm-block h-40px justify-content-end '
+            onKeyDown={(e)=>searchFromInput(e)}
+            className='form-control form-control-solid ps-15 pe-10 d-none d-sm-block h-40px justify-content-end '
           />
           <i className='fas fa-search d-none d-sm-block position-absolute text-gray-500 start-15px fs-2'></i>
 
@@ -306,10 +328,11 @@ const Search: FC = () => {
               <div className='row align-items-center mb-20px'>
                 <div className='position-relative'>
                   <input
+                  ref={inputSearchSmall}
                     type='text'
                     className='form-control form-control-solid pe-10 mb-6 d-sm-none h-40px justify-content-end'
                     placeholder='Пошук'
-                    disabled
+                    onKeyDown={(e)=>searchFromInput(e)}
                   />
                   <div id='filtersDiv2' className='position-absolute top-0 p-2'>
                     {filterListArr.map((str: string, i: number) =>
@@ -470,7 +493,7 @@ const Search: FC = () => {
                       >
                         <option value=''>Від</option>
                         {yeas.map((year: string, i: number) => (
-                          <option key={i}>{year}</option>
+                          <option key={i} value={`${year}`}>{year}</option>
                         ))}
                       </select>
                     </div>
@@ -487,7 +510,7 @@ const Search: FC = () => {
                       >
                         <option value=''>До</option>
                         {yeas.map((year: string, i: number) => (
-                          <option key={i}>{year}</option>
+                          <option key={i} value={`${year}`}>{year}</option>
                         ))}
                       </select>
                     </div>

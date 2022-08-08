@@ -22,23 +22,42 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const [lastPage, setLastPage] = useState(1)
   const [perPage, setPerPage] = useState(1)
 
-  const handleGetAllCandidate = (city: string, specialty: string, skills: string[], page: number) => {
-    candidatesApi.getCandidate(city, specialty, skills, page).then((response: any) => {
-      dispatch(setUsers(response.data))
-      setLastPage(response.last_page)
-      setPerPage(response.per_page);
-      
-    })
+  const handleGetAllCandidate = (
+    country: string,
+    city: string,
+    specialty: string,
+    skills: string[],
+    page: number,
+    search: string,
+    company: string,
+    yearStart: string,
+    yearEnd: string
+  ) => {
+    candidatesApi
+      .getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd)
+      .then((response: any) => {
+        dispatch(setUsers(response.data))
+        setLastPage(response.last_page)
+        setPerPage(response.per_page)
+      })
   }
 
-  useEffect(() => {    
-    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage)
+  useEffect(() => {
+    handleGetAllCandidate(
+      searchObj.country,
+      searchObj.city,
+      searchObj.position,
+      searchObj.skils,
+      currentPage,
+      searchObj.input,
+      searchObj.company,
+      searchObj.yearStart,
+      searchObj.yearEnd
+    )
   }, [searchObj, currentPage])
-
 
   let down = 0
   let up = 0
-
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('.tt')
@@ -49,7 +68,6 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
     })
     popover.forEach((p) => {
       new Popover(p)
-
     })
   }, [currentPage])
 
@@ -95,22 +113,48 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                 onTouchEnd={(e) => {
                   up = e.changedTouches[0].clientX
                   if (down - up >= 50 && currentPage !== lastPage) {
-                    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage+1)
+                    handleGetAllCandidate(
+                      searchObj.country,
+                      searchObj.city,
+                      searchObj.position,
+                      searchObj.skils,
+                      currentPage + 1,
+                      searchObj.input,
+                      searchObj.company,
+                      searchObj.yearStart,
+                      searchObj.yearEnd
+                    )
                   }
                   if (up - down >= 50 && currentPage !== 1) {
-                    handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils, currentPage-1)
+                    handleGetAllCandidate(
+                      searchObj.country,
+                      searchObj.city,
+                      searchObj.position,
+                      searchObj.skils,
+                      currentPage - 1,
+                      searchObj.input,
+                      searchObj.company,
+                      searchObj.yearStart,
+                      searchObj.yearEnd
+                    )
                   }
                 }}
               >
                 {allUsers.map((user: any, i: number) => (
-                  <CandidateCard key={i} user={user} page={currentPage}/>
+                  <CandidateCard key={i} user={user} page={currentPage} />
                 ))}
               </tbody>
 
               {/* end::Table body */}
             </table>
-            {(allUsers.length >perPage )&&<Paginate setCurrentPage={setCurrentPage} currentPage={currentPage} searchObj={searchObj} lastPage={lastPage}/>}
-            
+            {allUsers.length > perPage && (
+              <Paginate
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+                searchObj={searchObj}
+                lastPage={lastPage}
+              />
+            )}
 
             {/* begin::Table */}
 
