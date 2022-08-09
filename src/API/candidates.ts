@@ -10,6 +10,7 @@ const candidatesApi = {
   addResumeFileCandidate: (data: any, name: string) => axiosInstance.post(`/parse/cv`, {file: data, name: name}),
   addResumeZipCandidates: (data: any) => axiosInstance.post(`/parse/zip`, {file: data}),
   getParsStatusZip: (id: any) => axiosInstance.get(`/parse/status/${id}`),
+  getSkillsArr: ()=>axiosInstance.get(`/skills`),
   //     addPhotoCandidate: (data: any)=>axiosInstance.post(`/candidate/update`, {data: data}),
 }
 

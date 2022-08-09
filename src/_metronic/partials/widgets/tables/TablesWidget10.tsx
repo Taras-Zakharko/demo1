@@ -70,8 +70,6 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       new Popover(p)
     })
   }, [currentPage])
-
-  console.log(searchObj);
   
 
   return (

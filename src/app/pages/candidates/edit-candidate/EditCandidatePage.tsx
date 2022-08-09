@@ -34,7 +34,7 @@ function EditCandidate() {
   const handleEditOneCandidate = (user: any)=>{
     candidatesApi.editCandidate(user)
     .then(()=>{
-      navigate('/candidates')
+      navigate(`/candidates/${user.id}`)
     })
   }
 

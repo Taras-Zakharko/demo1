@@ -17,6 +17,9 @@ import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 
 import Autosuggest from 'react-autosuggest'
 import './Search.scss'
+import candidatesApi from '../../../../API/candidates'
+
+
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -33,7 +36,7 @@ const Search: FC = () => {
   const [yeas, setYears] = useState<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
   // const countriesSelect = useRef<HTMLSelectElement>(null)
-  const citiesSelect = useRef<HTMLSelectElement | null>(null)
+  // const citiesSelect = useRef<HTMLSelectElement | null>(null)
   const positionSelect = useRef<HTMLInputElement | null>(null)
   const companySelect = useRef<HTMLInputElement | null>(null)
   const experienceStartSelect = useRef<HTMLSelectElement | null>(null)
@@ -49,6 +52,7 @@ const Search: FC = () => {
   const [suggestionsCountry, setSuggestionsCountry] = useState<string[]>([])
   const [cityValue, setCityValue] = useState('')
   const [suggestionsCity, setSuggestionsCity] = useState<string[]>([])
+  const [allSkillsArr, setAllSkillsArr] = useState<string[]>([])
 
   const [show, setShow] = useState<boolean>(false)
 
@@ -57,6 +61,13 @@ const Search: FC = () => {
   const dispatch = useDispatch()
 
   const [filterListArr, setFilterListArr] = useState<any>([])
+
+  const handleGetSkillsArr = () => {
+    candidatesApi.getSkillsArr().then((response: any) => {
+      setAllSkillsArr(response.data)
+    })
+  }
+ 
 
   function createFilterList() {
     let inputSearchValue = ''
@@ -225,6 +236,7 @@ const Search: FC = () => {
   }
 
   useEffect(() => {
+    handleGetSkillsArr();
     // Initialize search handler
     const searchObject = SearchComponent.createInsance('#kt_header_search')
     // Search handler
@@ -273,6 +285,7 @@ const Search: FC = () => {
   function getSuggestionsCity(value: string): string[] {
     return myTowns.filter((city: any) => city.toLowerCase().startsWith(value.trim().toLowerCase()))
   }
+
 
   return (
     <>
@@ -484,6 +497,11 @@ const Search: FC = () => {
                       <Tags
                         tagifyRef={tagifyRef}
                         value={skilsArr}
+                        defaultValue={''}
+                        onDropdownShow={()=>true}
+                        whitelist={allSkillsArr}
+                        {...allSkillsArr}
+                        showDropdown={true}
                         className='form-control form-control-solid w-100 border-0 min-h-40px'
                         onChange={(e) => {
                           setSkilsArr(

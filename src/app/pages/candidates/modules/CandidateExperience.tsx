@@ -2,6 +2,7 @@ import React, {FC, useEffect, useRef, useState} from 'react'
 import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import './tagifyCustom.scss'
+import candidatesApi from '../../../../API/candidates'
 
 interface ICandidateExperience {
   experienceRef?: any
@@ -20,12 +21,23 @@ const CandidateExperience: FC<ICandidateExperience> = ({
 }) => {
   const tagifyRef = useRef()
   const inputYearExperience = useRef<HTMLInputElement | null>(null)
+  const [allSkillsArr, setAllSkillsArr] = useState<string[]>([])
+
+  const handleGetSkillsArr = () => {
+    candidatesApi.getSkillsArr().then((response: any) => {
+      setAllSkillsArr(response.data)
+    })
+  }
 
   const [skilsArr, setSkilsArr] = useState<any>([])
 
   useEffect(() => {
     user.skills && setEditUser((user: any) => ({...user, skills: [...skilsArr]}))
   }, [skilsArr, setEditUser])
+
+  useEffect(() => {
+    handleGetSkillsArr()
+  }, [])
 
   // useEffect(()=>{
   //   console.log(inputYearExperience!.current!.value);
@@ -147,6 +159,10 @@ const CandidateExperience: FC<ICandidateExperience> = ({
                 <Tags
                   tagifyRef={tagifyRef}
                   value={user.skills}
+                  onDropdownShow={() => true}
+                  whitelist={allSkillsArr}
+                  {...allSkillsArr}
+                  showDropdown={true}
                   className='form-control form-control-solid min-h-40px '
                   onChange={(e) => {
                     setSkilsArr(e.detail.tagify.value.map((obj) => obj.value))

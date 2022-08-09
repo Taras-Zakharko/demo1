@@ -150,22 +150,6 @@ function CreateCandidatePage() {
           </div>
         </div>
       </div>
-      {/* <div className='row mt-5'>
-        <div className='col-lg-2'></div>
-        <div className='col-lg-8'>
-          <div className='row'>
-            <div className='col-lg-12 d-flex flex-center'>
-              <button
-                className='btn btn-primary h-50px '
-                onClick={() => handleCreateNewCandidate(editUser)}
-              >
-                Зберегти кандидата
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className='col-lg-2'></div>
-      </div> */}
     </div>
   )
 }
