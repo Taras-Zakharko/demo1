@@ -5,6 +5,7 @@ import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
+import Swal from 'sweetalert2'
 
 import candidatesApi from '../../../../API/candidates'
 
@@ -45,6 +46,19 @@ function CreateCandidatePage() {
   const handleCreateNewCandidate = (user: any) => {
     candidatesApi.createCandidate(user).then(() => {
       navigate('/candidates');
+    })
+  }
+
+  function saveCandidate(){
+    Swal.fire({
+      text: `Ви зберегли дані цього кандидата!`,
+      icon: 'success',
+      buttonsStyling: false,
+      confirmButtonText: 'Добре, зрозумів',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-primary mt-5 me-2',
+        icon: 'text-success border-success',
+      },
     })
   }
 
@@ -107,7 +121,7 @@ function CreateCandidatePage() {
         <div className='col-lg-12 d-flex flex-center'>
               <button
                 className='btn btn-primary d-flex flex-center h-40px '
-                onClick={() => handleCreateNewCandidate(editUser)}
+                onClick={() => {saveCandidate(); handleCreateNewCandidate(editUser)}}
               >
                 Зберегти кандидата
               </button>

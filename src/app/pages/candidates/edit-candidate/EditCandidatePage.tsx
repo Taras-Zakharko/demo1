@@ -42,7 +42,19 @@ function EditCandidate() {
   const hendleRemoveCandidate = (id: number)=>{
     candidatesApi.removeCandidate(id)
     .then(()=>{
-      navigate('/candidates')
+      Swal.fire({
+        text: `Ви видалили ${editUser.firstName} ${editUser.lastName}!`,
+        icon: 'success',
+        buttonsStyling: false,
+        confirmButtonText: 'Добре',
+        customClass: {
+          confirmButton: 'swal2-confirm btn fw-bold btn-primary mt-5 me-2',
+          icon: 'text-success border-success',
+        },
+      }).then((result) => {
+        result.isConfirmed && navigate('/candidates')
+      })
+      
       
     })
   }
@@ -58,7 +70,7 @@ function EditCandidate() {
   
   
 
-  function deleteCandidateFunk(btn: any){
+  function deleteCandidateFunk(){
     Swal.fire({
       text: `Ви точно хочете видалити кандидата!`,
       icon: 'error',
@@ -73,6 +85,21 @@ function EditCandidate() {
       },
     }).then((result) => {
       result.isConfirmed && hendleRemoveCandidate(editUser.id)
+    })
+  }
+
+  function saveCandidate(){
+    Swal.fire({
+      text: `Ви зберегли дані цього кандидата!`,
+      icon: 'success',
+      buttonsStyling: false,
+      confirmButtonText: 'Добре, зрозумів',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-primary mt-5 me-2',
+        icon: 'text-success border-success',
+      },
+    }).then((result) => {
+      result.isConfirmed && handleEditOneCandidate({...editUser, checked: 1})
     })
   }
     
@@ -109,7 +136,7 @@ function EditCandidate() {
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
+              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => saveCandidate()}>
                 Зберегти
               </button>
               <button
@@ -117,7 +144,7 @@ function EditCandidate() {
                 type='button'
                 id="kt_docs_sweetalert_state_warning"
                 className='btn text-danger d-flex flex-center fs-5 fs-sm-6 pe-0'
-                onClick={() => deleteCandidateFunk(deleteCandidate.current)}
+                onClick={() => deleteCandidateFunk()}
               >
                 <i className="fas fa-trash text-danger fs-3 fs-sm-4 me-3"></i>
                 Видалити
