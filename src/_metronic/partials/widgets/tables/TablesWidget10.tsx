@@ -71,6 +71,9 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
     })
   }, [currentPage])
 
+  console.log(searchObj);
+  
+
   return (
     <div className={`card ${className} bg-transparent`}>
       {/* begin::Header */}

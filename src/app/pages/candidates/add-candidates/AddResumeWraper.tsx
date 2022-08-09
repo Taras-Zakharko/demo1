@@ -217,7 +217,7 @@ const AddResumeWraper = () => {
               </div>
               <p className='text-start text-muted mb-0 fs-5 fs-sm-6'>
                 Якщо у вас виникли проблеми з перенесенням бази резюме,{' '}
-                <br className='d-none d-lg-block'/>
+                <br className='d-none d-sm-block'/>
                 <a href='mailto:#' className='text-primary'>
                   напишіть нам
                 </a>

@@ -75,8 +75,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
       .catch((err) => {
         console.error('Error in copying text: ', err)
       })
-  }
-  
+  }  
 
   return (
     <>

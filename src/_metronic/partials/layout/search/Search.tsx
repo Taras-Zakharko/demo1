@@ -1,7 +1,6 @@
 import React, {FC, useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import {SearchComponent} from '../../../assets/ts/components'
-// import {RootState} from '../../../../app/store'
 import {useDispatch} from 'react-redux'
 import {
   setCountry,
@@ -15,7 +14,9 @@ import {
 } from '../../../../app/features/search/searchSlice'
 import Tags from '@yaireo/tagify/dist/react.tagify' // React-wrapper file
 import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
-// import {hide} from '@popperjs/core'
+
+import Autosuggest from 'react-autosuggest'
+import './Search.scss'
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -31,7 +32,7 @@ const Search: FC = () => {
   const [skilsArr, setSkilsArr] = useState<string[]>([])
   const [yeas, setYears] = useState<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
-  const countriesSelect = useRef<HTMLSelectElement>(null)
+  // const countriesSelect = useRef<HTMLSelectElement>(null)
   const citiesSelect = useRef<HTMLSelectElement | null>(null)
   const positionSelect = useRef<HTMLInputElement | null>(null)
   const companySelect = useRef<HTMLInputElement | null>(null)
@@ -44,12 +45,16 @@ const Search: FC = () => {
   const clearFilter2 = useRef<HTMLButtonElement | null>(null)
   const searchRef = useRef<HTMLDivElement | null>(null)
 
+  const [countryValue, setCountryValue] = useState('')
+  const [suggestionsCountry, setSuggestionsCountry] = useState<string[]>([])
+  const [cityValue, setCityValue] = useState('')
+  const [suggestionsCity, setSuggestionsCity] = useState<string[]>([])
+
   const [show, setShow] = useState<boolean>(false)
 
   const tagifyRef = useRef()
 
   const dispatch = useDispatch()
-  // const searchObj = useSelector((state: RootState) => state.search)
 
   const [filterListArr, setFilterListArr] = useState<any>([])
 
@@ -64,10 +69,12 @@ const Search: FC = () => {
     setFilterListArr([])
 
     if (inputSearch.current !== null) {
-      if (countriesSelect.current?.value !== '' && citiesSelect.current?.value !== '') {
-        locationValue = `${countriesSelect.current?.value}, ${citiesSelect.current?.value}`
-      } else if (countriesSelect.current?.value !== '' && citiesSelect.current?.value === '') {
-        locationValue = `${countriesSelect.current?.value}`
+      if (countryValue !== '' && cityValue !== '') {
+        locationValue = `${countryValue}, ${cityValue}`
+      } else if (countryValue !== '' && cityValue === '') {
+        locationValue = `${countryValue}`
+      } else if (countryValue === '' && cityValue !== '') {
+        locationValue = `${cityValue}`
       } else {
         locationValue = ''
       }
@@ -111,20 +118,18 @@ const Search: FC = () => {
         experienceValue = ''
       }
 
-      if(inputSearch.current.value !== ''){
-        inputSearchValue = inputSearch.current.value;
-      } else if(inputSearchSmall.current?.value !== ''){
-        inputSearchValue = inputSearchSmall.current!.value;
+      if (inputSearch.current.value !== '') {
+        inputSearchValue = inputSearch.current.value
+      } else if (inputSearchSmall.current?.value !== '') {
+        inputSearchValue = inputSearchSmall.current!.value
       }
-
-      
 
       inputValueRes = `${inputSearchValue};${locationValue};${posinionValue};${companyValue};${skilsValue};${experienceValue}`
       setFilterListArr(inputValueRes.split(';'))
 
       dispatch(setInput(`${inputSearch.current!.value}${inputSearchSmall.current?.value}`))
-      dispatch(setCountry(countriesSelect.current!.value))
-      dispatch(setCity(citiesSelect.current!.value))
+      dispatch(setCountry(countryValue))
+      dispatch(setCity(cityValue))
       dispatch(setPosition(positionSelect.current!.value))
       dispatch(setCompany(companySelect.current!.value))
       dispatch(setSkils(skilsArr))
@@ -150,15 +155,14 @@ const Search: FC = () => {
   function clearSearchForm() {
     inputSearch.current!.value = ''
     inputSearchSmall.current!.value = ''
-    countriesSelect.current!.value = ''
-    citiesSelect.current!.value = ''
+    setCountryValue('')
+    setCityValue('')
     positionSelect.current!.value = ''
     companySelect.current!.value = ''
     setSkilsArr([])
     experienceStartSelect.current!.value = ''
     experienceEndSelect.current!.value = ''
     inputSearch.current!.value = ''
-
 
     dispatch(setInput(''))
     dispatch(setCountry(''))
@@ -223,7 +227,6 @@ const Search: FC = () => {
   useEffect(() => {
     // Initialize search handler
     const searchObject = SearchComponent.createInsance('#kt_header_search')
-
     // Search handler
     searchObject!.on('kt.search.process', processs)
     // Clear handler
@@ -250,8 +253,8 @@ const Search: FC = () => {
     }
   }
 
-  function searchFromInput(e: any){
-    if(e.code === 'Enter'){
+  function searchFromInput(e: any) {
+    if (e.code === 'Enter') {
       createFilterList()
     }
   }
@@ -259,6 +262,17 @@ const Search: FC = () => {
   useEffect(() => {
     showHideSearchMobile(show)
   }, [show])
+
+  const loverCaseCountry = countries.map((country) => country.country)
+
+  function getSuggestionsCountry(value: string): string[] {
+    return loverCaseCountry.filter((country: any) =>
+      country.toLowerCase().startsWith(value.trim().toLowerCase())
+    )
+  }
+  function getSuggestionsCity(value: string): string[] {
+    return myTowns.filter((city: any) => city.toLowerCase().startsWith(value.trim().toLowerCase()))
+  }
 
   return (
     <>
@@ -291,7 +305,7 @@ const Search: FC = () => {
           <input
             ref={inputSearch}
             type='text'
-            onKeyDown={(e)=>searchFromInput(e)}
+            onKeyDown={(e) => searchFromInput(e)}
             className='form-control form-control-solid ps-15 pe-10 d-none d-sm-block h-40px justify-content-end '
           />
           <i className='fas fa-search d-none d-sm-block position-absolute text-gray-500 start-15px fs-2'></i>
@@ -328,11 +342,11 @@ const Search: FC = () => {
               <div className='row align-items-center mb-20px'>
                 <div className='position-relative'>
                   <input
-                  ref={inputSearchSmall}
+                    ref={inputSearchSmall}
                     type='text'
                     className='form-control form-control-solid pe-10 mb-6 d-sm-none h-40px justify-content-end'
                     placeholder='Пошук'
-                    onKeyDown={(e)=>searchFromInput(e)}
+                    onKeyDown={(e) => searchFromInput(e)}
                   />
                   <div id='filtersDiv2' className='position-absolute top-0 p-2'>
                     {filterListArr.map((str: string, i: number) =>
@@ -363,57 +377,67 @@ const Search: FC = () => {
                 <div className='col-lg-9'>
                   <div className='row'>
                     <div className='col-lg-6'>
-                      <select
-                        ref={countriesSelect}
-                        name='country'
-                        id='country'
-                        className='form-select form-select-solid mb-5 mb-lg-0'
-                        aria-label='Select example'
-                        onChange={(e) => {
-                          if (countriesSelect.current !== null) {
-                            setMyCountry((country) => {
-                              country = countries.filter(
-                                (country) => country.country === e.target.value
-                              )
+                      <Autosuggest
+                        suggestions={suggestionsCountry}
+                        onSuggestionsClearRequested={() => setSuggestionsCountry([])}
+                        onSuggestionsFetchRequested={({value}) => {
+                          setCountryValue(value)
+                          setMyCountry((country) => {
+                            country = countries.filter((country) => country.country === value)
 
-                              return country
-                            })
-                            countriesSelect.current.value = e.target.value
-                            // dispatch(setCountry(e.target.value))
-                          }
+                            return country
+                          })
+                          setSuggestionsCountry(getSuggestionsCountry(value))
                         }}
-                      >
-                        <option value=''>Країна</option>
-                        {countries.map((country, i) => {
-                          return (
-                            <option key={i} value={country.country}>
-                              {country.country}
-                            </option>
-                          )
-                        })}
-                      </select>
+                        onSuggestionSelected={(_, {suggestionValue}) =>
+                          setMyCountry((country) => {
+                            country = countries.filter(
+                              (country) => country.country === suggestionValue
+                            )
+
+                            return country
+                          })
+                        }
+                        getSuggestionValue={(suggestion) => suggestion}
+                        renderSuggestion={(suggestion) => (
+                          <option value={suggestion}>{suggestion}</option>
+                        )}
+                        inputProps={{
+                          className: 'form-select form-select-solid mb-5 mb-lg-0',
+                          placeholder: 'Країна',
+                          value: countryValue,
+                          onChange: (_, {newValue, method}) => {
+                            setCountryValue(newValue)
+                          },
+                        }}
+                        highlightFirstSuggestion={true}
+                      />
                     </div>
                     <div className='col-lg-6'>
-                      <select
-                        ref={citiesSelect}
-                        name='town'
-                        id='town'
-                        className='form-select form-select-solid mb-lg-0'
-                        aria-label='Select example'
-                        onChange={(e) => {
-                          if (citiesSelect.current !== null) {
-                            citiesSelect.current.value = e.target.value
-                          }
-                          // dispatch(setCity(e.target.value))
+                      <Autosuggest
+                        suggestions={suggestionsCity}
+                        onSuggestionsClearRequested={() => setSuggestionsCity([])}
+                        onSuggestionsFetchRequested={({value}) => {
+                          setCityValue(value)
+                          setSuggestionsCity(getSuggestionsCity(value))
                         }}
-                      >
-                        <option value=''>Місто</option>
-                        {myTowns.map((town, i) => (
-                          <option key={i} value={town}>
-                            {town}
-                          </option>
-                        ))}
-                      </select>
+                        onSuggestionSelected={(_, {suggestionValue}) =>
+                          console.log(suggestionValue)
+                        }
+                        getSuggestionValue={(suggestion) => suggestion}
+                        renderSuggestion={(suggestion) => (
+                          <option value={suggestion}>{suggestion}</option>
+                        )}
+                        inputProps={{
+                          className: 'form-select form-select-solid mb-5 mb-lg-0',
+                          placeholder: 'Місто',
+                          value: cityValue,
+                          onChange: (_, {newValue, method}) => {
+                            setCityValue(newValue)
+                          },
+                        }}
+                        highlightFirstSuggestion={true}
+                      />
                     </div>
                   </div>
                 </div>
@@ -429,7 +453,6 @@ const Search: FC = () => {
                         ref={positionSelect}
                         type='text'
                         className='form-control form-control-solid'
-                        // onChange={(e)=>dispatch(setPosition(e.target.value))}
                       />
                     </div>
                   </div>
@@ -446,7 +469,6 @@ const Search: FC = () => {
                         ref={companySelect}
                         type='text'
                         className='form-control form-control-solid'
-                        // onChange={(e)=>dispatch(setCompany(e.target.value))}
                       />
                     </div>
                   </div>
@@ -493,7 +515,9 @@ const Search: FC = () => {
                       >
                         <option value=''>Від</option>
                         {yeas.map((year: string, i: number) => (
-                          <option key={i} value={`${year}`}>{year}</option>
+                          <option key={i} value={`${year}`}>
+                            {year}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -510,7 +534,9 @@ const Search: FC = () => {
                       >
                         <option value=''>До</option>
                         {yeas.map((year: string, i: number) => (
-                          <option key={i} value={`${year}`}>{year}</option>
+                          <option key={i} value={`${year}`}>
+                            {year}
+                          </option>
                         ))}
                       </select>
                     </div>
