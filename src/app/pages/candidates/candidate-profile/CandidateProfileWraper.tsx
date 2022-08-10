@@ -155,7 +155,7 @@ export function CandidateProfileWraper() {
                 <h2 className='fs-4 fw-boldest'>Досвід</h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px ps-0 pe-0 me-5 fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px ps-0 pe-0 mt-2px me-5 fw-bold text-gray-500 text-lg-end fs-6'>
                   <span>Досвід роботи: </span> 
                 </label>
 
