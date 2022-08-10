@@ -18,7 +18,8 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
   const [openModal, setopenModal] = useState<boolean>(false)
   const searchObj = useSelector((state: RootState) => state.search)
 
-  const handleGetAllCandidate = (country: string,
+  const handleGetAllCandidate = (
+    country: string,
     city: string,
     specialty: string,
     skills: string[],
@@ -26,10 +27,13 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
     search: string,
     company: string,
     yearStart: string,
-    yearEnd: string) => {
-    candidatesApi.getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd).then((response: any) => {
-      dispatch(setUsers(response.data))
-    })
+    yearEnd: string
+  ) => {
+    candidatesApi
+      .getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd)
+      .then((response: any) => {
+        dispatch(setUsers(response.data))
+      })
   }
 
   const hendleRemoveCandidate = (id: number) => {
@@ -45,8 +49,9 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
           icon: 'text-success border-success',
         },
       })
-      
-      handleGetAllCandidate(searchObj.country,
+
+      handleGetAllCandidate(
+        searchObj.country,
         searchObj.city,
         searchObj.position,
         searchObj.skils,
@@ -54,7 +59,8 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
         searchObj.input,
         searchObj.company,
         searchObj.yearStart,
-        searchObj.yearEnd)
+        searchObj.yearEnd
+      )
     })
   }
 
@@ -91,7 +97,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
       .catch((err) => {
         console.error('Error in copying text: ', err)
       })
-  }  
+  }
 
   return (
     <>
@@ -112,7 +118,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
               <div className='d-flex align-items-center '>
                 <Link
                   className='text-dark fw-boldest text-hover-primary  fs-3 fs-sm-4'
-                  to={(user.checked === 1) ? `${user.id}`: `/add/check-data/${user.id}`}
+                  to={user.checked === 1 ? `${user.id}` : `/add/check-data/${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
                     ? 'Ім’я не розпізнано'
@@ -184,19 +190,21 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
                 <i className='fas fa-envelope fs-4'></i>
               </button>
             ) : null}
-            {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
-              link.name === 2 ? (
-                <a
-                  key={i}
-                  href={link.path}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
-                >
-                  <i className='fab fa-facebook-square fs-4'></i>
-                </a>
-              ) : null
-            )}
+            {user.contacts?.phone.length > 0 ? (
+              <button
+                type='button'
+                value={user.contacts?.phone[0]}
+                className='popover-btn btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                data-bs-toggle='popover'
+                data-bs-trigger='focus'
+                data-bs-custom-class='popover-inverse popover-dark'
+                data-bs-placement='top'
+                title='Скопійовано'
+                onClick={(e) => copyContacts(e.target)}
+              >
+                <i className='fas fa-phone fs-4'></i>
+              </button>
+            ) : null}
             {user.contacts?.messengers.map((link: {name: number; link: string}, i: number) =>
               link.name === 3 ? (
                 <button
@@ -214,21 +222,19 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
                 </button>
               ) : null
             )}
-            {user.contacts?.phone.length > 0 ? (
-              <button
-                type='button'
-                value={user.contacts?.phone[0]}
-                className='popover-btn btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
-                data-bs-toggle='popover'
-                data-bs-trigger='focus'
-                data-bs-custom-class='popover-inverse popover-dark'
-                data-bs-placement='top'
-                title='Скопійовано'
-                onClick={(e) => copyContacts(e.target)}
-              >
-                <i className='fas fa-phone fs-4'></i>
-              </button>
-            ) : null}
+            {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
+              link.name === 2 ? (
+                <a
+                  key={i}
+                  href={link.path}
+                  target='_blank'
+                  rel='noreferrer'
+                  className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                >
+                  <i className='fab fa-facebook-square fs-4'></i>
+                </a>
+              ) : null
+            )}
           </div>
         </td>
         <td className='text-end d-none d-sm-table-cell col-lg-1'>
