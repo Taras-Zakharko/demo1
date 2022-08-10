@@ -18,11 +18,19 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
   const [openModal, setopenModal] = useState<boolean>(false)
   const searchObj = useSelector((state: RootState) => state.search)
 
-  // const handleGetAllCandidate = (city: string, specialty: string, skills: string[]) => {
-  //   candidatesApi.getCandidate(city, specialty, skills,page, search).then((response: any) => {
-  //     dispatch(setUsers(response.data))
-  //   })
-  // }
+  const handleGetAllCandidate = (country: string,
+    city: string,
+    specialty: string,
+    skills: string[],
+    page: number,
+    search: string,
+    company: string,
+    yearStart: string,
+    yearEnd: string) => {
+    candidatesApi.getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd).then((response: any) => {
+      dispatch(setUsers(response.data))
+    })
+  }
 
   const hendleRemoveCandidate = (id: number) => {
     candidatesApi.removeCandidate(id).then(() => {
@@ -38,7 +46,15 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
         },
       })
       
-      // handleGetAllCandidate(searchObj.city, searchObj.position, searchObj.skils)
+      handleGetAllCandidate(searchObj.country,
+        searchObj.city,
+        searchObj.position,
+        searchObj.skils,
+        page,
+        searchObj.input,
+        searchObj.company,
+        searchObj.yearStart,
+        searchObj.yearEnd)
     })
   }
 

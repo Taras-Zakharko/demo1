@@ -1,12 +1,13 @@
 import axios from "axios";
+import { getAuth } from "../app/modules/auth";
 const API_URl = 'https://turbohiring.dotcode.pp.ua/api';
-let tokenStr = localStorage?.getItem('kt-auth-react-v');
-let jsonToken = JSON.parse(tokenStr ? tokenStr : '{}')
+// let jsonToken = getAuth();
+
 
 
 const axiosInstance = axios.create({baseURL:API_URl, headers: {
     'Content-Type': 'application/json',
-    'Authorization':`Bearer ${jsonToken.access_token}`
+    // 'Authorization':`Bearer ${(jsonToken)&&jsonToken!.access_token}`
   }});
 
   axiosInstance.interceptors.response.use(
@@ -14,6 +15,11 @@ const axiosInstance = axios.create({baseURL:API_URl, headers: {
     (error: any) => Promise.reject(error.response.data)
   );
 
+  axiosInstance.interceptors.request.use((req) => {
+      req.headers.Authorization = `Bearer ${getAuth()?.access_token}`;
+      return req;
+    }
+  )
 
 
 export {axiosInstance};
