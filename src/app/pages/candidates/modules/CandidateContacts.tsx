@@ -37,8 +37,8 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
     arrayState: any,
     wrap: string
   ) {
-    const arr = arrayState.map((obj: any) => {
-      if (obj.id === id) {
+    const arr = arrayState.map((obj: any,i:number) => {
+      if (i === id) {
         return {...obj, [key]: value}
       } else {
         return obj
@@ -223,7 +223,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           aria-label='Select example'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +mess.id,
+                              +i,
                               +e.target.value,
                               'name',
                               setMessenger,
@@ -245,7 +245,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='form-control form-control-solid w-100 h-40px text-gray-800'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +mess.id,
+                              +i,
                               e.target.value,
                               'path',
                               setMessenger,
@@ -261,14 +261,14 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row mt-7 mt-lg-20px align-items-center' id={'messenger-' + mess.id}>
+                    <div key={i} className='row mt-7 mt-lg-20px align-items-center' id={'messenger-' + i}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid text-gray-800'
                           aria-label='Select example'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +mess.id,
+                              +i,
                               +e.target.value,
                               'name',
                               setMessenger,
@@ -290,7 +290,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='form-control form-control-solid w-100 h-40px text-gray-800'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +mess.id,
+                              +i,
                               e.target.value,
                               'path',
                               setMessenger,
@@ -313,7 +313,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              }): setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''})) }
+              }): setMessenger((mess) => mess.concat({name: 0, path: ''})) }
               <button
                 className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7 mt-lg-3'
                 onClick={() =>
@@ -349,7 +349,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           aria-label='Select example'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +link.id,
+                              +i,
                               +e.target.value,
                               'name',
                               setUserLinks,
@@ -370,7 +370,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='form-control form-control-solid w-100 h-40px text-gray-800'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +link.id,
+                              +i,
                               e.target.value,
                               'path',
                               setUserLinks,
@@ -386,14 +386,14 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                   )
                 } else {
                   return (
-                    <div key={i} className='row mt-7 align-items-center' id={'user-link-' + link.id}>
+                    <div key={i} className='row mt-7 align-items-center' id={'user-link-' + i}>
                       <div className='col-lg-4 mb-4 mb-lg-0'>
                         <select
                           className='form-select form-select-solid text-gray-800'
                           aria-label='Select example'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +link.id,
+                              +i,
                               +e.target.value,
                               'name',
                               setUserLinks,
@@ -414,7 +414,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                           className='form-control form-control-solid w-100 h-40px text-gray-800'
                           onChange={(e) =>
                             handleChangeSelect(
-                              +link.id,
+                              +i,
                               e.target.value,
                               'path',
                               setUserLinks,
