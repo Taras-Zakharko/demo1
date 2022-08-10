@@ -169,7 +169,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
               </button>
             ) : null}
             {user.contacts?.socialLinks.map((link: {name: number; path: string}, i: number) =>
-              link.name === 0 ? (
+              link.name === 2 ? (
                 <a
                   key={i}
                   href={link.path}
