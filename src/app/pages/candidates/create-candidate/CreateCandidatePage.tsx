@@ -29,8 +29,8 @@ function CreateCandidatePage() {
     contacts: {
       phone: [''],
       email: [''],
-      messengers: [{}],
-      socialLinks: [{}],
+      messengers: [{name:0, path: ''}],
+      socialLinks: [{name:0, path: ''}],
     },
     aboutMyself: [],
     positions: [],
