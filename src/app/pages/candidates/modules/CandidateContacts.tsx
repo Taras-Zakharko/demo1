@@ -206,7 +206,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               <button
                 className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7'
                 onClick={() =>
-                  setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
+                  setMessenger((mess) => mess.concat({name: 0, path: ''}))
                 }
               >
                 Додати ще
@@ -317,7 +317,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               <button
                 className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7 mt-lg-3'
                 onClick={() =>
-                  setMessenger((mess) => mess.concat({id: Date.now(), name: 0, link: ''}))
+                  setMessenger((mess) => mess.concat({name: 0, path: ''}))
                 }
               >
                 Додати ще
@@ -332,7 +332,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
               <button
                 className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-block d-lg-none mb-5 mb-lg-2 fs-6 fs-sm-7 '
                 onClick={() =>
-                  setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
+                  setUserLinks((link) => link.concat({name: 0, path: ''}))
                 }
               >
                 Додати ще
@@ -437,12 +437,12 @@ const CandidateContacts: FC<ICandidateContacts> = ({contactsRef, setEditUser, us
                     </div>
                   )
                 }
-              }):setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''})) }
+              }):setUserLinks((link) => link.concat({name: 0, path: ''})) }
 
               <button
                 className='btn p-0 text-primary border-bottom border-dashed border-primary rounded-0 d-none d-lg-block fs-6 fs-sm-7 mt-lg-3'
                 onClick={() =>
-                  setUserLinks((link) => link.concat({id: Date.now(), name: 0, path: ''}))
+                  setUserLinks((link) => link.concat({name: 0, path: ''}))
                 }
               >
                 Додати ще

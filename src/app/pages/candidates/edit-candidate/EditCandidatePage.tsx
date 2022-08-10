@@ -103,6 +103,7 @@ function EditCandidate() {
     })
   }
     
+  console.log(editUser);
   
   
 

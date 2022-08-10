@@ -56,6 +56,7 @@ export function CandidateProfileWraper() {
     navigate('/error/404')
   }
   
+console.log(user);
 
   return (
     <div className='row pt-9'>
@@ -443,8 +444,8 @@ export function CandidateProfileWraper() {
             <h2 className='mb-7 fs-3 fs-sm-4 fw-boldest'>Контакти</h2>
             <div className='row'>
               {user.contacts && user.contacts.email.length > 0 ? (
-                <div className='row mb-3'>
-                  <div className='col-12  d-flex flex-row border-bottom-dotted border-1 border-secondary'>
+                <div className='row'>
+                  <div className='col-12  d-flex flex-row border-1 border-bottom-dotted border-secondary'>
                     <label className='fw-bold text-gray-500 mt-2px me-9'>
                       <i className='fas fa-envelope fs-3 fs-sm-4'></i>
                     </label>
@@ -471,7 +472,7 @@ export function CandidateProfileWraper() {
               ) : null}
               {user.contacts && user.contacts.phone.length > 0 ? (
                 <div className='row'>
-                  <div className='col-12 d-flex flex-row border-bottom-dotted border-1 border-secondary'>
+                  <div className='col-12 d-flex flex-row border-1 border-bottom-dotted border-secondary'>
                     <label className='fw-bold text-gray-500 mt-2px me-9'>
                       <i className='fas fa-phone fs-3 fs-sm-4 '></i>
                     </label>
@@ -499,17 +500,17 @@ export function CandidateProfileWraper() {
             </div>
             {user.contacts &&
             (user.contacts.messengers.length > 0 || user.contacts.socialLinks.length > 0) ? (
-              <div className='row mt-4'>
+              <div className='row'>
                 <div className='col-12'>
                   {user.contacts &&
-                    user.contacts.messengers.map((mess: {name: number; link: string}, i: number) =>
+                    user.contacts.messengers.map((mess: {name: number; path: string}, i: number) =>
                       mess.name === 3 ? (
                         <a
                           key={i}
-                          href={mess.link}
+                          href={mess.path}
                           target='_blank'
                           rel='noreferrer'
-                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                         >
                           <i className='fab fa-skype fs-3 fs-sm-4'></i>
                         </a>
@@ -525,7 +526,7 @@ export function CandidateProfileWraper() {
                               href={link.path}
                               target='_blank'
                               rel='noreferrer'
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                             >
                               <i className='fab fa-linkedin fs-3 fs-sm-4'></i>
                             </a>
@@ -537,7 +538,7 @@ export function CandidateProfileWraper() {
                               href={link.path}
                               target='_blank'
                               rel='noreferrer'
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                             >
                               <i className='fab fa-github fs-3 fs-sm-4'></i>
                             </a>
@@ -549,7 +550,7 @@ export function CandidateProfileWraper() {
                               href={link.path}
                               target='_blank'
                               rel='noreferrer'
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                             >
                               <i className='fab fa-facebook-square fs-3 fs-sm-4'></i>
                             </a>
@@ -561,7 +562,7 @@ export function CandidateProfileWraper() {
                               href={link.path}
                               target='_blank'
                               rel='noreferrer'
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2'
+                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                             >
                               <i className='fas fa-globe fs-3 fs-sm-4'></i>
                             </a>
