@@ -55,8 +55,6 @@ export function CandidateProfileWraper() {
   if(Array.isArray(user)){
     navigate('/error/404')
   }
-  
-console.log(user);
 
   return (
     <div className='row pt-9'>

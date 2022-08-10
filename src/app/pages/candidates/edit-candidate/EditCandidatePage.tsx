@@ -101,12 +101,8 @@ function EditCandidate() {
     }).then((result) => {
       result.isConfirmed && handleEditOneCandidate({...editUser, checked: 1})
     })
-  }
-    
-  console.log(editUser);
+  }  
   
-  
-
   return (
     <div className='row'>
       <div className='row pe-0 ps-6'>
