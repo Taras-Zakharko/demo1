@@ -21,6 +21,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [lastPage, setLastPage] = useState(1)
   const [perPage, setPerPage] = useState(1)
+  const [total, setTotal] = useState(1)
 
   const handleGetAllCandidate = (
     country: string,
@@ -39,6 +40,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
         dispatch(setUsers(response.data))
         setLastPage(response.last_page)
         setPerPage(response.per_page)
+        setTotal(response.total)
       })
   }
 
@@ -148,7 +150,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
 
               {/* end::Table body */}
             </table>
-            {allUsers.length > perPage && (
+            {total > perPage && (
               <Paginate
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
