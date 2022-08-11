@@ -9,6 +9,7 @@ import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 import candidatesApi from '../../../../API/candidates'
 import {Tooltip, Popover} from 'bootstrap'
 import Paginate from '../../../../app/pages/candidates/modules/Paginate'
+import { setCity } from '../../../../app/features/search/searchSlice'
 
 type Props = {
   className: string
@@ -127,6 +128,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                       searchObj.yearStart,
                       searchObj.yearEnd
                     )
+                    setCurrentPage(currentPage=> currentPage+1)
                   }
                   if (up - down >= 50 && currentPage !== 1) {
                     handleGetAllCandidate(
@@ -140,6 +142,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                       searchObj.yearStart,
                       searchObj.yearEnd
                     )
+                    setCurrentPage(currentPage=> currentPage-1)
                   }
                 }}
               >
