@@ -17,7 +17,7 @@ const ImportFromFilePage = () => {
   const navigate = useNavigate()
 
   const handleGetOneCandidate = (id: number) => {
-    candidatesApi.getSomeCandidate(id).then((response: { data: any }) => {
+    candidatesApi.getSomeCandidate(id).then((response: {data: any}) => {
       setEditUser(response.data)
     })
   }
@@ -30,13 +30,15 @@ const ImportFromFilePage = () => {
 
   useEffect(() => {
     handleGetOneCandidate(idUser)
-  }, [])  
+  }, [])
 
   return (
     <>
       <div className='row pt-10'>
         <div className='col-lg-12 pt-8 pb-9 pt-lg-11 pb-lg-11'>
-          <h2 className='fs-2 fw-boldest'>Імпорт файлу {(editUser.files)&&editUser.files[0].name}</h2>
+          <h2 className='fs-2 fw-boldest'>
+            Імпорт файлу {editUser.files && editUser.files[0].name}
+          </h2>
         </div>
         <div className='col-lg-6 '>
           <div className='col-lg-12'>
@@ -70,7 +72,7 @@ const ImportFromFilePage = () => {
           </div>
         </div>
         <div className='col-lg-6 '>
-          <PdfWraper fileBase={(editUser.files)&&editUser.files[0].base64}/>          
+          <PdfWraper fileBase={editUser.files && editUser.files[0].base64} />
         </div>
       </div>
     </>

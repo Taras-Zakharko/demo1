@@ -68,7 +68,7 @@ const CandidateInfoBlock: FC<ICandidateInfoBlock> = ({id, setEditUser, user, lab
             value={(user.location)?user.location.city[0]:''}
             onChange={(e) =>{
               setEditUser((user: {location: any})=>({
-                ...user, location: {...user.location, city: user.location.city.map((city:string, i: number)=>(i===0)?city=e.target.value: city)}
+                ...user, location: {...user.location, city: (user.location.city.length > 0)?user.location.city.map((city:string, i: number)=>(i===0)?city=e.target.value: city): [e.target.value]}
               }))
             }
               

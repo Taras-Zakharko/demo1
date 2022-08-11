@@ -17,29 +17,31 @@ const CandidateResume: FC<ICandidateContacts> = ({
   labelW,
   inputW,
 }) => {
-
   const tagifyRef = useRef()
 
   const [files, setFiles] = useState<any[]>([])
-  
 
-  useEffect(()=>{
+  useEffect(() => {
+    let userFilesName: any = []
 
-    let userFilesName: any = [];
-    
-    (user.files && user.files.length> 0)&&user.files.forEach((file: any) => {
-      userFilesName.push(file.name)
-    });
-    
+    user.files &&
+      user.files.length > 0 &&
+      user.files.forEach((file: any) => {
+        userFilesName.push(file.name)
+      })
 
     setFiles(userFilesName)
   }, [user.files])
 
-  
-
   return (
-    <div ref={resumeRef} className='accordion-item border-start-0 border-end-0 border-bottom-dashed p-0'>
-      <h2 className='accordion-header border-1 border-top-dashed border-secondary' id='kt_accordion_1_header_3'>
+    <div
+      ref={resumeRef}
+      className='accordion-item border-start-0 border-end-0 border-bottom-dashed p-0'
+    >
+      <h2
+        className='accordion-header border-1 border-top-dashed border-secondary'
+        id='kt_accordion_1_header_3'
+      >
         <button
           className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 pb-7 pb-lg-20px bg-white text-dark shadow-none'
           type='button'
@@ -74,7 +76,10 @@ const CandidateResume: FC<ICandidateContacts> = ({
               ></textarea>
             </div>
             <div className='col-lg-12 d-flex flex-column flex-lg-row align-items-lg-center'>
-              <label htmlFor='addFileResume' className='btn text-primary fs-5 fs-sm-6 p-0 mb-7 mb-lg-20px text-start'>
+              <label
+                htmlFor='addFileResume'
+                className='btn text-primary fs-5 fs-sm-6 p-0 mb-7 mb-lg-20px text-start'
+              >
                 <i className='fas fa-paperclip fs-16px fs-sm-4 text-primary'></i>
                 Прикріпити файл
               </label>
@@ -93,10 +98,9 @@ const CandidateResume: FC<ICandidateContacts> = ({
                       const reader = new FileReader()
 
                       reader.onload = () => {
-                        
                         setEditUser((user: any) => ({
                           ...user,
-                          files: [...user.files, {name: file.name, base64: reader.result}]
+                          files: [...user.files, {name: file.name, base64: reader.result}],
                         }))
                       }
 
@@ -105,24 +109,27 @@ const CandidateResume: FC<ICandidateContacts> = ({
                   }
                 }}
               ></input>
-              {files.length> 0 && <div className='ms-lg-9 h-100'>
-              <Tags
-                  tagifyRef={tagifyRef}                    
-                  value={files}
-                  className='form-control form-control-solid bg-white border-0 min-h-40px '
-                  onChange={(e)=> {
-                    // setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
-                  }}
-                />
-                
-                  </div>}
-              
+              {files.length > 0 && (
+                <div className='ms-lg-9 h-100'>
+                  <Tags
+                    tagifyRef={tagifyRef}
+                    value={files}
+                    className='form-control form-control-solid bg-white border-0 min-h-40px '
+                    onChange={(e) => {
+                      // setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className='row'>
             <div className='row d-flex align-items-center mt-7 mt-lg-20px pe-0'>
               <div className={'col-lg-' + labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'>
+                <label
+                  htmlFor='exampleFormControlInput1'
+                  className='form-label fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'
+                >
                   GDPR
                 </label>
               </div>
@@ -130,7 +137,7 @@ const CandidateResume: FC<ICandidateContacts> = ({
                 <select
                   className='form-select form-select-solid border-0 text-gray-800'
                   aria-label='Select example'
-                  onChange={(e)=>setEditUser((user: any) => ({...user, gdpr: e.target.value}))}
+                  onChange={(e) => setEditUser((user: any) => ({...user, gdpr: e.target.value}))}
                   value={user.gdpr}
                 >
                   <option value='1'>GDPR статус не визначено</option>
@@ -141,7 +148,10 @@ const CandidateResume: FC<ICandidateContacts> = ({
             </div>
             <div className='row d-flex align-items-center align-items-lg-start mt-7 mt-lg-20px pe-0'>
               <div className={'col-lg-' + labelW}>
-                <label htmlFor='exampleFormControlInput1' className='form-label pt-lg-3 fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'>
+                <label
+                  htmlFor='exampleFormControlInput1'
+                  className='form-label pt-lg-3 fw-bold mb-5 mb-lg-2 fs-5 fs-sm-6'
+                >
                   Джерело
                 </label>
               </div>

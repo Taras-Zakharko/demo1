@@ -1,6 +1,5 @@
 import React, {FC} from 'react'
 
-
 interface IPaginate {
   setCurrentPage: any
   currentPage: number
@@ -8,15 +7,7 @@ interface IPaginate {
   lastPage: number
 }
 
-const Paginate: FC<IPaginate> = ({
-  setCurrentPage,
-  currentPage,
-  searchObj,
-  lastPage,
-}) => {
-  
-
-
+const Paginate: FC<IPaginate> = ({setCurrentPage, currentPage, searchObj, lastPage}) => {
   const paginate = (pageNum: number) => {
     setCurrentPage(pageNum)
   }
@@ -27,23 +18,13 @@ const Paginate: FC<IPaginate> = ({
     <ul className='pagination'>
       {currentPage === 1 ? (
         <li className='page-item previous disabled w-37px h-36px'>
-          <a
-            className='page-link h-100'
-            onClick={() =>
-                setCurrentPage(currentPage-1)
-            }
-          >
+          <a className='page-link h-100' onClick={() => setCurrentPage(currentPage - 1)}>
             <i className='previous'></i>
           </a>
         </li>
       ) : (
         <li className='page-item previous w-37px h-36px'>
-          <a
-            className='page-link h-100'
-            onClick={() =>
-                setCurrentPage(currentPage-1)
-            }
-          >
+          <a className='page-link h-100' onClick={() => setCurrentPage(currentPage - 1)}>
             <i className='previous'></i>
           </a>
         </li>
@@ -78,23 +59,13 @@ const Paginate: FC<IPaginate> = ({
       })}
       {currentPage === lastPage ? (
         <li className='page-item next disabled w-37px h-36px'>
-          <a
-            className='page-link h-100'
-            onClick={() =>
-                setCurrentPage(currentPage+1)
-            }
-          >
+          <a className='page-link h-100' onClick={() => setCurrentPage(currentPage + 1)}>
             <i className='next'></i>
           </a>
         </li>
       ) : (
         <li className='page-item next w-37px h-36px'>
-          <a
-            className='page-link h-100'
-            onClick={() =>
-                setCurrentPage(currentPage+1)
-            }
-          >
+          <a className='page-link h-100' onClick={() => setCurrentPage(currentPage + 1)}>
             <i className='next'></i>
           </a>
         </li>
