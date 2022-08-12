@@ -1,5 +1,6 @@
 import Tags from '@yaireo/tagify/dist/react.tagify'
 import React, {FC, useEffect, useRef, useState} from 'react'
+import {fileURLToPath} from 'url'
 import './tagifyCustom.scss'
 
 interface ICandidateContacts {
@@ -20,6 +21,8 @@ const CandidateResume: FC<ICandidateContacts> = ({
   const tagifyRef = useRef()
 
   const [files, setFiles] = useState<any[]>([])
+  const [newFiles, setNewFiles] = useState<any[]>(user.files)
+  const [array, setArray] = useState<any[]>(user.files)
 
   useEffect(() => {
     let userFilesName: any = []
@@ -29,9 +32,38 @@ const CandidateResume: FC<ICandidateContacts> = ({
       user.files.forEach((file: any) => {
         userFilesName.push(file.name)
       })
-
+    setNewFiles(user.files)
     setFiles(userFilesName)
-  }, [user.files])
+  }, [user])
+
+  useEffect(() => {
+    let newArr: any[] = []
+    if (
+      newFiles &&
+      files &&
+      newFiles.length > 0 &&
+      files.length > 0 &&
+      newFiles.length !== files.length
+    ) {
+      newFiles.forEach((a) => {
+        files.forEach((b) => {
+          if (a.name === b) {
+            newArr.push(a)
+          }
+        })
+      })
+      setArray(newArr)
+    }
+  }, [files])
+
+  useEffect(() => {
+    if (array && array.length > 0) {
+      setEditUser((user: any) => ({
+        ...user,
+        files: [...array],
+      }))
+    }
+  }, [array])
 
   return (
     <div
@@ -116,7 +148,13 @@ const CandidateResume: FC<ICandidateContacts> = ({
                     value={files}
                     className='form-control form-control-solid bg-white border-0 min-h-40px '
                     onChange={(e) => {
-                      // setSkilsArr(e.detail.tagify.value.map(obj=>obj.value))
+                      setFiles(e.detail.tagify.value.map((obj) => obj.value))
+                      if(e.detail.tagify.value.length===0){
+                        setEditUser((user: any) => ({
+                          ...user,
+                          files: [],
+                        }))
+                      }
                     }}
                   />
                 </div>
