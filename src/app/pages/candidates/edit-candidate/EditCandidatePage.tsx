@@ -34,7 +34,17 @@ function EditCandidate() {
   const handleEditOneCandidate = (user: any)=>{
     candidatesApi.editCandidate(user)
     .then(()=>{      
-      navigate(`/candidates/${user.id}`)
+      saveCandidate()
+    }).catch((required)=>{Swal.fire({
+      text: `${required.message}`,
+      icon: 'error',
+      buttonsStyling: false,
+      confirmButtonText: 'Добре, зрозумів',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+        icon: 'text-danger border-danger',
+      },
+    });
     })
   }
 
@@ -99,7 +109,7 @@ function EditCandidate() {
         icon: 'text-success border-success',
       },
     }).then((result) => {
-      result.isConfirmed && handleEditOneCandidate({...editUser, checked: 1})
+      result.isConfirmed && navigate(`/candidates/${idUser}`)
     })
   }  
   
@@ -133,7 +143,7 @@ function EditCandidate() {
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => saveCandidate()}>
+              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate(editUser)}>
                 Зберегти
               </button>
               <button

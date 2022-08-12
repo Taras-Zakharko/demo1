@@ -197,7 +197,7 @@ const CandidateContacts: FC<ICandidateContacts> = ({
                         <div key={i} className='col-12 col-lg-11'>
                           <input
                             type='email'
-                            className='form-control form-control-solid h-40px mb-lg-4 text-gray-800'
+                            className='form-control  form-control-solid h-40px mb-lg-4 text-gray-800'
                             value={adres}
                             onChange={(e) => cangeArray(e, i, email, setEmail, 'email')}
                           />

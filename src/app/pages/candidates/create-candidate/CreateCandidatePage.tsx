@@ -44,8 +44,19 @@ function CreateCandidatePage() {
   const navigate = useNavigate()
 
   const handleCreateNewCandidate = (user: any) => {
-    candidatesApi.createCandidate(user).then(() => {
-      navigate('/candidates');
+    candidatesApi.createCandidate(user).then((res) => {
+      saveCandidate()
+      
+    }).catch((required)=>{Swal.fire({
+      text: `${required.message}`,
+      icon: 'error',
+      buttonsStyling: false,
+      confirmButtonText: 'Добре, зрозумів',
+      customClass: {
+        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+        icon: 'text-danger border-danger',
+      },
+    });
     })
   }
 
@@ -59,6 +70,8 @@ function CreateCandidatePage() {
         confirmButton: 'swal2-confirm btn fw-bold btn-primary mt-5 me-2',
         icon: 'text-success border-success',
       },
+    }).then((result) => {
+      result.isConfirmed && navigate('/candidates')
     })
   }
 
@@ -121,7 +134,7 @@ function CreateCandidatePage() {
         <div className='col-lg-12 d-flex flex-center'>
               <button
                 className='btn btn-primary d-flex flex-center h-40px '
-                onClick={() => {saveCandidate(); handleCreateNewCandidate(editUser)}}
+                onClick={() => handleCreateNewCandidate(editUser)}
               >
                 Зберегти кандидата
               </button>
