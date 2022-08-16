@@ -433,7 +433,7 @@ export function CandidateProfileWraper() {
             </div>
           </div>
         </div>
-        <div className='col-lg-4 ps-0 ps-md-9 pe-0 mt-4 mt-lg-0'>
+        <div className='col-lg-4 ps-0 ps-lg-9 pe-0 mt-4 mt-lg-0'>
           <div
             className={
               user.checked === 0 ? 'card card-custom mt-lg-20 p-9' : 'card card-custom p-9'
@@ -470,7 +470,7 @@ export function CandidateProfileWraper() {
               ) : null}
               {user.contacts && user.contacts.phone.length > 0 ? (
                 <div className='row'>
-                  <div className='col-12 d-flex flex-row border-1 border-bottom-dotted border-secondary'>
+                  <div className='col-12 d-flex flex-row mt-3 border-1 border-bottom-dotted border-secondary'>
                     <label className='fw-bold text-gray-500 mt-2px me-9'>
                       <i className='fas fa-phone fs-3 fs-sm-4 '></i>
                     </label>
