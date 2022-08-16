@@ -81,7 +81,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
       <div className='card-header border-0 p-0  w-100'>
         <h3 className='card-title align-items-start flex-column m-0'>
           <span className='card-label fw-bolder fs-21px fs-md-20px mb-1'>Кандидати</span>
-          <span className='text-muted mt-1 fw-bold fs-5 fs-md-6'>{allUsers.length} кандидатів</span>
+          <span className='text-muted mt-1 fw-bold fs-5 fs-md-6'>{total} кандидатів</span>
         </h3>
         <div
           className='card-toolbar m-0'
