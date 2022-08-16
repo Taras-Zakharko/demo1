@@ -157,7 +157,6 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
               <Paginate
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
-                searchObj={searchObj}
                 lastPage={lastPage}
               />
             )}

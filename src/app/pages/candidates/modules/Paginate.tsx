@@ -3,11 +3,10 @@ import React, {FC} from 'react'
 interface IPaginate {
   setCurrentPage: any
   currentPage: number
-  searchObj: any
   lastPage: number
 }
 
-const Paginate: FC<IPaginate> = ({setCurrentPage, currentPage, searchObj, lastPage}) => {
+const Paginate: FC<IPaginate> = ({setCurrentPage, currentPage, lastPage}) => {
   const paginate = (pageNum: number) => {
     setCurrentPage(pageNum)
   }
@@ -32,7 +31,7 @@ const Paginate: FC<IPaginate> = ({setCurrentPage, currentPage, searchObj, lastPa
       {pageNumbers.map((num: number) => {
         return currentPage === num ? (
           <li key={num} className='page-item cursor-pointer active w-37px h-36px'>
-            <a className='page-link h-100' onClick={() => paginate(num)}>
+            <a className='page-link h-100 text-hover-inverse-primary' onClick={() => paginate(num)}>
               {num}
             </a>
           </li>
