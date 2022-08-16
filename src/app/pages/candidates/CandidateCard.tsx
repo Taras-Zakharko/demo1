@@ -11,9 +11,10 @@ import Swal from 'sweetalert2'
 interface ICandidate {
   user: any
   page: number
+  setTotal: any
 }
 
-const CandidateCard: FC<ICandidate> = ({user, page}) => {
+const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
   const cardRef = useRef<HTMLDivElement | null>(null)
   const [openModal, setopenModal] = useState<boolean>(false)
   const searchObj = useSelector((state: RootState) => state.search)
@@ -33,6 +34,7 @@ const CandidateCard: FC<ICandidate> = ({user, page}) => {
       .getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd)
       .then((response: any) => {
         dispatch(setUsers(response.data))
+        setTotal(response.total)
       })
   }
 
