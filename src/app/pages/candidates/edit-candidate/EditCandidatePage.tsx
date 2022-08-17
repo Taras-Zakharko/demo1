@@ -143,7 +143,7 @@ function EditCandidate() {
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate(editUser)}>
+              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
                 Зберегти
               </button>
               <button
