@@ -7,9 +7,8 @@ import {RootState} from '../../../../app/store'
 import {useSelector, useDispatch} from 'react-redux'
 import {setUsers} from '../../../../app/features/candidate/candidateSlice'
 import candidatesApi from '../../../../API/candidates'
-import {Tooltip, Popover} from 'bootstrap'
+import {Popover} from 'bootstrap'
 import Paginate from '../../../../app/pages/candidates/modules/Paginate'
-import { setCity } from '../../../../app/features/search/searchSlice'
 
 type Props = {
   className: string
@@ -63,16 +62,13 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
   let up = 0
 
   useEffect(() => {
-    const tooltips = document.querySelectorAll('.tt')
-    const popover = document.querySelectorAll('.popover-btn')
+    let popover = document.querySelectorAll('.popover-btn')
 
-    tooltips.forEach((t) => {
-      new Tooltip(t)
-    })
+    
     popover.forEach((p) => {
       new Popover(p)
     })
-  }, [currentPage])
+  }, [currentPage, allUsers])
   
 
   return (

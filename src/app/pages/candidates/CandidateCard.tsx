@@ -7,6 +7,7 @@ import {setUsers} from '../../features/candidate/candidateSlice'
 import candidatesApi from '../../../API/candidates'
 import {RootState} from '../../store'
 import Swal from 'sweetalert2'
+import Tooltip from './modules/Tooltip'
 
 interface ICandidate {
   user: any
@@ -99,7 +100,7 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
       .catch((err) => {
         console.error('Error in copying text: ', err)
       })
-  }
+  }  
 
   return (
     <>
@@ -119,7 +120,7 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
             <div className='d-flex justify-content-start flex-column '>
               <div className='d-flex align-items-center '>
                 <Link
-                  className='text-dark fw-boldest text-hover-primary  fs-3 fs-sm-4'
+                  className='text-dark fw-boldest text-hover-primary me-3 fs-3 fs-sm-4'
                   to={user.checked === 1 ? `${user.id}` : `/add/check-data/${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
@@ -130,17 +131,10 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? (
-                  <span
-                    className='tt'
-                    data-bs-placement='top'
-                    title='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.'
-                  >
-                    <i
-                      className='fas fa-exclamation-triangle text-warning me-4 ms-3 fs-6'
+                  <Tooltip theme='light' content='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.' direction={'top'}><i
+                      className='fas fa-exclamation-triangle text-warning me-4 fs-6'
                       data-bs-toggle='tooltip'
-                      title='Some tooltip text!'
-                    ></i>
-                  </span>
+                    ></i></Tooltip>
                 ) : null}
               </div>
 
