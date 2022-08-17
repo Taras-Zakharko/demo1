@@ -93,7 +93,7 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
 
   function copyContacts(el: any) {
     navigator.clipboard
-      .writeText(el.value)
+      .writeText(el)
       .then(() => {
         console.log('Text copied to clipboard')
       })
@@ -101,7 +101,7 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
         console.error('Error in copying text: ', err)
       })
   }  
-
+  
   return (
     <>
       <tr className='border-bottom border-dashed pt-20px h-100px pb-20px' id={user.id}>
@@ -181,7 +181,7 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
                 data-bs-custom-class='popover-inverse popover-dark'
                 data-bs-placement='top'
                 title='Скопійовано'
-                onClick={(e) => copyContacts(e.target)}
+                onClick={() => copyContacts(user.contacts.email[0])}
               >
                 <i className='fas fa-envelope fs-4'></i>
               </button>
@@ -196,23 +196,22 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
                 data-bs-custom-class='popover-inverse popover-dark'
                 data-bs-placement='top'
                 title='Скопійовано'
-                onClick={(e) => copyContacts(e.target)}
+                onClick={() => copyContacts(user.contacts.phone[0])}
               >
                 <i className='fas fa-phone fs-4'></i>
               </button>
             ) : null}
-            {user.contacts?.messengers.map((link: {name: number; link: string}, i: number) =>
+            {user.contacts?.messengers.map((link: {name: number; path: string}, i: number) =>
               link.name === 3 ? (
                 <button
                   key={i}
-                  value={link.link}
-                  className='btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
+                  className='popover-btn btn btn-icon btn-bg-light bg-hover-light-primary btn-active-color-primary btn-sm me-3'
                   data-bs-toggle='popover'
                   data-bs-trigger='focus'
                   data-bs-custom-class='popover-inverse popover-dark'
                   data-bs-placement='top'
                   title='Скопійовано'
-                  onClick={(e) => copyContacts(e.target)}
+                  onClick={() => copyContacts(link.path)}
                 >
                   <i className='fab fa-skype fs-4'></i>
                 </button>

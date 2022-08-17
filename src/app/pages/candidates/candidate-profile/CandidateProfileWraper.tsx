@@ -43,6 +43,16 @@ export function CandidateProfileWraper() {
         console.error('Error in copying text: ', err)
       })
   }
+  function copyContactsValue(el: any) {
+    navigator.clipboard
+      .writeText(el)
+      .then(() => {
+        console.log('Text copied to clipboard')
+      })
+      .catch((err) => {
+        console.error('Error in copying text: ', err)
+      })
+  }
   useEffect(() => {
     const popover = document.querySelectorAll('.popover-btn')
     popover.forEach((p) => {
@@ -503,15 +513,18 @@ export function CandidateProfileWraper() {
                   {user.contacts &&
                     user.contacts.messengers.map((mess: {name: number; path: string}, i: number) =>
                       mess.name === 3 ? (
-                        <a
+                        <button
                           key={i}
-                          href={mess.path}
-                          target='_blank'
-                          rel='noreferrer'
-                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
+                          data-bs-toggle='popover'
+                            data-bs-trigger='focus'
+                            data-bs-custom-class='popover-inverse popover-dark'
+                            data-bs-placement='top'
+                            title='Скопійовано'
+                            onClick={() => copyContactsValue(mess.path)}
+                          className='popover-btn btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                         >
                           <i className='fab fa-skype fs-3 fs-sm-4'></i>
-                        </a>
+                        </button>
                       ) : null
                     )}
                   {user.contacts &&
