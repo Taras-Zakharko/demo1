@@ -39,14 +39,6 @@ const CandidateExperience: FC<ICandidateExperience> = ({
     handleGetSkillsArr()
   }, [])
 
-  // useEffect(()=>{
-  //   console.log(inputYearExperience!.current!.value);
-
-  //   if(inputYearExperience!.current!.value === '0'){
-  //     inputYearExperience!.current!.value = ''
-  //   };
-  // }, [inputYearExperience])
-
   return (
     <div ref={experienceRef} className='accordion-item border-0 p-0'>
       <h2

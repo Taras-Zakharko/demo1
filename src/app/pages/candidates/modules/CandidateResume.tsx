@@ -1,6 +1,5 @@
 import Tags from '@yaireo/tagify/dist/react.tagify'
 import React, {FC, useEffect, useRef, useState} from 'react'
-import {fileURLToPath} from 'url'
 import './tagifyCustom.scss'
 
 interface ICandidateContacts {
@@ -64,7 +63,7 @@ const CandidateResume: FC<ICandidateContacts> = ({
       }))
     }
   }, [array])
-
+  
   return (
     <div
       ref={resumeRef}

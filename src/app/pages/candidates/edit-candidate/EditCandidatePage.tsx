@@ -5,10 +5,7 @@ import CandidateExperience from '../modules/CandidateExperience'
 import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
-
 import Swal from 'sweetalert2'
-
-
 import candidatesApi from '../../../../API/candidates'
 
 

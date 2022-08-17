@@ -6,10 +6,7 @@ import CandidateContacts from '../modules/CandidateContacts'
 import CandidateResume from '../modules/CandidateResume'
 import CandidatePhoto from '../modules/CandidatePhoto'
 import Swal from 'sweetalert2'
-
 import candidatesApi from '../../../../API/candidates'
-
-
 
 function CreateCandidatePage() {
   const infoRef = useRef<any>(null)

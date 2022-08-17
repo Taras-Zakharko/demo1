@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import candidatesApi from '../../../../../API/candidates'
-
 import CandidateContacts from '../../modules/CandidateContacts'
 import CandidateExperience from '../../modules/CandidateExperience'
 import CandidateInfoBlock from '../../modules/CandidateInfoBlock'
