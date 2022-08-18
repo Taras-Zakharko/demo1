@@ -13,9 +13,10 @@ interface ICandidate {
   user: any
   page: number
   setTotal: any
+  setCurrentPage: any
 }
 
-const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
+const CandidateCard: FC<ICandidate> = ({user, page, setTotal, setCurrentPage}) => {
   const cardRef = useRef<HTMLDivElement | null>(null)
   const [openModal, setopenModal] = useState<boolean>(false)
   const searchObj = useSelector((state: RootState) => state.search)
@@ -35,7 +36,24 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
       .getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd)
       .then((response: any) => {
         dispatch(setUsers(response.data))
-        setTotal(response.total)
+        setTotal(response.total)(response.last_page < page) &&
+          candidatesApi
+            .getCandidate(
+              country,
+              city,
+              specialty,
+              skills,
+              response.last_page,
+              search,
+              company,
+              yearStart,
+              yearEnd
+            )
+            .then((response: any) => {
+              dispatch(setUsers(response.data))
+              setTotal(response.total)
+              setCurrentPage(response.last_page)
+            })
       })
   }
 
@@ -100,8 +118,8 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
       .catch((err) => {
         console.error('Error in copying text: ', err)
       })
-  }  
-  
+  }
+
   return (
     <>
       <tr className='border-bottom border-dashed pt-20px h-100px pb-20px' id={user.id}>
@@ -131,10 +149,16 @@ const CandidateCard: FC<ICandidate> = ({user, page,setTotal}) => {
                 </Link>
                 <Outlet />
                 {user.checked === 0 ? (
-                  <Tooltip theme='light' content='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.' direction={'top'}><i
+                  <Tooltip
+                    theme='light'
+                    content='Це резюме було додано автоматично, всі дані внесені програмою. Будь ласка, перепровірте дані кандидата.'
+                    direction={'top'}
+                  >
+                    <i
                       className='fas fa-exclamation-triangle text-warning me-4 fs-6'
                       data-bs-toggle='tooltip'
-                    ></i></Tooltip>
+                    ></i>
+                  </Tooltip>
                 ) : null}
               </div>
 

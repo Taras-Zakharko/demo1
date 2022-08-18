@@ -143,7 +143,7 @@ const TablesWidget10: React.FC<Props> = ({className}) => {
                 }}
               >
                 {allUsers.map((user: any, i: number) => (
-                  <CandidateCard key={i} user={user} page={currentPage} setTotal={setTotal} />
+                  <CandidateCard key={i} user={user} page={currentPage} setTotal={setTotal} setCurrentPage={setCurrentPage} />
                 ))}
               </tbody>
 
