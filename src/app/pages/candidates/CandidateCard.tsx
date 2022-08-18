@@ -35,8 +35,9 @@ const CandidateCard: FC<ICandidate> = ({user, page, setTotal, setCurrentPage}) =
     candidatesApi
       .getCandidate(country, city, specialty, skills, page, search, company, yearStart, yearEnd)
       .then((response: any) => {
-        dispatch(setUsers(response.data))
-        setTotal(response.total)(response.last_page < page) &&
+        dispatch(setUsers(response.data));
+        setTotal(response.total);
+        if(response.last_page < page){
           candidatesApi
             .getCandidate(
               country,
@@ -53,7 +54,7 @@ const CandidateCard: FC<ICandidate> = ({user, page, setTotal, setCurrentPage}) =
               dispatch(setUsers(response.data))
               setTotal(response.total)
               setCurrentPage(response.last_page)
-            })
+            })}
       })
   }
 
