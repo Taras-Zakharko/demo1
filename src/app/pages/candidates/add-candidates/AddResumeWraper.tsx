@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import candidatesApi from '../../../../API/candidates'
 
@@ -29,27 +29,29 @@ const AddResumeWraper = () => {
         addFileContent.current?.removeAttribute('data-kt-indicator')
         navigate(`/add/check-data/${id}`)
       }
-
     })
   }
+
+  useEffect(()=>{
+console.log(document.querySelector('#kt_tab_pane_1')?.classList.value.includes('show'));
+
+  }, [document.querySelector('#kt_tab_pane_1')?.classList.value])
 
   const handleAddResumeZip = (file: any) => {
     candidatesApi.addResumeZipCandidates(file).then((response: any) => {
       let progresRun = setInterval(() => {
-        
         setProgresValue((progresValue) => {
-          progresValue = progresValue+1;
+          progresValue = progresValue + 1
 
           if (progresValue === 100) {
             clearInterval(progresRun)
             secondZipContent.current?.classList.add('d-none')
             thirdZipContent.current?.classList.remove('d-none')
-            setTimeout(() => {
-              thirdZipContent.current?.classList.add('d-none')
-              firstZipContent.current?.classList.remove('d-none')
-              addZipBtn.current!.value = ''
-              setProgresValue((value) => (value = 0))
-            }, 6000)
+
+            // thirdZipContent.current?.classList.add('d-none')
+            // firstZipContent.current?.classList.remove('d-none')
+            addZipBtn.current!.value = ''
+            setProgresValue((value) => (value = 0))
           }
 
           stopLoad.current?.addEventListener('click', function stopEvent() {
@@ -62,7 +64,7 @@ const AddResumeWraper = () => {
           })
           return progresValue
         })
-    }, 50)
+      }, 50)
     })
   }
 
@@ -73,7 +75,6 @@ const AddResumeWraper = () => {
     const reader = new FileReader()
 
     reader.onload = (e) => {
-      
       window.localStorage.setItem('importFileName', addFileBtn.current!.files!.item(0)!.name)
       handleAddResumeFile(e!.target!.result, addFileBtn.current!.files!.item(0)!.name)
     }
@@ -88,8 +89,6 @@ const AddResumeWraper = () => {
 
     reader.onload = () => {
       handleAddResumeZip(reader.result)
-
-      
     }
 
     reader.readAsDataURL(addZipBtn.current!.files![0])
@@ -130,7 +129,10 @@ const AddResumeWraper = () => {
             </Link>
           </li>
         </ul>
-        <div className='tab-content card w-md-600px ps-10 pe-10 p-15 ps-lg-15 pe-lg-15 fs-4' id='myTabContent'>
+        <div
+          className='tab-content card w-md-600px ps-10 pe-10 p-15 ps-lg-15 pe-lg-15 fs-4'
+          id='myTabContent'
+        >
           <div
             ref={addFileContent}
             className='tab-pane fade active show text-center'
@@ -217,7 +219,7 @@ const AddResumeWraper = () => {
               </div>
               <p className='text-start text-muted mb-0 fs-5 fs-sm-6'>
                 Якщо у вас виникли проблеми з перенесенням бази резюме,{' '}
-                <br className='d-none d-sm-block'/>
+                <br className='d-none d-sm-block' />
                 <a href='mailto:#' className='text-primary'>
                   напишіть нам
                 </a>

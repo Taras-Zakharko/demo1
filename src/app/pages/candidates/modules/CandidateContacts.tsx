@@ -75,24 +75,24 @@ const CandidateContacts: FC<ICandidateContacts> = ({
     <div ref={contactsRef} className='accordion-item border-0 rounded-0  p-0'>
       <h2
         className='accordion-header border-1 border-top-dashed  border-secondary'
-        id='kt_accordion_1_header_2'
+        id='kt_accordion_2_header_1'
       >
         <button
           className='accordion-button fs-16px fs-sm-4 fw-boldest p-8 ps-12 pe-9 pb-7 pb-lg-20px bg-white text-dark shadow-none'
           type='button'
           data-bs-toggle='collapse'
-          data-bs-target='#kt_accordion_1_body_2'
+          data-bs-target='#kt_accordion_2_body_1'
           aria-expanded='false'
-          aria-controls='kt_accordion_1_body_2'
+          aria-controls='kt_accordion_2_body_1'
         >
           Контакти
         </button>
       </h2>
       <div
-        id='kt_accordion_1_body_2'
+        id='kt_accordion_2_body_1'
         className='accordion-collapse collapsed p-4 pt-0 pb-0 pb-lg-20px show'
-        aria-labelledby='kt_accordion_1_header_2'
-        data-bs-parent='#kt_accordion_1'
+        aria-labelledby='kt_accordion_2_header_1'
+        data-bs-parent='#kt_accordion_2'
       >
         <div className='accordion-body ps-8 pt-0 pb-7 pb-lg-0'>
           <div className='row d-flex mb-7 mb-lg-20px'>

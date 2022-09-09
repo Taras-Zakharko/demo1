@@ -18,7 +18,7 @@ function CreateCandidatePage() {
     lastName: '',
     location: {
       country: '',
-      city: ['']
+      city: [''],
     },
     files: [],
     specialty: '',
@@ -26,14 +26,14 @@ function CreateCandidatePage() {
     contacts: {
       phone: [''],
       email: [''],
-      messengers: [{name:0, path: ''}],
-      socialLinks: [{name:0, path: ''}],
+      messengers: [{name: 0, path: ''}],
+      socialLinks: [{name: 0, path: ''}],
     },
     aboutMyself: [],
     positions: [],
     skills: [],
     source: '',
-    gdpr: 1
+    gdpr: 1,
   }
 
   const [editUser, setEditUser] = useState<any>(newUser)
@@ -41,23 +41,26 @@ function CreateCandidatePage() {
   const navigate = useNavigate()
 
   const handleCreateNewCandidate = (user: any) => {
-    candidatesApi.createCandidate(user).then((res) => {
-      saveCandidate()
-      
-    }).catch((required)=>{Swal.fire({
-      text: `${required.message}`,
-      icon: 'error',
-      buttonsStyling: false,
-      confirmButtonText: 'Добре, зрозумів',
-      customClass: {
-        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
-        icon: 'text-danger border-danger',
-      },
-    });
-    })
+    candidatesApi
+      .createCandidate(user)
+      .then((res) => {
+        saveCandidate()
+      })
+      .catch((required) => {
+        Swal.fire({
+          text: `${required.message}`,
+          icon: 'error',
+          buttonsStyling: false,
+          confirmButtonText: 'Добре, зрозумів',
+          customClass: {
+            confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+            icon: 'text-danger border-danger',
+          },
+        })
+      })
   }
 
-  function saveCandidate(){
+  function saveCandidate() {
     Swal.fire({
       text: `Ви зберегли дані цього кандидата!`,
       icon: 'success',
@@ -112,6 +115,8 @@ function CreateCandidatePage() {
               labelW={3}
               inputW={9}
             />
+          </div>
+          <div className='accordion row' id='kt_accordion_2'>
             <CandidateContacts
               contactsRef={contactsRef}
               setEditUser={setEditUser}
@@ -119,6 +124,8 @@ function CreateCandidatePage() {
               labelW={3}
               inputW={9}
             />
+          </div>
+          <div className='accordion row' id='kt_accordion_3'>
             <CandidateResume
               resumeRef={resumeRef}
               setEditUser={setEditUser}
@@ -128,7 +135,7 @@ function CreateCandidatePage() {
             />
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
-        <div className='col-lg-12 d-flex flex-center'>
+            <div className='col-lg-12 d-flex flex-center'>
               <button
                 className='btn btn-primary d-flex flex-center h-40px '
                 onClick={() => handleCreateNewCandidate(editUser)}
@@ -138,7 +145,7 @@ function CreateCandidatePage() {
             </div>
           </div>
         </div>
-        
+
         <div className='col-lg-2'>
           <div className='row position-fixed top-25 d-none d-lg-block'>
             <button

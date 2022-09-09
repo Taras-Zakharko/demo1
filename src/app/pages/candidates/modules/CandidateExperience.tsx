@@ -155,7 +155,7 @@ const CandidateExperience: FC<ICandidateExperience> = ({
                   whitelist={allSkillsArr}
                   {...allSkillsArr}
                   showDropdown={true}
-                  className='form-control form-control-solid min-h-40px '
+                  className='form-control form-control-solid min-h-40px'
                   onChange={(e) => {
                     setSkilsArr(e.detail.tagify.value.map((obj) => obj.value))
                   }}

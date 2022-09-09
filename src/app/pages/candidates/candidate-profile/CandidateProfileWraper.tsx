@@ -2,10 +2,12 @@ import React, {useEffect, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import candidatesApi from '../../../../API/candidates'
-import { Popover } from 'bootstrap'
+import {Popover} from 'bootstrap'
 
 export function CandidateProfileWraper() {
-  let idUser = +window.location.pathname.slice(window.location.pathname.lastIndexOf('candidates/') + 11)
+  let idUser = +window.location.pathname.slice(
+    window.location.pathname.lastIndexOf('candidates/') + 11
+  )
 
   const [user, setUser] = useState<any>({})
   const [gdpr, setGdpr] = useState<number>(1)
@@ -29,7 +31,7 @@ export function CandidateProfileWraper() {
   }, [idUser])
 
   const allGood = () => {
-    setUser((user: any) => ({...user, checked: 1}))    
+    setUser((user: any) => ({...user, checked: 1}))
     handleEditOneCandidate({...user, checked: 1})
   }
 
@@ -60,9 +62,9 @@ export function CandidateProfileWraper() {
     })
   }, [user])
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  if(Array.isArray(user)){
+  if (Array.isArray(user)) {
     navigate('/error/404')
   }
 
@@ -84,11 +86,11 @@ export function CandidateProfileWraper() {
           </button>
         </div>
       ) : null}
-      <div className='row pt-15 pt-sm-10 position-relative ms-0 me-0'>
-        <div className={user.checked === 0 ? 'card mt-24 mt-lg-20 col-lg-8' : 'card col-lg-8'}>
-          <div className='card-body pt-9 pb-9 ps-7 pe-7'>
-            <div className='row pb-9 mb-7 align-items-center border-bottom-1 border-bottom-dashed border-secondary postion-relative'>
-              <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-4 mb-7 mb-lg-0'>
+      <div className='row pt-15 pt-sm-10 position-relative'>
+        <div className={user.checked === 0 ? 'card mt-24 mt-lg-20 col-lg-8' : 'card col-lg-8 p-0'}>
+          <div className='card-body p-9'>
+            <div className='row ms-0 me-0 pb-9 mb-7 align-items-center justify-content-center justify-content-lg-start border-bottom-1 border-bottom-dashed border-secondary postion-relative'>
+              <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-9 mb-7 mb-lg-0'>
                 <img
                   className='symbol w-100 '
                   src={
@@ -100,7 +102,7 @@ export function CandidateProfileWraper() {
                 />
               </label>
 
-              <div className='col-lg-9 col-12 d-flex flex-column align-items-center align-items-lg-start'>
+              <div className='col-lg-9 col-12 d-flex flex-column align-items-center align-items-lg-start ps-0'>
                 <h1 className='fw-boldest fs-21px fs-sm-20px lh-lg text-dark mb-0'>
                   {user.firstName === null && user.lastName === null
                     ? 'Ім’я не розпізнано'
@@ -117,26 +119,27 @@ export function CandidateProfileWraper() {
                 </span>
                 <div className='d-flex align-items-center'>
                   {gdpr === 0 ? (
-                    <i className='fas fa-ban text-danger fs-3 fs-sm-4'></i>
+                    <i className='fas fa-ban text-danger fs-3 fs-sm-4 me-4'></i>
                   ) : gdpr === 1 ? (
-                    <i className='fas fa-question text-gray-500 fs-3 fs-sm-4'></i>
+                    <i className='fas fa-question text-gray-500 fs-3 fs-sm-4 me-4'></i>
                   ) : (
-                    <i className='fas fa-check text-success fs-3 fs-sm-4'></i>
+                    <i className='fas fa-check text-success fs-3 fs-sm-4 me-4'></i>
                   )}
                   <select
                     ref={GDPRSelect}
                     className={
                       gdpr === 0
-                        ? 'form-select pb-0 pt-0 border-top-0 border-start-0 border-end-0 border-danger border-dashed rounded-0 fs-5 fs-sm-6 text-danger cursor-pointer bg-white'
+                        ? 'form-select p-0 border-top-0 border-start-0 border-end-0 border-danger border-dashed rounded-0 fs-5 fs-sm-6 text-danger cursor-pointer bg-white'
                         : gdpr === 1
-                        ? ' form-select pb-0 pt-0 border-top-0 border-start-0 border-end-0 border-gray-500 border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-gray-500 bg-white'
-                        : 'form-select pb-0 pt-0 border-top-0 border-start-0 border-end-0 border-success border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-success bg-white'
+                        ? ' form-select p-0 border-top-0 border-start-0 border-end-0 border-gray-500 border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-gray-500 bg-white w-50'
+                        : 'form-select p-0 border-top-0 border-start-0 border-end-0 border-success border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-success bg-white'
                     }
                     aria-label='Select example'
                     value={gdpr}
+                    style={{backgroundImage: 'none'}}
                     onChange={() => setGdpr(+GDPRSelect!.current!.value)}
                   >
-                    <option value='1' className=' text-gray-500'>
+                    <option value='1' className=' text-gray-500 '>
                       GDPR статус не визначено
                     </option>
                     <option value='2' className='text-success'>
@@ -146,100 +149,113 @@ export function CandidateProfileWraper() {
                       Дозвіл не отримано або неможливо отримати
                     </option>
                   </select>
+                  <svg
+                    width='11'
+                    height='8'
+                    viewBox='0 0 11 8'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='ms-3'
+                  >
+                    <path
+                      d='M5.35224 6.94085L0.797328 2.38591C0.577648 2.16623 0.577648 1.81007 0.797328 1.59041L1.32859 1.05916C1.54789 0.839851 1.90332 0.839429 2.12314 1.05822L5.75 4.66809L9.37684 1.05822C9.59666 0.839429 9.95209 0.839851 10.1714 1.05916L10.7026 1.59041C10.9223 1.81009 10.9223 2.16625 10.7026 2.38591L6.14776 6.94085C5.92808 7.1605 5.57192 7.1605 5.35224 6.94085Z'
+                      fill='#A1A5B7'
+                    />
+                  </svg>
                 </div>
               </div>
 
               <Link
                 to={`/candidates/${idUser}/edit`}
-                className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-5 top-5'
+                className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-0 top-5 me-9'
               >
                 <i className='fas fa-pen fs-4'></i>
               </Link>
             </div>
-            <div className='row pb-4 d-none d-lg-flex mb-7 border-bottom-1 border-bottom-dashed border-secondary'>
-              <div className='col-lg-2 w-110px me-4'>
-                <div className='w-110px '></div>
+            <div className='row  ms-0 me-0 pb-4 d-none d-lg-flex mb-7 border-bottom-1 border-bottom-dashed border-secondary'>
+              <div className='col-lg-2 w-110px me-9'>
+                <div className='w-110px'></div>
               </div>
-              <div className='col-lg-9 mb-4'>
+              <div className='col-lg-9 mb-4 ps-0'>
                 <h2 className='fs-4 fw-boldest'>Досвід</h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px ps-0 pe-0 mt-2px me-5 fw-bold text-gray-500 text-lg-end fs-6'>
-                  <span>Досвід роботи: </span> 
+                <label className='col-lg-2 w-110px ps-0 pe-0 mt-2px me-9 fw-bold text-gray-500 text-lg-end fs-6'>
+                  <span>Досвід роботи: </span>
                 </label>
 
-                <div className='col-lg-9 fv-row'>
+                <div className='col-lg-9 fv-row ps-0'>
                   <span className='fw-normal fs-4'>
                     {user.experience ? (
                       `Більше ${user.experience} років`
                     ) : (
-                      <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
+                      <span className='fw-normal fs-4 text-gray-500'>не вказано</span>
                     )}
                   </span>
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-9 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Навички:{' '}
                 </label>
 
-                <div className='col-lg-9 fv-row'>
+                <div className='col-lg-9 fv-row ps-0'>
                   <span className='fw-normal fs-4'>
                     {user.skills ? (
                       user.skills?.map((skil: any, i: number) =>
                         i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
                       )
                     ) : (
-                      <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
+                      <span className='fw-normal fs-4 text-gray-500'>не вказано</span>
                     )}
                   </span>
                 </div>
               </div>
             </div>
-            <div className='row d-none d-lg-flex'>
-              <div className='col-lg-2 w-110px me-4'>
+            <div className='row  ms-0 me-0 d-none d-lg-flex'>
+              <div className='col-lg-2 w-110px me-9'>
                 <div className='w-110px '></div>
               </div>
-              <div className='col-lg-9 mb-4'>
+              <div className='col-lg-9 mb-4 ps-0'>
                 <h2 className='fs-4 fw-boldest'>Резюме і файли </h2>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-9 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Резюме:
                 </label>
 
-                <div className='col-lg-9 fv-row'>
+                <div className='col-lg-9 fv-row ps-0'>
                   <p className='fw-normal fs-4 m-0'>
                     {user.aboutMyself && user.aboutMyself.length > 0 ? (
                       `${user.aboutMyself}`
                     ) : (
-                      <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
+                      <span className='fw-normal fs-4 text-gray-500'>не вказано</span>
                     )}
                   </p>
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-9 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Джерело:
                 </label>
 
-                <div className='col-lg-9 fv-row '>
+                <div className='col-lg-9 fv-row ps-0'>
                   <p className='fw-normal fs-4 m-0'>
                     {user.source ? (
                       `${user.source}`
                     ) : (
-                      <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
+                      <span className='fw-normal fs-4 text-gray-500'>не вказано</span>
                     )}
                   </p>
                 </div>
               </div>
 
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-9 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Файли:
                 </label>
 
-                <div className='col-lg-9 fv-row d-flex fs-4'>
+                <div className='col-lg-9 fv-row d-flex fs-4 ps-0'>
                   {user.files && user.files.length > 0 ? (
                     <i className='fas fa-paperclip fs-4 mt-2px text-primary me-3'></i>
                   ) : null}
@@ -250,26 +266,26 @@ export function CandidateProfileWraper() {
                         i !== user.files.length - 1 ? (
                           <span
                             key={i}
-                            className='fw-normal fs-6 text-primary'
+                            className='fw-normal fs-4 text-primary'
                           >{`${file.name}, `}</span>
                         ) : (
-                          <span key={i} className='fw-normal fs-6 text-primary'>
+                          <span key={i} className='fw-normal fs-4 text-primary'>
                             {file.name}
                           </span>
                         )
                       )
                     ) : (
-                      <span className='fw-normal fs-6 text-gray-500'>не вказано</span>
+                      <span className='fw-normal fs-4 text-gray-500'>не вказано</span>
                     )}
                   </p>
                 </div>
               </div>
               <div className='row mb-4'>
-                <label className='col-lg-2 w-110px pe-0 me-5 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
+                <label className='col-lg-2 w-110px pe-0 me-9 mt-2px fw-bold text-gray-500 text-lg-end fs-6'>
                   Додано:
                 </label>
 
-                <div className='col-lg-9 fv-row'>
+                <div className='col-lg-9 fv-row ps-0'>
                   <span className='fw-normal fs-4'>
                     {user.created_at &&
                       user.updated_at &&
@@ -326,7 +342,7 @@ export function CandidateProfileWraper() {
 
                       <div className='col-lg-10 fv-row'>
                         <span className='fw-normal fs-16px'>
-                          {user.skills ? (
+                          {user.skills && user.skills.length > 0 ? (
                             user.skills?.map((skil: any, i: number) =>
                               i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
                             )
@@ -450,11 +466,17 @@ export function CandidateProfileWraper() {
             }
           >
             <h2 className='mb-7 fs-3 fs-sm-4 fw-boldest'>Контакти</h2>
-            <div className='row'>
+            <div className='row ms-0 me-0'>
               {user.contacts && user.contacts.email.length > 0 ? (
-                <div className='row'>
-                  <div className='col-12  d-flex flex-row border-1 border-bottom-dotted border-secondary'>
-                    <label className='fw-bold text-gray-500 mt-2px me-9'>
+                <div className='row ms-0 me-0 p-0'>
+                  <div
+                    className={
+                      user.contacts.phone.length > 0
+                        ? 'col-12 p-0 d-flex flex-row border-1 border-bottom-dotted border-secondary'
+                        : 'col-12 p-0 d-flex flex-row'
+                    }
+                  >
+                    <label className='fw-bold text-gray-500 mt-2px me-15px'>
                       <i className='fas fa-envelope fs-3 fs-sm-4'></i>
                     </label>
 
@@ -479,9 +501,15 @@ export function CandidateProfileWraper() {
                 </div>
               ) : null}
               {user.contacts && user.contacts.phone.length > 0 ? (
-                <div className='row'>
-                  <div className='col-12 d-flex flex-row mt-3 border-1 border-bottom-dotted border-secondary'>
-                    <label className='fw-bold text-gray-500 mt-2px me-9'>
+                <div className='row ms-0 me-0 p-0'>
+                  <div
+                    className={
+                      user.contacts.messengers.length > 0 || user.contacts.socialLinks.length > 0
+                        ? 'col-12 p-0 d-flex flex-row mt-3 border-1 border-bottom-dotted border-secondary'
+                        : 'col-12 p-0 d-flex flex-row mt-3'
+                    }
+                  >
+                    <label className='fw-bold text-gray-500 mt-2px me-15px'>
                       <i className='fas fa-phone fs-3 fs-sm-4 '></i>
                     </label>
 
@@ -516,11 +544,11 @@ export function CandidateProfileWraper() {
                         <button
                           key={i}
                           data-bs-toggle='popover'
-                            data-bs-trigger='focus'
-                            data-bs-custom-class='popover-inverse popover-dark'
-                            data-bs-placement='top'
-                            title='Скопійовано'
-                            onClick={() => copyContactsValue(mess.path)}
+                          data-bs-trigger='focus'
+                          data-bs-custom-class='popover-inverse popover-dark'
+                          data-bs-placement='top'
+                          title='Скопійовано'
+                          onClick={() => copyContactsValue(mess.path)}
                           className='popover-btn btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-2 mt-20px'
                         >
                           <i className='fab fa-skype fs-3 fs-sm-4'></i>

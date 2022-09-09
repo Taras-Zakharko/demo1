@@ -416,7 +416,7 @@ const Search: FC = () => {
                           <option value={suggestion}>{suggestion}</option>
                         )}
                         inputProps={{
-                          className: 'form-select form-select-solid mb-5 mb-lg-0',
+                          className: 'form-select form-select-solid mb-5 mb-lg-0 text-gray-800',
                           placeholder: 'Країна',
                           value: countryValue,
                           onChange: (_, {newValue, method}) => {
@@ -442,7 +442,7 @@ const Search: FC = () => {
                           <option value={suggestion}>{suggestion}</option>
                         )}
                         inputProps={{
-                          className: 'form-select form-select-solid mb-5 mb-lg-0',
+                          className: 'form-select form-select-solid mb-5 mb-lg-0 text-gray-800',
                           placeholder: 'Місто',
                           value: cityValue,
                           onChange: (_, {newValue, method}) => {
@@ -465,7 +465,7 @@ const Search: FC = () => {
                       <input
                         ref={positionSelect}
                         type='text'
-                        className='form-control form-control-solid'
+                        className='form-control form-control-solid text-gray-800'
                       />
                     </div>
                   </div>
@@ -481,7 +481,7 @@ const Search: FC = () => {
                       <input
                         ref={companySelect}
                         type='text'
-                        className='form-control form-control-solid'
+                        className='form-control form-control-solid text-gray-800'
                       />
                     </div>
                   </div>
@@ -502,7 +502,7 @@ const Search: FC = () => {
                         whitelist={allSkillsArr}
                         {...allSkillsArr}
                         showDropdown={true}
-                        className='form-control form-control-solid w-100 border-0 min-h-40px'
+                        className='form-control form-control-solid w-100 border-0 min-h-40px text-gray-800'
                         onChange={(e) => {
                           setSkilsArr(
                             (value) => (value = e.detail.tagify.value.map((obj) => obj.value))
@@ -524,7 +524,7 @@ const Search: FC = () => {
                       <select
                         ref={experienceStartSelect}
                         placeholder='Від'
-                        className='form-control form-control-solid mb-5 mb-lg-0'
+                        className='form-control form-control-solid mb-5 mb-lg-0 text-gray-800'
                         onChange={(e) => {
                           if (experienceStartSelect.current !== null) {
                             experienceStartSelect.current.value = e.target.value
@@ -543,7 +543,7 @@ const Search: FC = () => {
                       <select
                         ref={experienceEndSelect}
                         placeholder='До'
-                        className='form-control form-control-solid'
+                        className='form-control form-control-solid text-gray-800'
                         onChange={(e) => {
                           if (experienceEndSelect.current !== null) {
                             experienceEndSelect.current.value = e.target.value

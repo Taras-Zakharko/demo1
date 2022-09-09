@@ -8,47 +8,49 @@ import CandidatePhoto from '../modules/CandidatePhoto'
 import Swal from 'sweetalert2'
 import candidatesApi from '../../../../API/candidates'
 
-
 function EditCandidate() {
   const infoRef = useRef<any>(null)
   const experienceRef = useRef<any>(null)
   const contactsRef = useRef<any>(null)
-  const resumeRef = useRef<any>(null) 
-  const deleteCandidate = useRef<HTMLButtonElement| null>(null)  
+  const resumeRef = useRef<any>(null)
+  const deleteCandidate = useRef<HTMLButtonElement | null>(null)
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate()
 
-  let idUser = +window.location.pathname.slice(+window.location.pathname.lastIndexOf('candidates/') + 11, +window.location.pathname.lastIndexOf('/edit'))
+  let idUser = +window.location.pathname.slice(
+    +window.location.pathname.lastIndexOf('candidates/') + 11,
+    +window.location.pathname.lastIndexOf('/edit')
+  )
   const [editUser, setEditUser] = useState<any>({})
 
-  const handleGetOneCandidate = (id:number)=>{
-    candidatesApi.getSomeCandidate(id)
-    .then((response: any)=>{
+  const handleGetOneCandidate = (id: number) => {
+    candidatesApi.getSomeCandidate(id).then((response: any) => {
       setEditUser(response.data)
     })
   }
 
-  const handleEditOneCandidate = (user: any)=>{
-    candidatesApi.editCandidate(user)
-    .then(()=>{      
-      saveCandidate()
-    }).catch((required)=>{Swal.fire({
-      text: `${required.message}`,
-      icon: 'error',
-      buttonsStyling: false,
-      confirmButtonText: 'Добре, зрозумів',
-      customClass: {
-        confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
-        icon: 'text-danger border-danger',
-      },
-    });
-    })
+  const handleEditOneCandidate = (user: any) => {
+    candidatesApi
+      .editCandidate(user)
+      .then(() => {
+        saveCandidate()
+      })
+      .catch((required) => {
+        Swal.fire({
+          text: `${required.message}`,
+          icon: 'error',
+          buttonsStyling: false,
+          confirmButtonText: 'Добре, зрозумів',
+          customClass: {
+            confirmButton: 'swal2-confirm btn fw-bold btn-danger mt-5 me-2',
+            icon: 'text-danger border-danger',
+          },
+        })
+      })
   }
 
-
-  const hendleRemoveCandidate = (id: number)=>{
-    candidatesApi.removeCandidate(id)
-    .then(()=>{
+  const hendleRemoveCandidate = (id: number) => {
+    candidatesApi.removeCandidate(id).then(() => {
       Swal.fire({
         text: `Ви видалили ${editUser.firstName} ${editUser.lastName}!`,
         icon: 'success',
@@ -61,23 +63,18 @@ function EditCandidate() {
       }).then((result) => {
         result.isConfirmed && navigate('/candidates')
       })
-      
-      
     })
   }
 
   useEffect(() => {
-    handleGetOneCandidate(idUser);
+    handleGetOneCandidate(idUser)
   }, [])
 
-  if(Array.isArray(editUser)){
+  if (Array.isArray(editUser)) {
     navigate('/error/404')
   }
 
-  
-  
-
-  function deleteCandidateFunk(){
+  function deleteCandidateFunk() {
     Swal.fire({
       text: `Ви точно хочете видалити кандидата!`,
       icon: 'error',
@@ -95,7 +92,7 @@ function EditCandidate() {
     })
   }
 
-  function saveCandidate(){
+  function saveCandidate() {
     Swal.fire({
       text: `Ви зберегли дані цього кандидата!`,
       icon: 'success',
@@ -108,8 +105,8 @@ function EditCandidate() {
     }).then((result) => {
       result.isConfirmed && navigate(`/candidates/${idUser}`)
     })
-  }  
-  
+  }
+
   return (
     <div className='row'>
       <div className='row pe-0 ps-6'>
@@ -122,42 +119,73 @@ function EditCandidate() {
                   to={`/candidates/${idUser}`}
                   className='fw-bolder m-0 position-lg-absolute end-100'
                 >
-                  <i className="fas fa-arrow-left text-primary fs-4 me-6"></i>
+                  <i className='fas fa-arrow-left text-primary fs-4 me-6'></i>
                 </Link>
                 <h2 className='fs-2 fw-boldest'>Редагування картки кандидата</h2>
               </div>
             </div>
           </div>
           <div ref={infoRef} className='card p-9 pt-8 pt-sm-9 row'>
-            <CandidateInfoBlock id={idUser} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateInfoBlock
+              id={idUser}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
             <CandidatePhoto url={editUser.photo} setEditUser={setEditUser} />
           </div>
 
           <div className='accordion row' id='kt_accordion_1'>
-            <CandidateExperience experienceRef={experienceRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
-            <CandidateContacts contactsRef={contactsRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
-            <CandidateResume resumeRef={resumeRef} setEditUser={setEditUser} user={editUser} labelW={3} inputW={9}/>
+            <CandidateExperience
+              experienceRef={experienceRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
+          </div>
+          <div className='accordion row' id='kt_accordion_2'>
+            <CandidateContacts
+              contactsRef={contactsRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
+          </div>
+          <div className='accordion row' id='kt_accordion_3'>
+            <CandidateResume
+              resumeRef={resumeRef}
+              setEditUser={setEditUser}
+              user={editUser}
+              labelW={3}
+              inputW={9}
+            />
           </div>
           <div className='row bg-white p-9 d-flex justify-content-end'>
             <div className='col-lg-12 w-100 w-lg-60  d-flex justify-content-between align-items-center'>
-              <button className='btn btn-primary d-flex flex-center h-40px' onClick={() => handleEditOneCandidate({...editUser, checked: 1})}>
+              <button
+                className='btn btn-primary d-flex flex-center h-40px'
+                onClick={() => handleEditOneCandidate({...editUser, checked: 1})}
+              >
                 Зберегти
               </button>
               <button
-              ref={deleteCandidate}
+                ref={deleteCandidate}
                 type='button'
-                id="kt_docs_sweetalert_state_warning"
+                id='kt_docs_sweetalert_state_warning'
                 className='btn text-danger d-flex flex-center fs-5 fs-sm-6 pe-0'
                 onClick={() => deleteCandidateFunk()}
               >
-                <i className="fas fa-trash text-danger fs-3 fs-sm-4 me-3"></i>
+                <i className='fas fa-trash text-danger fs-3 fs-sm-4 me-3'></i>
                 Видалити
               </button>
             </div>
           </div>
         </div>
         <div className='col-lg-2'>
-        <div className='row position-fixed top-25 d-none  d-lg-block'>
+          <div className='row position-fixed top-25 d-none  d-lg-block'>
             <button
               onClick={() => infoRef.current.scrollIntoView({block: 'center', behavior: 'smooth'})}
               className='btn p-0 pt-3 text-start text-gray-800 fw-normal text-hover-primary ms-9 fs-7'

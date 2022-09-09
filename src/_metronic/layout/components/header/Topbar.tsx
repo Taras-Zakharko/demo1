@@ -63,7 +63,7 @@ const Topbar: FC = () => {
       {/* CHAT */}
       <div className={clsx('d-flex align-items-center w-33 w-sm-auto justify-content-center', toolbarButtonMarginClass)}>
         {/* begin::Menu wrapper */}
-        <a href='mailto:contact@turbohiring.com'
+        <a href='mailto:contact@turbohiring.co'
           className={clsx(
             'btn btn-icon btn-active-light-primary btn-custom position-relative',
             toolbarButtonHeightClass
