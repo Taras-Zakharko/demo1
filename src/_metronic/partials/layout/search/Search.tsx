@@ -18,8 +18,7 @@ import '@yaireo/tagify/dist/tagify.css' // Tagify CSS
 import Autosuggest from 'react-autosuggest'
 import './Search.scss'
 import candidatesApi from '../../../../API/candidates'
-
-
+import {useNavigate} from 'react-router-dom'
 
 const Search: FC = () => {
   const [menuState, setMenuState] = useState<'main' | 'advanced' | 'preferences'>('main')
@@ -67,9 +66,12 @@ const Search: FC = () => {
       setAllSkillsArr(response.data)
     })
   }
- 
+
+  const navigate = useNavigate()
 
   function createFilterList() {
+    window.location.pathname !== '/candidates' && navigate('/candidates')
+
     let inputSearchValue = ''
     let inputValueRes = ''
     let locationValue = ''
@@ -236,7 +238,7 @@ const Search: FC = () => {
   }
 
   useEffect(() => {
-    handleGetSkillsArr();
+    handleGetSkillsArr()
     // Initialize search handler
     const searchObject = SearchComponent.createInsance('#kt_header_search')
     // Search handler
@@ -285,7 +287,6 @@ const Search: FC = () => {
   function getSuggestionsCity(value: string): string[] {
     return myTowns.filter((city: any) => city.toLowerCase().startsWith(value.trim().toLowerCase()))
   }
-
 
   return (
     <>
@@ -498,7 +499,7 @@ const Search: FC = () => {
                         tagifyRef={tagifyRef}
                         value={skilsArr}
                         defaultValue={''}
-                        onDropdownShow={()=>true}
+                        onDropdownShow={() => true}
                         whitelist={allSkillsArr}
                         {...allSkillsArr}
                         showDropdown={true}
