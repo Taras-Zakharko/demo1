@@ -32,11 +32,6 @@ const AddResumeWraper = () => {
     })
   }
 
-  useEffect(()=>{
-console.log(document.querySelector('#kt_tab_pane_1')?.classList.value.includes('show'));
-
-  }, [document.querySelector('#kt_tab_pane_1')?.classList.value])
-
   const handleAddResumeZip = (file: any) => {
     candidatesApi.addResumeZipCandidates(file).then((response: any) => {
       let progresRun = setInterval(() => {
@@ -47,9 +42,11 @@ console.log(document.querySelector('#kt_tab_pane_1')?.classList.value.includes('
             clearInterval(progresRun)
             secondZipContent.current?.classList.add('d-none')
             thirdZipContent.current?.classList.remove('d-none')
-
-            // thirdZipContent.current?.classList.add('d-none')
-            // firstZipContent.current?.classList.remove('d-none')
+            document.addEventListener('click', function endReadMessege() {
+              thirdZipContent.current?.classList.add('d-none')
+              firstZipContent.current?.classList.remove('d-none')
+              document.removeEventListener('click', endReadMessege)
+            })
             addZipBtn.current!.value = ''
             setProgresValue((value) => (value = 0))
           }

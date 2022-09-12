@@ -92,7 +92,7 @@ export function HeaderWrapper() {
             </div>
           )}
           <div className='d-flex w-80 justify-content-between'>
-            <div className='d-flex align-items-center w-25 w-sm-75'>
+            <div className='d-flex align-items-center justify-content-center w-25 w-sm-75'>
               <Search />
             </div>
 
