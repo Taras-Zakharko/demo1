@@ -90,7 +90,7 @@ export function CandidateProfileWraper() {
         <div className={user.checked === 0 ? 'card mt-24 mt-lg-20 col-lg-8' : 'card col-lg-8 p-0'}>
           <div className='card-body p-9'>
             <div className='row ms-0 me-0 pb-9 mb-7 align-items-center justify-content-center justify-content-lg-start border-bottom-1 border-bottom-dashed border-secondary postion-relative'>
-              <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-9 mb-7 mb-lg-0'>
+              <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-lg-9 mb-7 mb-lg-0'>
                 {user.photo ? (
                   <img
                     className='symbol w-100 '
@@ -134,7 +134,7 @@ export function CandidateProfileWraper() {
                   {user.location && user.location.country ? `${user.location.country}, ` : ''}{' '}
                   {user.location && user.location.city[0] ? user.location.city[0] : ''}
                 </span>
-                <div className='d-flex align-items-center'>
+                <div className='d-flex align-items-center justify-content-center'>
                   {gdpr === 0 ? (
                     <i className='fas fa-ban text-danger fs-3 fs-sm-4 me-4'></i>
                   ) : gdpr === 1 ? (
@@ -146,10 +146,10 @@ export function CandidateProfileWraper() {
                     ref={GDPRSelect}
                     className={
                       gdpr === 0
-                        ? 'form-select p-0 border-top-0 border-start-0 border-end-0 border-danger border-dashed rounded-0 fs-5 fs-sm-6 text-danger cursor-pointer bg-white'
+                        ? 'form-select p-0 border-top-0 border-start-0 border-end-0 border-danger border-dashed rounded-0 fs-5 fs-sm-6 text-danger cursor-pointer bg-white text-truncate'
                         : gdpr === 1
-                        ? ' form-select p-0 border-top-0 border-start-0 border-end-0 border-gray-500 border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-gray-500 bg-white w-50'
-                        : 'form-select p-0 border-top-0 border-start-0 border-end-0 border-success border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-success bg-white'
+                        ? ' form-select p-0 border-top-0 border-start-0 border-end-0 border-gray-500 border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-gray-500 bg-white w-60 w-lg-50 text-truncate'
+                        : 'form-select p-0 border-top-0 border-start-0 border-end-0 border-success border-dashed rounded-0 fs-5 fs-sm-6 cursor-pointer text-success bg-white text-truncate'
                     }
                     aria-label='Select example'
                     value={gdpr}
@@ -184,7 +184,7 @@ export function CandidateProfileWraper() {
 
               <Link
                 to={`/candidates/${idUser}/edit`}
-                className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-0 top-5 me-9'
+                className='fs-4 h-40px w-50px btn btn-icon btn-light-primary btn-active-light-primary btn-sm position-absolute end-0 top-0 mt-9 me-9'
               >
                 <i className='fas fa-pen fs-4'></i>
               </Link>
