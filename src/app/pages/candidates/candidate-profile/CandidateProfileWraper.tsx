@@ -91,43 +91,32 @@ export function CandidateProfileWraper() {
           <div className='card-body p-9'>
             <div className='row ms-0 me-0 pb-9 mb-7 align-items-center justify-content-center justify-content-lg-start border-bottom-1 border-bottom-dashed border-secondary postion-relative'>
               <label className='col-lg-2 ps-0 pe-0 w-110px col-12 fw-bold text-muted text-center text-lg-end me-9 mb-7 mb-lg-0'>
-                {/* <img
-                  className='symbol w-100 '
-                  src={
-                    user.photo
-                      ? toAbsoluteUrl(`${user.photo}`)
-                      : toAbsoluteUrl(`/media/avatars/blank.png`)
-                  }
-                  alt=''
-                /> */}
                 {user.photo ? (
-                <img
-                  className='symbol w-100 '
-                  src={
-                    user.photo && toAbsoluteUrl(`${user.photo}`) 
-                  }
-                  alt=''
-                />
-              ) : (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='110'
-                  height='110'
-                  viewBox='0 0 110 110'
-                  fill='none'
-                >
-                  <rect width='110' height='110' rx='6' fill='#F3F6F9' />
-                  <path
-                    opacity='0.3'
-                    d='M85.5556 55C85.5556 71.8056 71.8056 85.5556 55 85.5556C38.1945 85.5556 24.4445 71.8056 24.4445 55C24.4445 38.1944 38.1945 24.4444 55 24.4444C71.8056 24.4444 85.5556 38.1944 85.5556 55ZM55 39.7222C49.8056 39.7222 45.8333 43.6944 45.8333 48.8889C45.8333 54.0833 49.8056 58.0556 55 58.0556C60.1945 58.0556 64.1667 54.0833 64.1667 48.8889C64.1667 43.6944 60.1945 39.7222 55 39.7222Z'
-                    fill='#A1A5B7'
+                  <img
+                    className='symbol w-100 '
+                    src={user.photo && toAbsoluteUrl(`${user.photo}`)}
+                    alt=''
                   />
-                  <path
-                    d='M55.0001 85.5555C62.9445 85.5555 70.2779 82.5001 75.4724 77.6112C73.0279 69.9723 64.7779 64.1667 55.0001 64.1667C45.2223 64.1667 36.9723 69.9723 34.5278 77.6112C39.7223 82.5001 47.0556 85.5555 55.0001 85.5555Z'
-                    fill='#A1A5B7'
-                  />
-                </svg>
-              )}
+                ) : (
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='110'
+                    height='110'
+                    viewBox='0 0 110 110'
+                    fill='none'
+                  >
+                    <rect width='110' height='110' rx='6' fill='#F3F6F9' />
+                    <path
+                      opacity='0.3'
+                      d='M85.5556 55C85.5556 71.8056 71.8056 85.5556 55 85.5556C38.1945 85.5556 24.4445 71.8056 24.4445 55C24.4445 38.1944 38.1945 24.4444 55 24.4444C71.8056 24.4444 85.5556 38.1944 85.5556 55ZM55 39.7222C49.8056 39.7222 45.8333 43.6944 45.8333 48.8889C45.8333 54.0833 49.8056 58.0556 55 58.0556C60.1945 58.0556 64.1667 54.0833 64.1667 48.8889C64.1667 43.6944 60.1945 39.7222 55 39.7222Z'
+                      fill='#A1A5B7'
+                    />
+                    <path
+                      d='M55.0001 85.5555C62.9445 85.5555 70.2779 82.5001 75.4724 77.6112C73.0279 69.9723 64.7779 64.1667 55.0001 64.1667C45.2223 64.1667 36.9723 69.9723 34.5278 77.6112C39.7223 82.5001 47.0556 85.5555 55.0001 85.5555Z'
+                      fill='#A1A5B7'
+                    />
+                  </svg>
+                )}
               </label>
 
               <div className='col-lg-9 col-12 d-flex flex-column align-items-center align-items-lg-start ps-0'>
@@ -229,7 +218,7 @@ export function CandidateProfileWraper() {
 
                 <div className='col-lg-9 fv-row ps-0'>
                   <span className='fw-normal fs-4'>
-                    {user.skills ? (
+                    {user.skills && user.skills.length > 0 ? (
                       user.skills?.map((skil: any, i: number) =>
                         i !== user.skills.length - 1 ? `${skil}, ` : `${skil}`
                       )
