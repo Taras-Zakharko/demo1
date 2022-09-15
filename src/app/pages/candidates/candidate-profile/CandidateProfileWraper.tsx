@@ -134,7 +134,7 @@ export function CandidateProfileWraper() {
                   {user.location && user.location.country ? `${user.location.country}, ` : ''}{' '}
                   {user.location && user.location.city[0] ? user.location.city[0] : ''}
                 </span>
-                <div className='d-flex align-items-center justify-content-center'>
+                <div className='d-flex align-items-center justify-content-center justify-content-lg-start'>
                   {gdpr === 0 ? (
                     <i className='fas fa-ban text-danger fs-3 fs-sm-4 me-4'></i>
                   ) : gdpr === 1 ? (
