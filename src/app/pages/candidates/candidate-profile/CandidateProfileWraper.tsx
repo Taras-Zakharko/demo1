@@ -68,6 +68,14 @@ export function CandidateProfileWraper() {
     navigate('/error/404')
   }
 
+  function openPDF(base64: string, name: string) {
+    let pdf_newTab = window.open('')
+
+    pdf_newTab!.document.write(
+      `"<html><head><title>${name}</title></head><body><iframe title='MY title'  width='100%' height='100%' src='${base64}'></iframe></body></html>"`
+    )
+  }
+
   return (
     <div className='row pt-9'>
       {user.checked === 0 ? (
@@ -283,10 +291,15 @@ export function CandidateProfileWraper() {
                         i !== user.files.length - 1 ? (
                           <span
                             key={i}
-                            className='fw-normal fs-4 text-primary'
+                            className='fw-normal fs-4 text-primary cursor-pointer'
+                            onClick={() => openPDF(file.base64, file.name)}
                           >{`${file.name}, `}</span>
                         ) : (
-                          <span key={i} className='fw-normal fs-4 text-primary'>
+                          <span
+                            key={i}
+                            className='fw-normal fs-4 text-primary cursor-pointer'
+                            onClick={() => openPDF(file.base64, file.name)}
+                          >
                             {file.name}
                           </span>
                         )
@@ -439,10 +452,15 @@ export function CandidateProfileWraper() {
                               i !== user.files.length - 1 ? (
                                 <span
                                   key={i}
-                                  className='fw-normal fs-16px text-primary'
+                                  className='fw-normal fs-16px text-primary cursor-pointer'
+                                  onClick={() => openPDF(file.base64, file.name)}
                                 >{`${file.name}, `}</span>
                               ) : (
-                                <span key={i} className='fw-normal fs-16px text-primary'>
+                                <span
+                                  key={i}
+                                  className='fw-normal fs-16px text-primary cursor-pointer'
+                                  onClick={() => openPDF(file.base64, file.name)}
+                                >
                                   {file.name}
                                 </span>
                               )
