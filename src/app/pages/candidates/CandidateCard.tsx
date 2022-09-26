@@ -155,19 +155,11 @@ const CandidateCard: FC<ICandidate> = ({user, page, setTotal, setCurrentPage}) =
                   />
                 </svg>
               )}
-              {/* <img
-                src={
-                  user.photo
-                    ? toAbsoluteUrl(`${user.photo}`)
-                    : toAbsoluteUrl(`/media/avatars/blank.png`)
-                }
-                alt=''
-              /> */}
             </div>
-            <div className='d-flex justify-content-start flex-column '>
+            <div className='d-flex justify-content-start flex-column'>
               <div className='d-flex align-items-center '>
                 <Link
-                  className='text-dark fw-boldest text-hover-primary me-3 fs-3 fs-sm-4'
+                  className='text-dark fw-boldest text-hover-primary me-3 fs-3 fs-sm-4 w-175px w-md-100 text-truncate text-sm-justify'
                   to={user.checked === 1 ? `${user.id}` : `/add/check-data/${user.id}`}
                 >
                   {user.firstName === null && user.lastName === null
